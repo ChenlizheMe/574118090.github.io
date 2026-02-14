@@ -1,104 +1,122 @@
-$(function () {
-    // resize window
-    $(window).resize(function () {
-        if ($(window).width() < 1280 && $(window).width()>540) {
-            $(".page").css({"width": $(window).width() - $(".side-card").width() - 90, "float": "left"})
-        } else {
-            $(".page").removeAttr("style")
-        }
-    });
+/**
+ * Lizhe Chen — Academic Homepage
+ * Theme toggle, i18n, scroll reveal, sidebar nav, mobile menu
+ */
+document.addEventListener('DOMContentLoaded', () => {
 
-    // menu
-    $(".menus_icon").click(function () {
-        if ($(".header_wrap").hasClass("menus-open")) {
-            $(".header_wrap").removeClass("menus-open").addClass("menus-close")
-        } else {
-            $(".header_wrap").removeClass("menus-close").addClass("menus-open")
-        }
-    })
+    const html = document.documentElement;
 
-    $(".m-social-links").click(function () {
-        if ($(".author-links").hasClass("is-open")) {
-            $(".author-links").removeClass("is-open").addClass("is-close")
-        } else {
-            $(".author-links").removeClass("is-close").addClass("is-open")
-        }
-    })
+    /* ═══════ Theme (dark / light) ═══════ */
+    const themeBtn = document.getElementById('themeToggle');
+    const themeBtnM = document.getElementById('themeToggleMobile');
 
-    $(".site-nav").click(function () {
-        if ($(".nav").hasClass("nav-open")) {
-            $(".nav").removeClass("nav-open").addClass("nav-close")
-        } else {
-            $(".nav").removeClass("nav-close").addClass("nav-open")
-        }
-    })
-
-    $(document).click(function(e){
-        var target = $(e.target);
-        if(target.closest(".nav").length != 0) return;
-        $(".nav").removeClass("nav-open").addClass("nav-close")
-        if(target.closest(".author-links").length != 0) return;
-        $(".author-links").removeClass("is-open").addClass("is-close")
-        if((target.closest(".menus_icon").length != 0) || (target.closest(".menus_items").length != 0)) return;
-        $(".header_wrap").removeClass("menus-open").addClass("menus-close")
-    })
-
-    // 显示 cdtop
-    $(document).ready(function ($) {
-        var offset = 100,
-            scroll_top_duration = 700,
-            $back_to_top = $('.nav-wrap');
-
-        $(window).scroll(function () {
-            ($(this).scrollTop() > offset) ? $back_to_top.addClass('is-visible') : $back_to_top.removeClass('is-visible');
+    function setTheme(t) {
+        html.dataset.theme = t;
+        localStorage.setItem('theme', t);
+        const icon = t === 'dark' ? 'fa-sun' : 'fa-moon';
+        [themeBtn, themeBtnM].forEach(b => {
+            if (b) b.innerHTML = `<i class="fas ${icon}"></i>`;
         });
+    }
 
-        $(".cd-top").on('click', function (event) {
-            event.preventDefault();
-            $('body,html').animate({
-                scrollTop: 0,
-            }, scroll_top_duration);
-        });
-    });
+    function toggleTheme() {
+        setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark');
+    }
 
-    // pjax
-    $(document).pjax('a[target!=_blank]','.page', {
-        fragment: '.page',
-        timeout: 5000
-    });
-    $(document).on({
-        'pjax:click': function() {
-            $('body,html').animate({
-                scrollTop: 0,
-            }, 700);
-        },
-        'pjax:end': function() {
-            if ($(".header_wrap").hasClass("menus-open")) {
-                $(".header_wrap").removeClass("menus-open").addClass("menus-close")
-            }
-            if ($(".author-links").hasClass("is-open")) {
-                $(".author-links").removeClass("is-open").addClass("is-close")
-            }
-            if ($(".nav").hasClass("nav-open")) {
-                $(".nav").removeClass("nav-open").addClass("nav-close")
-            }
-        }
-    });
+    // restore
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
 
-    // smooth scroll
-    $(function () {
-        $('a[href*=\\#]:not([href=\\#])').click(function () {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 700);
-                    return false;
-                }
+    themeBtn.addEventListener('click', toggleTheme);
+    themeBtnM.addEventListener('click', toggleTheme);
+
+    /* ═══════ Language ═══════ */
+    const langBtn = document.getElementById('langToggle');
+    const langBtnM = document.getElementById('langToggleMobile');
+
+    function setLang(l) {
+        html.lang = l;
+        localStorage.setItem('lang', l);
+    }
+    function toggleLang() {
+        setLang(html.lang === 'en' ? 'zh' : 'en');
+    }
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) html.lang = savedLang;
+
+    langBtn.addEventListener('click', toggleLang);
+    langBtnM.addEventListener('click', toggleLang);
+
+    /* ═══════ Mobile sidebar ═══════ */
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuToggle');
+    const overlay = document.getElementById('overlay');
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('show');
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+
+    menuBtn.addEventListener('click', openSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    /* ═══════ Active nav on scroll ═══════ */
+    const sections = document.querySelectorAll('.sec[id]');
+    const navItems = document.querySelectorAll('.nav-item[data-sec]');
+
+    const sectObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                const id = e.target.id;
+                navItems.forEach(n => {
+                    n.classList.toggle('active', n.dataset.sec === id);
+                });
             }
         });
+    }, { threshold: 0.2, rootMargin: '-10% 0px -60% 0px' });
+
+    sections.forEach(s => sectObs.observe(s));
+
+    // close mobile when nav clicked
+    navItems.forEach(n => {
+        n.addEventListener('click', () => closeSidebar());
     });
 
-})
+    /* ═══════ Scroll reveal ═══════ */
+    const reveals = document.querySelectorAll('.reveal');
+    const revObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+        });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+
+    reveals.forEach(el => revObs.observe(el));
+
+    /* ═══════ Smooth scroll ═══════ */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const href = a.getAttribute('href');
+            if (href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    /* ═══════ Typed cursor effect for intro (once) ═══════ */
+    const glitch = document.querySelector('.glitch-text');
+    if (glitch) {
+        glitch.style.opacity = '0';
+        setTimeout(() => {
+            glitch.style.transition = 'opacity .5s';
+            glitch.style.opacity = '1';
+        }, 200);
+    }
+});

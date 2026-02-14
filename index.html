@@ -1,162 +1,575 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>LizheChen's PathTracing</title><meta name="author" content="Lizhe Chen"><link rel="shortcut icon" href="/img/favicon.png"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><meta name="generator" content="Hexo 7.1.1"></head><body><header id="page_header"><div class="header_wrap"><div id="blog_name"><a class="blog_title" id="site-name" href="/">LizheChen's PathTracing</a></div><button class="menus_icon"><div class="navicon"></div></button><ul class="menus_items"><li class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://dreamerchen.com"> Blog</a></li></ul></div></header><main id="page_main"><div class="side-card sticky"><div class="card-wrap" itemscope itemtype="http://schema.org/Person"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='https://img2.imgtp.com/2024/03/07/Nt4jwLuy.png'" alt="avatar"></div><div class="author-discrip"><h3>Lizhe Chen</h3><p class="author-bio">A passionate student with a keen interest in computer graphics, aspiring for a direct PhD program.</p></div><div class="author-links"><button class="btn m-social-links">Links</button><ul class="social-links"><li><a class="e-social-link" href="mailto:chenlizheme@outlook.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i><span>Mail to me</span></a></li></ul></div><a class="cv-links" href="/attaches/CV.pdf" target="_blank"><i class="fas fa-file-pdf" aria-hidden="true"><span>My Chinese resume.</span></i></a></div></div><div class="page" itemscope itemtype="http://schema.org/CreativeWork"><article><h2 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h2><p>Welcome to my academic homepage! I’m Lizhe Chen, a student at North China University of Technology. My primary research interests lie in the fields of rendering techniques and digital content generation within the realm of computer graphics.</p>
-<p>Lately, I have been delving into innovative methods that synergize the capabilities of large language models with the foundational principles of traditional computer graphics. This exploration aims to unlock new potentials and broaden the horizons in the way we generate and interact with digital content.</p>
-<p><strong>Mail：<a href="mailto:&#99;&#x68;&#101;&#x6e;&#108;&#x69;&#x7a;&#x68;&#101;&#109;&#101;&#64;&#111;&#117;&#116;&#x6c;&#111;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;">&#99;&#x68;&#101;&#x6e;&#108;&#x69;&#x7a;&#x68;&#101;&#109;&#101;&#64;&#111;&#117;&#116;&#x6c;&#111;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;</a></strong> or <a href="mailto:&#99;&#x68;&#x65;&#110;&#x6c;&#x69;&#x7a;&#x68;&#x65;&#64;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x6e;&#99;&#117;&#116;&#46;&#101;&#100;&#117;&#x2e;&#x63;&#110;">&#99;&#x68;&#x65;&#110;&#x6c;&#x69;&#x7a;&#x68;&#x65;&#64;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x6e;&#99;&#117;&#116;&#46;&#101;&#100;&#117;&#x2e;&#x63;&#110;</a></p>
-</article><article><h2 id="Interests"><a href="#Interests" class="headerlink" title="Interests"></a>Interests</h2><ul>
-<li>Rendering Techniques</li>
-<li>Digital Content Generation</li>
-<li>Large Language Models</li>
-</ul>
-<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><ul>
-<li><strong>North China University of Technology</strong><ul>
-<li>Bachelor of Science in Computer, 2021 - Present</li>
-</ul>
-</li>
-</ul>
-<h2 id="Publications"><a href="#Publications" class="headerlink" title="Publications"></a>Publications</h2><ul>
-<li><p><strong><a target="_blank" rel="noopener" href="http://dreamerchen.com:3366/246.pdf">Frequency-Importance Gaussian Splatting for Real-Time Lightweight Radiance Field Rendering</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/ALdoL3ms.png" alt="1573.png"></p>
-<ul>
-<li>JCR Q2, CCF-C | First Author, Accepted | Keywords: 3D Reconstruction, 3D Gaussian Splatting</li>
-<li>This work addresses the lack of frequency domain consideration in the original 3DGS method by designing an enhanced Gaussian function. A frequency-sensitive loss function was proposed, along with a dynamic adaptive density control strategy, significantly reducing performance overhead while maintaining rendering quality.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="http://cybersecurity.springeropen.com/articles/10.1186/s42400-023-00179-4">Attack based on data: A novel perspective to attack sensitive points directly</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/zcAsTqby.webp" alt="1925.webp"></p>
-<ul>
-<li>CCF-C | Third Author, Published | Keywords: Evolutionary Algorithms, Adversarial Attacks</li>
-<li>We introduce a novel black-box attack method targeting time-series classification models. Focused on data location, this method identifies and perturbs sensitive points within the data based on statistical features, employing a predictive model to optimize attack efficiency with minimal perturbations.</li>
-</ul>
-</li>
-<li><p><strong><a href="">Translating Words to Worlds: Zero-Shot Synthesis of 3D Terrain from Textual Descriptions Using Large Language Models</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/BZ5093Wl.png" alt="1852.png"></p>
-<ul>
-<li>JCR Q2 | Co-First Author, Accepted | Keywords: Large Language Models, Text-to-3D</li>
-<li>This work eliminates the dependency on diffusion models in Text-to-3D tasks, directly using large language models for 3D terrain synthesis. A new data-terrain mapping method was designed, introducing strategies to guide large language model inference of terrain data, and a multi-agent-based terrain re-editing method was constructed.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://pdf.hanspub.org/CSA20231200000_95092686.pdf">实时像素化非真实感渲染方法</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/CFYoEEYX.png" alt="1998.png"></p>
-<ul>
-<li>中文核心 | Fourth Author, Published | Keywords: NPR (Non-Photorealistic Rendering)</li>
-<li>This article primarily implements a high-performance real-time pixelated non-photorealistic rendering method by optimizing edge detection operators for sampling, while also applying a dithering algorithm to stylize the pixelated objects.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms2/article/abstract?v=S5uBaE2M3Oe-FZNtmLofEj5VgcVLOEdsRLuHInkXY5An7K0wSZeOkQettAUjsbrh0ScwaovDskfFbkSj54FJMM96waKhpKpGlgzw9VOb1wopcbwRsyxV-ePUVlTJtEBr9RX1P7NgzlQ=&uniplatform=NZKPT&language=CHS">面向游戏与动漫的黑白漫画风格非真实感实时渲染方法</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/DwfKegXS.png" alt="1798.png"></p>
-<ul>
-<li>中文核心, CCF T1 | Second Author &amp; Corresponding Author, Published | Keywords: NPR (Non-Photorealistic Rendering)</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/365465644_The_Key_Technology_Achieve_about_RPG_Games_Based_on_Unity3D">基于Unity3D的RPG类游戏关键技术实现</a></strong></p>
-<ul>
-<li>中文核心 | Second Author, Published | Keywords: Client-Side Development</li>
-</ul>
-</li>
-</ul>
-<h3 id="Recent-Posts"><a href="#Recent-Posts" class="headerlink" title="Recent Posts"></a>Recent Posts</h3><ul>
-<li><p>Beyond Simulation: Emotion-Motivation Framework Driven Humanized Generative Agents</p>
-<ul>
-<li>ACM MM, CCF-A | Co-First Author &amp; Corresponding Author, Under Review | Keywords: Agents, Large Language Models, Affective Computing, Human-AI Interaction</li>
-<li>This paper discusses the limitations of current multi-agents approaches, in capturing anthropomorphic emotional sensitivities. To address these issues, we propose introducing an Emotion mechanism into the agents, enabling them to perceive and reflect emotions. Experimental results demonstrate that this approach successfully enhances the agents’ anthropomorphic effects, going beyond mere simulation.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="http://arxiv.org/pdf/2402.07140v2.pdf">Graph Descriptive Order Improves Reasoning with Large Language Model</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/FfyplWgL.png" alt="1945.png"></p>
-<ul>
-<li>ACL, CCF-A | Fourth Author, Under Review | Keywords: Large Language Models, Graph Neural Networks</li>
-<li>Investigating the performance of large language models in graph reasoning, this study found that altering the graph description order can optimize reasoning abilities. It introduces the Scaled Graph Reasoning benchmark for assessing LLMs’ performance across various graph sizes, revealing that LLMs’ graph reasoning capability does not monotonically decrease with increasing graph size.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Projects"><a href="#Projects" class="headerlink" title="Projects"></a>Projects</h2><h3 id="Common-Projects"><a href="#Common-Projects" class="headerlink" title="Common Projects"></a>Common Projects</h3><ul>
-<li><p><strong><a target="_blank" rel="noopener" href="https://github.com/574118090/PaperReader/tree/main">PaperReader</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/Tmv20kKx.png" alt="2001.png"></p>
-<ul>
-<li>A project designed to automatically fetch multiple recent papers from arXiv in a specific field. We integrated GPT-4 to auto-generate brief reports of these papers, culminating in a daily research paper newsletter.</li>
-<li><strong>Technologies used:</strong> Python,  Large Language Model, arXiv API</li>
-<li><strong>Outcome or status:</strong> Successfully generates daily newsletters summarizing the latest research papers.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://github.com/574118090/Qin">Qin Renderer</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/sH0IRLTl.jpg" alt="1453.jpg"></p>
-<ul>
-<li>“Qin” is a toy renderer implemented using Taichi, featuring basic multiple importance sampling and temporal denoising, with support for fast rendering of directed distance field objects.</li>
-<li><strong>Technologies used:</strong> Taichi, Python</li>
-<li><strong>Outcome or status:</strong> Achieved basic rendering capabilities with emphasis on efficiency and quality.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://github.com/dlcg-Lab/Watermark_detection">Watermark Detection</a></strong></p>
-<ul>
-<li>A simple detector for uncovering hidden watermarks in images using neural networks.</li>
-<li><strong>Technologies used:</strong> Python, Neural Networks</li>
-<li><strong>Outcome or status:</strong> Capable of detecting subtle watermarks in digital images.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://github.com/dlcg-Lab/Relic-bilogical-perception-enhancement">Relic: Biological Perception Enhancement</a></strong></p>
-<ul>
-<li>An AI-based software aimed at enhancing the biological perception of individuals with disabilities, enabling them to better perceive and understand their surroundings. The project is in its early stages but can currently identify the scene and obstacles within it in real-time. Unlike the intuitive approach of using optical flow for object recognition in scenes, we employ a completely opposite method for processing input images.</li>
-<li><strong>Technologies used:</strong> Large Language Model, Image Processing</li>
-<li><strong>Outcome or status:</strong> Early stages; currently can identify scenes and obstacles in real-time with a novel approach to image processing.</li>
-</ul>
-</li>
-<li><p><strong><a target="_blank" rel="noopener" href="https://www.wenshushu.cn/f/dkakqdw46ih">Constellation: Planning&#x2F;Paper Tree Organizer Software</a></strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/wrlrbCPu.png" alt="1621.png"></p>
-<ul>
-<li>A project that leverages Unity to create a planning&#x2F;paper tree organization software, aimed at rapidly and efficiently organizing knowledge graphs for notes. Unlike software like Obsidian, its major advantage lies in its utilization of a game engine for development, offering superior visual quality and a more pleasurable user experience. Due to GitHub’s file size limitations, only the packaged EXE file is available for download. Please feel free to email me for the latest source code of the project.</li>
-<li><strong>Technologies used:</strong> Unity, C#</li>
-<li><strong>Outcome or status:</strong> Provides an engaging and visually appealing way to organize knowledge graphs. Source code available upon request due to GitHub’s file size restrictions.</li>
-</ul>
-</li>
-</ul>
-<h3 id="Games"><a href="#Games" class="headerlink" title="Games"></a>Games</h3><blockquote>
-<p>The following projects are some interesting games created using the Unity engine, some of which are entries my team and I submitted in competitions like Gamejam. Due to file size restrictions on code hosting platforms such as Github, it is challenging for me to directly share the source code of the games. However, I welcome any enthusiasts interested to email me, and I would be happy to provide the source code and any other support through alternative means.</p>
-</blockquote>
-<ul>
-<li><p><strong>What 40M</strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/q4yVaAoS.png" alt="3335.png"></p>
-<ul>
-<li>A fun, family-friendly game developed within 48 hours at the 2024 Gamejam in Xiamen, China. Supports Xbox controllers and keyboard &amp; mouse inputs. Players are dropped into a map for a free-for-all battle, with weapons dropping randomly across the map. Picking up new weapons adds them to your existing weapon, making it longer and stronger. The player with the longest weapon at the end of the timer wins. Battle on!</li>
-<li><strong>Technologies used:</strong> Game Development, Unity</li>
-<li><strong>Outcome or status:</strong> Completed a highly engaging and competitive game in a short time frame, showcasing our ability to work under pressure and deliver an entertaining product.</li>
-</ul>
-</li>
-<li><p><strong>Riding the Wind</strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/OXclrUYj.jpg" alt="3337.jpg"></p>
-<ul>
-<li>A third-person game set in a Chinese theme, where players, acting as Ming dynasty merchants, navigate the Grand Canal of China to trade and maximize profits. During the development of this game, I implemented an ocean simulation Shader based on Fast Fourier Transform (FFT), marking my first venture into computer graphics. :)</li>
-<li><strong>Technologies used:</strong> Unity, Shader Programming, FFT</li>
-<li><strong>Outcome or status:</strong> Successfully integrated a realistic ocean simulation into the game, enhancing the player’s immersion and experience.</li>
-</ul>
-</li>
-<li><p><strong>Pick Color</strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/ZSfklHj8.jpg" alt="3336.jpg"></p>
-<ul>
-<li>A doodling game where players compete against the computer to best replicate a painting. My team and I employed neural networks and a suite of complex algorithms to transform a picture into an oil painting-style doodle, serving as the game’s NPC. This was my first encounter with neural networks, hence the project has several areas for improvement.</li>
-<li><strong>Technologies used:</strong> Neural Networks, Complex Algorithms</li>
-<li><strong>Outcome or status:</strong> Introduced an innovative gameplay element by incorporating AI-generated art, despite some imperfections due to my initial foray into neural networks.</li>
-</ul>
-</li>
-<li><p><strong>What will be staged tonight is…</strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/YInQm8FP.png" alt="0912.png"></p>
-<ul>
-<li>A papercut-style music game with gameplay similar to Rhythm Heaven. This project won the “Best Newcomer” award at the G-Bit 2023 National Game Development Competition. I was responsible for the technical art aspects, including creating textures that resembled cardboard.</li>
-<li><strong>Technologies used:</strong> Game Development, Technical Art</li>
-<li><strong>Outcome or status:</strong> Achieved the “Best Newcomer” title at G-Bit 2023, showcasing innovative art style and gameplay mechanics.</li>
-</ul>
-</li>
-<li><p><strong>Ancient Calling</strong></p>
-<p><img src="https://img2.imgtp.com/2024/03/06/MAF4T0PX.png" alt="0912.png"></p>
-<ul>
-<li>An Android-based online card game with gameplay similar to Hearthstone. Unique to this game is the ability for players to not only play cards directly but also combine two cards to create a new card with fusion effects, which could be stronger (or weaker). We also test AIGC technology in the project. This project was submitted as part of my summer homework.</li>
-<li><strong>Technologies used:</strong> Android Development, Game Design</li>
-<li><strong>Outcome or status:</strong> Successfully developed a complex card fusion mechanic, demonstrating my skills in game development and innovative gameplay design.</li>
-</ul>
-</li>
-</ul>
-<h3 id="Recent-Plans"><a href="#Recent-Plans" class="headerlink" title="Recent Plans"></a>Recent Plans</h3><ul>
-<li>Creating a Superior Photoshop Alternative<ul>
-<li>I’m developing a superior alternative to Photoshop. Leveraging Vulkan for rendering and employing Rust, QT, or WPF for the graphical interface, this software aims to replicate most functionalities found in Photoshop while introducing node-based editing for each layer. Additionally, I’m exploring the possibility of importing 3D models, allowing users to directly render these models into their 2D editing workspace. This ambitious endeavor seeks to bridge the gap between 2D and 3D design, offering creatives a more versatile and powerful tool for their projects.</li>
-</ul>
-</li>
-</ul>
-</article></div></main><div class="nav-wrap"><div class="nav"><button class="site-nav"><div class="navicon"></div></button><ul class="nav_items"><li class="nav_item"><a class="nav-page" target="_blank" rel="noopener" href="https://dreamerchen.com"> Blog</a></li></ul></div><div class="cd-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></div></div><footer id="page_footer"><div class="footer_wrap"><div class="copyright">&copy;2021 - 2024 by Lizhe Chen</div><div class="theme-info">Powered by <a target="_blank" href="https://hexo.io" rel="nofollow noopener">Hexo</a> & <a target="_blank" href="https://github.com/PhosphorW/hexo-theme-academia" rel="nofollow noopener">Academia Theme</a></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery-pjax@latest/jquery.pjax.min.js"></script><script src="/js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lizhe Chen | 陈立哲</title>
+    <meta name="description" content="Lizhe Chen — Tsinghua SIGS. Real-time rendering, neural textures, LLM/VLM reasoning.">
+    <meta name="author" content="Lizhe Chen">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+
+<!-- ====== Sidebar ====== -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="avatar-wrap">
+            <img src="/img/profile.png" alt="Lizhe Chen" class="avatar">
+            <span class="status-dot"></span>
+        </div>
+        <h1 class="sidebar-name">
+            <span class="en">Lizhe Chen</span>
+            <span class="zh">陈立哲</span>
+        </h1>
+        <p class="sidebar-tag mono">
+            <span class="en">MS @ Tsinghua SIGS</span>
+            <span class="zh">清华大学深圳国际研究生院 硕士</span>
+        </p>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+        <a href="#home" class="nav-item active" data-sec="home">
+            <i class="fas fa-terminal"></i>
+            <span class="en">Home</span><span class="zh">主页</span>
+        </a>
+        <a href="#publications" class="nav-item" data-sec="publications">
+            <i class="fas fa-file-alt"></i>
+            <span class="en">Papers</span><span class="zh">论文</span>
+        </a>
+        <a href="#projects" class="nav-item" data-sec="projects">
+            <i class="fas fa-code-branch"></i>
+            <span class="en">Projects</span><span class="zh">项目</span>
+        </a>
+        <a href="#experience" class="nav-item" data-sec="experience">
+            <i class="fas fa-briefcase"></i>
+            <span class="en">Experience</span><span class="zh">经历</span>
+        </a>
+        <a href="#awards" class="nav-item" data-sec="awards">
+            <i class="fas fa-trophy"></i>
+            <span class="en">Awards</span><span class="zh">荣誉</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="sidebar-icons">
+            <a href="mailto:chenlizheme@outlook.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/ChenlizheMe" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://scholar.google.com/citations?user=E7pKucIAAAAJ" target="_blank" rel="noopener" title="Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="https://dreamerchen.com" target="_blank" rel="noopener" title="Blog"><i class="fas fa-rss"></i></a>
+        </div>
+        <div class="sidebar-controls">
+            <button class="ctrl-btn" id="langToggle" title="Switch Language">
+                <span class="en">中</span><span class="zh">EN</span>
+            </button>
+            <button class="ctrl-btn" id="themeToggle" title="Toggle Theme">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+<!-- Mobile top bar -->
+<header class="topbar" id="topbar">
+    <button class="topbar-menu" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <span class="topbar-name mono">lizhe.chen</span>
+    <div class="topbar-right">
+        <button class="ctrl-btn" id="langToggleMobile" title="Lang">
+            <span class="en">中</span><span class="zh">EN</span>
+        </button>
+        <button class="ctrl-btn" id="themeToggleMobile" title="Theme">
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+</header>
+
+<!-- ====== Main Content ====== -->
+<main class="main" id="main">
+
+    <!-- HOME -->
+    <section id="home" class="sec">
+        <div class="sec-header">
+            <span class="sec-label mono">
+                <span class="en">~/home</span>
+                <span class="zh">~/主页</span>
+            </span>
+        </div>
+        <div class="intro reveal">
+            <h2 class="glitch-text" data-text="Lizhe Chen">
+                <span class="en">Lizhe Chen</span>
+                <span class="zh">陈立哲</span>
+            </h2>
+            <p class="intro-sub">
+                <span class="en">M.S. Student · Interactive Media Technology · Tsinghua SIGS</span>
+                <span class="zh">硕士研究生 · 互动媒体技术 · 清华大学深圳国际研究生院</span>
+            </p>
+            <p class="intro-bio">
+                <span class="en">I research <strong>real-time photorealistic rendering</strong>, <strong>neural textures</strong>, and <strong>reasoning in LLMs &amp; vision-language models</strong>. I build game engines, GPU renderers, and tools that bridge graphics and AI.</span>
+                <span class="zh">研究方向：<strong>实时真实感渲染</strong>、<strong>神经纹理</strong>，以及<strong>大语言模型与视觉大模型的推理</strong>。我构建游戏引擎、GPU渲染器，探索图形学与AI的交叉领域。</span>
+            </p>
+            <div class="intro-contact mono">
+                <span><i class="fas fa-envelope"></i> chenlizheme@outlook.com</span>
+                <span><i class="fas fa-envelope"></i> chenlizhe@mails.tsinghua.edu.cn</span>
+            </div>
+        </div>
+
+        <!-- Research directions -->
+        <div class="research-grid">
+            <div class="research-card reveal">
+                <div class="rc-head">
+                    <span class="rc-icon"><i class="fas fa-cube"></i></span>
+                    <h3>
+                        <span class="en">Real-time Rendering &amp; Neural Textures</span>
+                        <span class="zh">实时渲染与神经纹理</span>
+                    </h3>
+                </div>
+                <p>
+                    <span class="en">GPU-accelerated pipelines, PBR, real-time ray tracing (OptiX), neural texture synthesis, 3D Gaussian Splatting, and Vulkan engine development.</span>
+                    <span class="zh">GPU加速渲染管线、物理着色、实时光追（OptiX）、神经纹理合成、3DGS与Vulkan引擎开发。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Ray Tracing</span><span class="tag">PBR</span><span class="tag">Neural Tex</span><span class="tag">3DGS</span><span class="tag">OptiX</span><span class="tag">Vulkan</span>
+                </div>
+            </div>
+            <div class="research-card reveal">
+                <div class="rc-head">
+                    <span class="rc-icon"><i class="fas fa-brain"></i></span>
+                    <h3>
+                        <span class="en">LLM &amp; VLM Reasoning</span>
+                        <span class="zh">大语言模型与视觉大模型推理</span>
+                    </h3>
+                </div>
+                <p>
+                    <span class="en">Chain-of-thought reasoning, in-context learning, multimodal understanding, prompt compression, and graph reasoning with large language models.</span>
+                    <span class="zh">思维链推理、上下文学习、多模态理解、提示压缩，以及基于大语言模型的图推理。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">LLM</span><span class="tag">VLM</span><span class="tag">Reasoning</span><span class="tag">CoT</span><span class="tag">Multimodal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications" class="sec">
+        <div class="sec-header">
+            <span class="sec-label mono">
+                <span class="en">~/papers</span>
+                <span class="zh">~/论文</span>
+            </span>
+            <span class="sec-count mono">
+                <span class="en">14 publications</span>
+                <span class="zh">14 篇论文</span>
+            </span>
+        </div>
+
+        <div class="pub-list">
+            <!-- CorrDetail — IJCAI 2025 -->
+            <div class="pub reveal">
+                <span class="pub-badge ccf-a">IJCAI</span>
+                <div class="pub-body">
+                    <h3>CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection</h3>
+                    <p class="pub-meta">B. Zhou, H. Lou, <u>L. Chen</u>, H. Li, D. Luo, S. Chen, J. Lei, Z. Feng, Y. Bei</p>
+                    <p class="pub-venue">IJCAI 2025 · CCF-A</p>
+                </div>
+            </div>
+
+            <!-- ACL 2025 -->
+            <div class="pub reveal">
+                <span class="pub-badge ccf-a">ACL</span>
+                <div class="pub-body">
+                    <h3>Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking</h3>
+                    <p class="pub-meta">Y. Ge, S. Liu, Y. Wang, L. Mei, <u>L. Chen</u>, B. Bi, X. Cheng</p>
+                    <p class="pub-venue">ACL 2025 · CCF-A</p>
+                </div>
+            </div>
+
+            <!-- ACL 2025 Graph -->
+            <div class="pub reveal">
+                <span class="pub-badge ccf-a">ACL</span>
+                <div class="pub-body">
+                    <h3>Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?</h3>
+                    <p class="pub-meta">Y. Ge, S. Liu, B. Bi, Y. Wang, L. Mei, W. Feng, <u>L. Chen</u>, X. Cheng</p>
+                    <p class="pub-venue">ACL 2025 · CCF-A</p>
+                </div>
+            </div>
+
+            <!-- IJCNN 2025 FEMA -->
+            <div class="pub reveal">
+                <span class="pub-badge ccf-c">IJCNN</span>
+                <div class="pub-body">
+                    <h3>FEMA: Emotion-Driven Personification in Generative Agents</h3>
+                    <p class="pub-meta">S. Shao, X. Qin, S. Wu, G. Lin, Y. Zhang, <u>L. Chen</u></p>
+                    <p class="pub-venue">IJCNN 2025 · CCF-C</p>
+                </div>
+            </div>
+
+            <!-- Visual Computer 2025 -->
+            <div class="pub reveal">
+                <span class="pub-badge journal">TVC</span>
+                <div class="pub-body">
+                    <h3>3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos</h3>
+                    <p class="pub-meta">X. Cai, H. Zhang, <u>L. Chen</u>, Y. Wu, H. Sun</p>
+                    <p class="pub-venue">The Visual Computer, 2025 · CCF-C</p>
+                </div>
+            </div>
+
+            <!-- PIS — arXiv 2025 -->
+            <div class="pub reveal">
+                <span class="pub-badge preprint">arXiv</span>
+                <div class="pub-body">
+                    <h3>PIS: Linking Importance Sampling and Attention Mechanisms for Efficient Prompt Compression</h3>
+                    <p class="pub-meta"><u>L. Chen</u>, B. Zhou, Y. Ge, J. Chen, S. Ni</p>
+                    <p class="pub-venue">arXiv 2025</p>
+                </div>
+            </div>
+
+            <!-- Enhancing Spatial Learning -->
+            <div class="pub reveal">
+                <span class="pub-badge preprint">Preprint</span>
+                <div class="pub-body">
+                    <h3>Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives</h3>
+                    <p class="pub-meta">Y. Zhang, <u>L. Chen</u>, J. Yao, Z. Wang, S. Chen</p>
+                    <p class="pub-venue">Preprint</p>
+                </div>
+            </div>
+
+            <!-- FI-GS MTAP 2024 -->
+            <div class="pub reveal">
+                <span class="pub-badge journal">MTAP</span>
+                <div class="pub-body">
+                    <h3>Frequency-Importance Gaussian Splatting for Real-Time Lightweight Radiance Field Rendering</h3>
+                    <p class="pub-meta"><u>L. Chen</u>, Y. Hu, Y. Zhang, Y. Ge, H. Zhang, X. Cai</p>
+                    <p class="pub-venue">Multimedia Tools and Applications, 2024 · JCR Q2, CCF-C</p>
+                </div>
+            </div>
+
+            <!-- Translating Words to Worlds -->
+            <div class="pub reveal">
+                <span class="pub-badge journal">AppSci</span>
+                <div class="pub-body">
+                    <h3>Translating Words to Worlds: Zero-Shot Synthesis of 3D Terrain from Textual Descriptions Using LLMs</h3>
+                    <p class="pub-meta">G. Zhang, <u>L. Chen</u>, Y. Zhang, Y. Liu, Y. Ge, X. Cai</p>
+                    <p class="pub-venue">Applied Sciences, 2024 · JCR Q2</p>
+                </div>
+            </div>
+
+            <!-- NPR Manga -->
+            <div class="pub reveal">
+                <span class="pub-badge journal">JSS</span>
+                <div class="pub-body">
+                    <h3>Real-time Non-photorealistic Rendering Method for Black and White Comic Style in Games and Animation</h3>
+                    <p class="pub-meta">Y. Hu, <u>L. Chen</u>, H. Xie, Y. Ge, S. Zhou, X. Cai</p>
+                    <p class="pub-venue">Journal of System Simulation, 2024</p>
+                </div>
+            </div>
+
+            <!-- Cybersecurity 2023 -->
+            <div class="pub reveal">
+                <span class="pub-badge ccf-c">CyberSec</span>
+                <div class="pub-body">
+                    <h3>Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly</h3>
+                    <p class="pub-meta">Y. Ge, Z. Yang, <u>L. Chen</u>, Y. Wang, C. Li</p>
+                    <p class="pub-venue">Cybersecurity, 2023 · CCF-C</p>
+                </div>
+            </div>
+
+            <!-- Lightweight 3D Recon 2023 -->
+            <div class="pub reveal">
+                <span class="pub-badge conf">AAIA</span>
+                <div class="pub-body">
+                    <h3>Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting</h3>
+                    <p class="pub-meta">Y. Liu, <u>L. Chen</u>, H. Xie, J. Li</p>
+                    <p class="pub-venue">Int'l Conf. on Advances in AI and Applications, 2023</p>
+                </div>
+            </div>
+
+            <!-- ViT TCM 2022 -->
+            <div class="pub reveal">
+                <span class="pub-badge conf">CCET</span>
+                <div class="pub-body">
+                    <h3>Vision Transformer Based on Knowledge Distillation in TCM Image Classification</h3>
+                    <p class="pub-meta">Y. Ge, Y. Cheng, J. Wang, H. Zhou, <u>L. Chen</u></p>
+                    <p class="pub-venue">IEEE CCET 2022</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="sec">
+        <div class="sec-header">
+            <span class="sec-label mono">
+                <span class="en">~/projects</span>
+                <span class="zh">~/项目</span>
+            </span>
+        </div>
+        <div class="proj-grid">
+            <!-- Vultorch -->
+            <div class="proj-card reveal">
+                <div class="proj-head">
+                    <span class="proj-icon mono">&gt;_</span>
+                    <span class="proj-badge open-source">Open Source</span>
+                </div>
+                <h3><a href="https://github.com/ChenlizheMe/Vultorch" target="_blank" rel="noopener">Vultorch</a></h3>
+                <p>
+                    <span class="en">Real-time CUDA tensor visualization with Vulkan zero-copy. <code>show()</code> does GPU→GPU blit; <code>create_tensor()</code> eliminates memcpy entirely via shared memory. Built-in ImGui, 3D scene view, docking layout.</span>
+                    <span class="zh">基于Vulkan零拷贝的CUDA张量实时可视化工具。<code>show()</code> 实现GPU→GPU直传；<code>create_tensor()</code> 通过共享显存完全消除内存拷贝。内置ImGui、3D场景视图与可拖拽窗口布局。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Vulkan</span><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">Zero-Copy</span>
+                </div>
+            </div>
+
+            <!-- InfEngine -->
+            <div class="proj-card reveal">
+                <div class="proj-head">
+                    <span class="proj-icon mono">&gt;_</span>
+                    <span class="proj-badge open-source">Open Source</span>
+                </div>
+                <h3><a href="https://github.com/ChenlizheMe/InfEngine" target="_blank" rel="noopener">InfEngine</a></h3>
+                <p>
+                    <span class="en">A research-oriented game engine built on Vulkan + C++17 with a full Python scripting layer via pybind11. Features RenderGraph-based pipeline, ECS architecture, and modular design for graphics research and indie dev.</span>
+                    <span class="zh">面向科研的游戏引擎，基于Vulkan + C++17构建，通过pybind11提供完整Python脚本层。采用RenderGraph渲染管线、ECS架构，模块化设计兼顾图形学研究与独立开发。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Vulkan</span><span class="tag">C++17</span><span class="tag">Python</span><span class="tag">RenderGraph</span><span class="tag">ECS</span>
+                </div>
+            </div>
+
+            <!-- AilurusEngine -->
+            <div class="proj-card reveal">
+                <div class="proj-head">
+                    <span class="proj-icon mono">&gt;_</span>
+                    <span class="proj-badge wip">WIP</span>
+                </div>
+                <h3><a href="https://github.com/ChenlizheMe/AilurusEngine" target="_blank" rel="noopener">AilurusEngine</a></h3>
+                <p>
+                    <span class="en">An experimental rendering engine project exploring advanced real-time graphics techniques. Currently in active development.</span>
+                    <span class="zh">一个探索前沿实时图形技术的实验性渲染引擎项目，目前正在积极开发中。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Rendering</span><span class="tag">C++</span><span class="tag">Experimental</span>
+                </div>
+            </div>
+
+            <!-- EmbodiChain -->
+            <div class="proj-card reveal">
+                <div class="proj-head">
+                    <span class="proj-icon mono">&gt;_</span>
+                    <span class="proj-badge contrib">
+                        <span class="en">Contrib</span><span class="zh">参与</span>
+                    </span>
+                </div>
+                <h3><a href="https://github.com/DexForce/EmbodiChain" target="_blank" rel="noopener">EmbodiChain</a></h3>
+                <p>
+                    <span class="en">End-to-end GPU-accelerated Embodied AI framework by DexForce. I built the <strong>OptiX 8 real-time ray tracing renderer</strong> — multi-camera parallel pipeline on warp-lang, plus HPC module architecture.</span>
+                    <span class="zh">跨维科技端到端GPU加速具身智能框架。我负责<strong>基于OptiX 8的实时光追渲染模块</strong>——基于warp-lang的多相机并行渲染管线与HPC模块架构设计。</span>
+                </p>
+                <div class="tag-row">
+                    <span class="tag">OptiX 8</span><span class="tag">CUDA</span><span class="tag">warp-lang</span><span class="tag">Ray Tracing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="sec">
+        <div class="sec-header">
+            <span class="sec-label mono">
+                <span class="en">~/experience</span>
+                <span class="zh">~/经历</span>
+            </span>
+        </div>
+
+        <!-- Education -->
+        <h3 class="sub-title reveal">
+            <i class="fas fa-graduation-cap"></i>
+            <span class="en">Education</span>
+            <span class="zh">教育经历</span>
+        </h3>
+        <div class="timeline">
+            <div class="tl-item reveal">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-row">
+                        <h4>
+                            <span class="en">Tsinghua University, SIGS</span>
+                            <span class="zh">清华大学 深圳国际研究生院</span>
+                        </h4>
+                        <span class="tl-date mono">2025 — Present</span>
+                    </div>
+                    <p class="tl-role">
+                        <span class="en">M.S. in Interactive Media Technology</span>
+                        <span class="zh">互动媒体技术方向 · 硕士研究生</span>
+                    </p>
+                    <p class="tl-desc">
+                        <span class="en">Game engine R&D, 3D data synthesis, procedural generation, physically-based rendering.</span>
+                        <span class="zh">游戏引擎研发、三维数据合成、程序化生成与基于物理渲染。</span>
+                    </p>
+                </div>
+            </div>
+            <div class="tl-item reveal">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-row">
+                        <h4>
+                            <span class="en">North China University of Technology</span>
+                            <span class="zh">北方工业大学</span>
+                        </h4>
+                        <span class="tl-date mono">2021 — 2025</span>
+                    </div>
+                    <p class="tl-role">
+                        <span class="en">B.S. in Digital Media Technology · Rank 1st</span>
+                        <span class="zh">数字媒体技术 · 工学学士 · 绩点排名第一</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Work -->
+        <h3 class="sub-title reveal">
+            <i class="fas fa-code"></i>
+            <span class="en">Work</span>
+            <span class="zh">工作经历</span>
+        </h3>
+        <div class="timeline">
+            <div class="tl-item reveal">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-row">
+                        <h4>
+                            <span class="en">DexForce Intelligent Digital Tech</span>
+                            <span class="zh">跨维（深圳）智能数字科技</span>
+                        </h4>
+                        <span class="tl-date mono">Mar — Oct 2025</span>
+                    </div>
+                    <p class="tl-role">
+                        <span class="en">Data Synthesis Engineer · Intern</span>
+                        <span class="zh">数据合成工程师 · 实习</span>
+                    </p>
+                    <ul class="tl-list">
+                        <li><span class="en">Led engine refactoring &amp; HPC module architecture for embodied AI sim</span><span class="zh">主导具身智能仿真引擎部分重构与HPC模块架构设计</span></li>
+                        <li><span class="en">Built multi-camera parallel RT renderer on warp-lang + OptiX 8</span><span class="zh">实现基于warp-lang与OptiX 8的多相机并行实时光追渲染器</span></li>
+                        <li><span class="en">Developed DexGen — asset generation tool for embodied AI</span><span class="zh">参与具身智能资产内容生成工具DexGen的系统设计与实现</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tl-item reveal">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-row">
+                        <h4>
+                            <span class="en">Beijing Aerospace Measurement &amp; Control</span>
+                            <span class="zh">北京航天测控技术有限公司</span>
+                        </h4>
+                        <span class="tl-date mono">Nov 2023 — Mar 2024</span>
+                    </div>
+                    <p class="tl-role">
+                        <span class="en">Engine R&amp;D Engineer · Intern</span>
+                        <span class="zh">引擎研发工程师 · 实习</span>
+                    </p>
+                    <ul class="tl-list">
+                        <li><span class="en">Compressed 3DGS model to 1/10 size while improving high-freq spatial representation</span><span class="zh">将3DGS数据压缩为原方法的1/10，优化高频空间信息表征</span></li>
+                        <li><span class="en">Built toolchain for segmenting &amp; extracting 3D objects from continuous video</span><span class="zh">从视频序列中智能识别、分割并提取独立三维物体模型</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards" class="sec">
+        <div class="sec-header">
+            <span class="sec-label mono">
+                <span class="en">~/awards</span>
+                <span class="zh">~/荣誉</span>
+            </span>
+        </div>
+        <div class="awards-list">
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-trophy"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">miHoYo 2025 Game Planning Competition — <strong>National 1st Place</strong></span>
+                        <span class="zh">2025 米哈游游戏策划大赛 —— <strong>全国第一名</strong></span>
+                    </h4>
+                    <p class="award-note">
+                        <span class="en">Technical Art &amp; Client Dev, with teammate "QiaoQiao"</span>
+                        <span class="zh">担任技术美术与客户端程序，与队友"俏俏"合作</span>
+                    </p>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-robot"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">ICRA WBCD Robotics &amp; Automation — <strong>Co-1st Place</strong></span>
+                        <span class="zh">ICRA WBCD 机器人与自动化大赛 —— <strong>并列第一名</strong></span>
+                    </h4>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-gamepad"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">TapTap 2024 Spotlight — <strong>400K+ views · 50K+ downloads · #2 New Releases</strong></span>
+                        <span class="zh">TapTap 2024 聚光灯 —— <strong>浏览40万+ · 下载5万+ · 新品榜第二</strong></span>
+                    </h4>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-code"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">ICPC Regional — <strong>Bronze Medal</strong></span>
+                        <span class="zh">ICPC 区域赛 —— <strong>铜奖</strong></span>
+                    </h4>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-award"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">National Digital Media Sci-Tech — <strong>Gold × 5</strong></span>
+                        <span class="zh">全国大学生数字媒体科技作品大赛 —— <strong>全国金奖（五次）</strong></span>
+                    </h4>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-vr-cardboard"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">CCVR China Virtual Reality — <strong>National 1st Prize × 3</strong></span>
+                        <span class="zh">CCVR 中国虚拟现实大赛 —— <strong>全国一等奖（三次）</strong></span>
+                    </h4>
+                </div>
+            </div>
+            <div class="award reveal">
+                <span class="award-icon"><i class="fas fa-star"></i></span>
+                <div>
+                    <h4>
+                        <span class="en">G-Bit <strong>National Top 10</strong> · CUSGA <strong>Best Multiplayer</strong> · Golden Dolphin Nomination</span>
+                        <span class="zh">吉比特<strong>全国十强</strong> · CUSGA<strong>最佳多人游戏</strong> · 金海豚奖入围</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="mono">&copy; 2021–2026 Lizhe Chen · Built with vanilla HTML/CSS/JS</p>
+    </footer>
+</main>
+
+<!-- Overlay for mobile sidebar -->
+<div class="overlay" id="overlay"></div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
