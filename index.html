@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -67,7 +67,7 @@
                 <span class="en">中</span><span class="zh">EN</span>
             </button>
             <button class="ctrl-btn" id="themeToggle" title="Toggle Theme">
-                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
             </button>
         </div>
     </div>
@@ -82,7 +82,7 @@
             <span class="en">中</span><span class="zh">EN</span>
         </button>
         <button class="ctrl-btn" id="themeToggleMobile" title="Theme">
-            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
         </button>
     </div>
 </header>
@@ -108,8 +108,8 @@
                 <span class="zh">硕士研究生 · 互动媒体技术 · 清华大学深圳国际研究生院</span>
             </p>
             <p class="intro-bio">
-                <span class="en">I research <strong>real-time photorealistic rendering</strong>, <strong>neural textures</strong>, and <strong>reasoning in LLMs &amp; vision-language models</strong>. I build game engines, GPU renderers, and tools that bridge graphics and AI.</span>
-                <span class="zh">研究方向：<strong>实时真实感渲染</strong>、<strong>神经纹理</strong>，以及<strong>大语言模型与视觉大模型的推理</strong>。我构建游戏引擎、GPU渲染器，探索图形学与AI的交叉领域。</span>
+                <span class="en">Hey there! I'm a graphics nerd who fell into the deep end of AI. I spend my days hacking on <strong>Vulkan engines</strong> and <strong>GPU renderers</strong>, my nights training models to reason and see — and somewhere in between I ship indie games with friends. If it runs on a GPU and makes pixels or predictions, I'm probably into it.</span>
+                <span class="zh">你好呀！我是一个掉进 AI 深坑的图形学爱好者。白天写 <strong>Vulkan 引擎</strong>和 <strong>GPU 渲染器</strong>，晚上训大模型做推理和多模态理解，现在正在和我的人生伴侣一起做独立游戏。只要跑在 GPU 上、能出画面或出结果的东西，我都感兴趣。</span>
             </p>
             <div class="intro-contact mono">
                 <span><i class="fas fa-envelope"></i> chenlizheme@outlook.com</span>
@@ -154,153 +154,25 @@
         </div>
     </section>
 
-    <!-- PUBLICATIONS -->
+    <!-- PUBLICATIONS — loaded from /data/publications.json -->
     <section id="publications" class="sec">
         <div class="sec-header">
             <span class="sec-label mono">
                 <span class="en">~/papers</span>
                 <span class="zh">~/论文</span>
             </span>
-            <span class="sec-count mono">
-                <span class="en">14 publications</span>
-                <span class="zh">14 篇论文</span>
-            </span>
+            <span class="sec-count mono" id="pub-count"></span>
         </div>
-
-        <div class="pub-list">
-            <!-- CorrDetail — IJCAI 2025 -->
-            <div class="pub reveal">
-                <span class="pub-badge ccf-a">IJCAI</span>
-                <div class="pub-body">
-                    <h3>CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection</h3>
-                    <p class="pub-meta">B. Zhou, H. Lou, <u>L. Chen</u>, H. Li, D. Luo, S. Chen, J. Lei, Z. Feng, Y. Bei</p>
-                    <p class="pub-venue">IJCAI 2025 · CCF-A</p>
-                </div>
-            </div>
-
-            <!-- ACL 2025 -->
-            <div class="pub reveal">
-                <span class="pub-badge ccf-a">ACL</span>
-                <div class="pub-body">
-                    <h3>Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking</h3>
-                    <p class="pub-meta">Y. Ge, S. Liu, Y. Wang, L. Mei, <u>L. Chen</u>, B. Bi, X. Cheng</p>
-                    <p class="pub-venue">ACL 2025 · CCF-A</p>
-                </div>
-            </div>
-
-            <!-- ACL 2025 Graph -->
-            <div class="pub reveal">
-                <span class="pub-badge ccf-a">ACL</span>
-                <div class="pub-body">
-                    <h3>Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?</h3>
-                    <p class="pub-meta">Y. Ge, S. Liu, B. Bi, Y. Wang, L. Mei, W. Feng, <u>L. Chen</u>, X. Cheng</p>
-                    <p class="pub-venue">ACL 2025 · CCF-A</p>
-                </div>
-            </div>
-
-            <!-- IJCNN 2025 FEMA -->
-            <div class="pub reveal">
-                <span class="pub-badge ccf-c">IJCNN</span>
-                <div class="pub-body">
-                    <h3>FEMA: Emotion-Driven Personification in Generative Agents</h3>
-                    <p class="pub-meta">S. Shao, X. Qin, S. Wu, G. Lin, Y. Zhang, <u>L. Chen</u></p>
-                    <p class="pub-venue">IJCNN 2025 · CCF-C</p>
-                </div>
-            </div>
-
-            <!-- Visual Computer 2025 -->
-            <div class="pub reveal">
-                <span class="pub-badge journal">TVC</span>
-                <div class="pub-body">
-                    <h3>3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos</h3>
-                    <p class="pub-meta">X. Cai, H. Zhang, <u>L. Chen</u>, Y. Wu, H. Sun</p>
-                    <p class="pub-venue">The Visual Computer, 2025 · CCF-C</p>
-                </div>
-            </div>
-
-            <!-- PIS — arXiv 2025 -->
-            <div class="pub reveal">
-                <span class="pub-badge preprint">arXiv</span>
-                <div class="pub-body">
-                    <h3>PIS: Linking Importance Sampling and Attention Mechanisms for Efficient Prompt Compression</h3>
-                    <p class="pub-meta"><u>L. Chen</u>, B. Zhou, Y. Ge, J. Chen, S. Ni</p>
-                    <p class="pub-venue">arXiv 2025</p>
-                </div>
-            </div>
-
-            <!-- Enhancing Spatial Learning -->
-            <div class="pub reveal">
-                <span class="pub-badge preprint">Preprint</span>
-                <div class="pub-body">
-                    <h3>Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives</h3>
-                    <p class="pub-meta">Y. Zhang, <u>L. Chen</u>, J. Yao, Z. Wang, S. Chen</p>
-                    <p class="pub-venue">Preprint</p>
-                </div>
-            </div>
-
-            <!-- FI-GS MTAP 2024 -->
-            <div class="pub reveal">
-                <span class="pub-badge journal">MTAP</span>
-                <div class="pub-body">
-                    <h3>Frequency-Importance Gaussian Splatting for Real-Time Lightweight Radiance Field Rendering</h3>
-                    <p class="pub-meta"><u>L. Chen</u>, Y. Hu, Y. Zhang, Y. Ge, H. Zhang, X. Cai</p>
-                    <p class="pub-venue">Multimedia Tools and Applications, 2024 · JCR Q2, CCF-C</p>
-                </div>
-            </div>
-
-            <!-- Translating Words to Worlds -->
-            <div class="pub reveal">
-                <span class="pub-badge journal">AppSci</span>
-                <div class="pub-body">
-                    <h3>Translating Words to Worlds: Zero-Shot Synthesis of 3D Terrain from Textual Descriptions Using LLMs</h3>
-                    <p class="pub-meta">G. Zhang, <u>L. Chen</u>, Y. Zhang, Y. Liu, Y. Ge, X. Cai</p>
-                    <p class="pub-venue">Applied Sciences, 2024 · JCR Q2</p>
-                </div>
-            </div>
-
-            <!-- NPR Manga -->
-            <div class="pub reveal">
-                <span class="pub-badge journal">JSS</span>
-                <div class="pub-body">
-                    <h3>Real-time Non-photorealistic Rendering Method for Black and White Comic Style in Games and Animation</h3>
-                    <p class="pub-meta">Y. Hu, <u>L. Chen</u>, H. Xie, Y. Ge, S. Zhou, X. Cai</p>
-                    <p class="pub-venue">Journal of System Simulation, 2024</p>
-                </div>
-            </div>
-
-            <!-- Cybersecurity 2023 -->
-            <div class="pub reveal">
-                <span class="pub-badge ccf-c">CyberSec</span>
-                <div class="pub-body">
-                    <h3>Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly</h3>
-                    <p class="pub-meta">Y. Ge, Z. Yang, <u>L. Chen</u>, Y. Wang, C. Li</p>
-                    <p class="pub-venue">Cybersecurity, 2023 · CCF-C</p>
-                </div>
-            </div>
-
-            <!-- Lightweight 3D Recon 2023 -->
-            <div class="pub reveal">
-                <span class="pub-badge conf">AAIA</span>
-                <div class="pub-body">
-                    <h3>Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting</h3>
-                    <p class="pub-meta">Y. Liu, <u>L. Chen</u>, H. Xie, J. Li</p>
-                    <p class="pub-venue">Int'l Conf. on Advances in AI and Applications, 2023</p>
-                </div>
-            </div>
-
-            <!-- ViT TCM 2022 -->
-            <div class="pub reveal">
-                <span class="pub-badge conf">CCET</span>
-                <div class="pub-body">
-                    <h3>Vision Transformer Based on Knowledge Distillation in TCM Image Classification</h3>
-                    <p class="pub-meta">Y. Ge, Y. Cheng, J. Wang, H. Zhou, <u>L. Chen</u></p>
-                    <p class="pub-venue">IEEE CCET 2022</p>
-                </div>
-            </div>
+        <div class="pub-list" id="pub-featured"></div>
+        <div class="view-all-wrap">
+            <a href="/papers.html" class="view-all-btn mono">
+                <span class="en">View All Papers <i class="fas fa-arrow-right"></i></span>
+                <span class="zh">查看全部论文 <i class="fas fa-arrow-right"></i></span>
+            </a>
         </div>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- PROJECTS — loaded from /data/projects.json -->
     <section id="projects" class="sec">
         <div class="sec-header">
             <span class="sec-label mono">
@@ -308,76 +180,16 @@
                 <span class="zh">~/项目</span>
             </span>
         </div>
-        <div class="proj-grid">
-            <!-- Vultorch -->
-            <div class="proj-card reveal">
-                <div class="proj-head">
-                    <span class="proj-icon mono">&gt;_</span>
-                    <span class="proj-badge open-source">Open Source</span>
-                </div>
-                <h3><a href="https://github.com/ChenlizheMe/Vultorch" target="_blank" rel="noopener">Vultorch</a></h3>
-                <p>
-                    <span class="en">Real-time CUDA tensor visualization with Vulkan zero-copy. <code>show()</code> does GPU→GPU blit; <code>create_tensor()</code> eliminates memcpy entirely via shared memory. Built-in ImGui, 3D scene view, docking layout.</span>
-                    <span class="zh">基于Vulkan零拷贝的CUDA张量实时可视化工具。<code>show()</code> 实现GPU→GPU直传；<code>create_tensor()</code> 通过共享显存完全消除内存拷贝。内置ImGui、3D场景视图与可拖拽窗口布局。</span>
-                </p>
-                <div class="tag-row">
-                    <span class="tag">Vulkan</span><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">Zero-Copy</span>
-                </div>
-            </div>
-
-            <!-- InfEngine -->
-            <div class="proj-card reveal">
-                <div class="proj-head">
-                    <span class="proj-icon mono">&gt;_</span>
-                    <span class="proj-badge open-source">Open Source</span>
-                </div>
-                <h3><a href="https://github.com/ChenlizheMe/InfEngine" target="_blank" rel="noopener">InfEngine</a></h3>
-                <p>
-                    <span class="en">A research-oriented game engine built on Vulkan + C++17 with a full Python scripting layer via pybind11. Features RenderGraph-based pipeline, ECS architecture, and modular design for graphics research and indie dev.</span>
-                    <span class="zh">面向科研的游戏引擎，基于Vulkan + C++17构建，通过pybind11提供完整Python脚本层。采用RenderGraph渲染管线、ECS架构，模块化设计兼顾图形学研究与独立开发。</span>
-                </p>
-                <div class="tag-row">
-                    <span class="tag">Vulkan</span><span class="tag">C++17</span><span class="tag">Python</span><span class="tag">RenderGraph</span><span class="tag">ECS</span>
-                </div>
-            </div>
-
-            <!-- AilurusEngine -->
-            <div class="proj-card reveal">
-                <div class="proj-head">
-                    <span class="proj-icon mono">&gt;_</span>
-                    <span class="proj-badge wip">WIP</span>
-                </div>
-                <h3><a href="https://github.com/ChenlizheMe/AilurusEngine" target="_blank" rel="noopener">AilurusEngine</a></h3>
-                <p>
-                    <span class="en">An experimental rendering engine project exploring advanced real-time graphics techniques. Currently in active development.</span>
-                    <span class="zh">一个探索前沿实时图形技术的实验性渲染引擎项目，目前正在积极开发中。</span>
-                </p>
-                <div class="tag-row">
-                    <span class="tag">Rendering</span><span class="tag">C++</span><span class="tag">Experimental</span>
-                </div>
-            </div>
-
-            <!-- EmbodiChain -->
-            <div class="proj-card reveal">
-                <div class="proj-head">
-                    <span class="proj-icon mono">&gt;_</span>
-                    <span class="proj-badge contrib">
-                        <span class="en">Contrib</span><span class="zh">参与</span>
-                    </span>
-                </div>
-                <h3><a href="https://github.com/DexForce/EmbodiChain" target="_blank" rel="noopener">EmbodiChain</a></h3>
-                <p>
-                    <span class="en">End-to-end GPU-accelerated Embodied AI framework by DexForce. I built the <strong>OptiX 8 real-time ray tracing renderer</strong> — multi-camera parallel pipeline on warp-lang, plus HPC module architecture.</span>
-                    <span class="zh">跨维科技端到端GPU加速具身智能框架。我负责<strong>基于OptiX 8的实时光追渲染模块</strong>——基于warp-lang的多相机并行渲染管线与HPC模块架构设计。</span>
-                </p>
-                <div class="tag-row">
-                    <span class="tag">OptiX 8</span><span class="tag">CUDA</span><span class="tag">warp-lang</span><span class="tag">Ray Tracing</span>
-                </div>
-            </div>
+        <div class="proj-grid" id="proj-featured"></div>
+        <div class="view-all-wrap">
+            <a href="/projects.html" class="view-all-btn mono">
+                <span class="en">View All Projects <i class="fas fa-arrow-right"></i></span>
+                <span class="zh">查看全部项目 <i class="fas fa-arrow-right"></i></span>
+            </a>
         </div>
     </section>
 
-    <!-- EXPERIENCE -->
+    <!-- EXPERIENCE (hardcoded — rarely changes) -->
     <section id="experience" class="sec">
         <div class="sec-header">
             <span class="sec-label mono">
@@ -386,7 +198,6 @@
             </span>
         </div>
 
-        <!-- Education -->
         <h3 class="sub-title reveal">
             <i class="fas fa-graduation-cap"></i>
             <span class="en">Education</span>
@@ -408,7 +219,7 @@
                         <span class="zh">互动媒体技术方向 · 硕士研究生</span>
                     </p>
                     <p class="tl-desc">
-                        <span class="en">Game engine R&D, 3D data synthesis, procedural generation, physically-based rendering.</span>
+                        <span class="en">Game engine R&amp;D, 3D data synthesis, procedural generation, physically-based rendering.</span>
                         <span class="zh">游戏引擎研发、三维数据合成、程序化生成与基于物理渲染。</span>
                     </p>
                 </div>
@@ -431,7 +242,6 @@
             </div>
         </div>
 
-        <!-- Work -->
         <h3 class="sub-title reveal">
             <i class="fas fa-code"></i>
             <span class="en">Work</span>
@@ -482,7 +292,7 @@
         </div>
     </section>
 
-    <!-- AWARDS -->
+    <!-- AWARDS — loaded from /data/awards.json -->
     <section id="awards" class="sec">
         <div class="sec-header">
             <span class="sec-label mono">
@@ -490,86 +300,21 @@
                 <span class="zh">~/荣誉</span>
             </span>
         </div>
-        <div class="awards-list">
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-trophy"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">miHoYo 2025 Game Planning Competition — <strong>National 1st Place</strong></span>
-                        <span class="zh">2025 米哈游游戏策划大赛 —— <strong>全国第一名</strong></span>
-                    </h4>
-                    <p class="award-note">
-                        <span class="en">Technical Art &amp; Client Dev, with teammate "QiaoQiao"</span>
-                        <span class="zh">担任技术美术与客户端程序，与队友"俏俏"合作</span>
-                    </p>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-robot"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">ICRA WBCD Robotics &amp; Automation — <strong>Co-1st Place</strong></span>
-                        <span class="zh">ICRA WBCD 机器人与自动化大赛 —— <strong>并列第一名</strong></span>
-                    </h4>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-gamepad"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">TapTap 2024 Spotlight — <strong>400K+ views · 50K+ downloads · #2 New Releases</strong></span>
-                        <span class="zh">TapTap 2024 聚光灯 —— <strong>浏览40万+ · 下载5万+ · 新品榜第二</strong></span>
-                    </h4>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-code"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">ICPC Regional — <strong>Bronze Medal</strong></span>
-                        <span class="zh">ICPC 区域赛 —— <strong>铜奖</strong></span>
-                    </h4>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-award"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">National Digital Media Sci-Tech — <strong>Gold × 5</strong></span>
-                        <span class="zh">全国大学生数字媒体科技作品大赛 —— <strong>全国金奖（五次）</strong></span>
-                    </h4>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-vr-cardboard"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">CCVR China Virtual Reality — <strong>National 1st Prize × 3</strong></span>
-                        <span class="zh">CCVR 中国虚拟现实大赛 —— <strong>全国一等奖（三次）</strong></span>
-                    </h4>
-                </div>
-            </div>
-            <div class="award reveal">
-                <span class="award-icon"><i class="fas fa-star"></i></span>
-                <div>
-                    <h4>
-                        <span class="en">G-Bit <strong>National Top 10</strong> · CUSGA <strong>Best Multiplayer</strong> · Golden Dolphin Nomination</span>
-                        <span class="zh">吉比特<strong>全国十强</strong> · CUSGA<strong>最佳多人游戏</strong> · 金海豚奖入围</span>
-                    </h4>
-                </div>
-            </div>
+        <div class="awards-list" id="award-featured"></div>
+        <div class="view-all-wrap">
+            <a href="/awards.html" class="view-all-btn mono">
+                <span class="en">View All Awards <i class="fas fa-arrow-right"></i></span>
+                <span class="zh">查看全部荣誉 <i class="fas fa-arrow-right"></i></span>
+            </a>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
-        <p class="mono">&copy; 2021–2026 Lizhe Chen · Built with vanilla HTML/CSS/JS</p>
+        <p class="mono">&copy; 2021–2026 Lizhe Chen</p>
     </footer>
 </main>
 
-<!-- Overlay for mobile sidebar -->
 <div class="overlay" id="overlay"></div>
-
 <script src="/js/main.js"></script>
 </body>
 </html>

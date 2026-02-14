@@ -1,20 +1,20 @@
 /* ==============================================================
    Lizhe Chen — Academic Homepage
-   Geeky / Terminal aesthetic · Sidebar layout · Dark/Light toggle
-   Sharp corners · Monospace accents · Minimal
+   Light = Blue accent · Dark = Orange accent
+   Geeky / Terminal aesthetic · Sidebar layout · Sharp corners
+   Data-driven from /data/*.json
    ============================================================== */
 
 /* ───── Variables ───── */
 :root {
-    /* shared */
-    --font: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --font: 'Inter', 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
     --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
     --sidebar-w: 260px;
     --ease: cubic-bezier(.4,0,.2,1);
     --dur: .25s;
 }
 
-/* ── Light theme ── */
+/* ── Light theme (blue) ── */
 html[data-theme="light"] {
     --bg:       #f4f4f5;
     --bg2:      #ffffff;
@@ -35,7 +35,7 @@ html[data-theme="light"] {
     --code-bg:  #f0f0f3;
 }
 
-/* ── Dark theme (default) ── */
+/* ── Dark theme (orange) ── */
 html[data-theme="dark"] {
     --bg:       #0a0a0b;
     --bg2:      #141416;
@@ -44,9 +44,9 @@ html[data-theme="dark"] {
     --fg2:      #a1a1aa;
     --fg3:      #71717a;
     --border:   #27272a;
-    --accent:   #60a5fa;
-    --accent2:  #93bbfc;
-    --accent-bg:rgba(96,165,250,.1);
+    --accent:   #f97316;
+    --accent2:  #fb923c;
+    --accent-bg:rgba(249,115,22,.1);
     --green:    #4ade80;
     --yellow:   #facc15;
     --red:      #f87171;
@@ -83,6 +83,7 @@ a { color: var(--accent); text-decoration: none; transition: color var(--dur); }
 a:hover { color: var(--accent2); }
 strong { font-weight: 600; }
 code { font-family: var(--mono); font-size: .85em; background: var(--code-bg); padding: 2px 6px; border-radius: 2px; }
+em { font-style: italic; color: var(--fg2); }
 .mono { font-family: var(--mono); }
 img { max-width:100%; display:block; }
 
@@ -439,7 +440,8 @@ img { max-width:100%; display:block; }
     transition: all var(--dur);
 }
 .research-card:hover .tag,
-.proj-card:hover .tag {
+.proj-card:hover .tag,
+.proj-detail-card:hover .tag {
     border-color: var(--accent);
     color: var(--accent);
     background: var(--accent-bg);
@@ -451,11 +453,11 @@ img { max-width:100%; display:block; }
 .pub-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 .pub {
     display: flex;
-    gap: 14px;
+    gap: 16px;
     align-items: flex-start;
     padding: 16px 18px;
     background: var(--bg2);
@@ -470,22 +472,53 @@ img { max-width:100%; display:block; }
     transform: translateX(4px);
 }
 
-.pub-badge {
+/* Paper thumbnail */
+.pub-thumb {
+    width: 150px;
+    height: 95px;
     flex-shrink: 0;
-    min-width: 56px;
-    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: border-color var(--dur);
+}
+.pub:hover .pub-thumb { border-color: var(--accent); }
+.pub-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+.pub-thumb-label {
+    font-size: .6rem;
+    color: var(--fg3);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    user-select: none;
+}
+
+.pub-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
     font-family: var(--mono);
     font-size: .6rem;
     font-weight: 700;
     letter-spacing: .04em;
     border-radius: 2px;
-    margin-top: 3px;
+    margin-bottom: 6px;
+    vertical-align: middle;
 }
 .pub-badge.ccf-a { background: rgba(234,179,8,.15); color: var(--yellow); border: 1px solid rgba(234,179,8,.3); }
-.pub-badge.ccf-c { background: rgba(96,165,250,.1); color: var(--accent); border: 1px solid rgba(96,165,250,.25); }
+.pub-badge.ccf-c { background: rgba(96,165,250,.1); color: #60a5fa; border: 1px solid rgba(96,165,250,.25); }
 .pub-badge.journal { background: rgba(74,222,128,.1); color: var(--green); border: 1px solid rgba(74,222,128,.25); }
 .pub-badge.conf { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
 .pub-badge.preprint { background: var(--bg3); color: var(--fg3); border: 1px solid var(--border); }
@@ -497,6 +530,8 @@ img { max-width:100%; display:block; }
     line-height: 1.45;
     margin-bottom: 4px;
 }
+.pub-body h3 a { color: var(--fg); }
+.pub-body h3 a:hover { color: var(--accent); }
 .pub-meta {
     font-size: .78rem;
     color: var(--fg3);
@@ -509,8 +544,35 @@ img { max-width:100%; display:block; }
     font-style: italic;
 }
 
+/* ── View All button ── */
+.view-all-wrap {
+    margin-top: 24px;
+    text-align: center;
+}
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 28px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    background: transparent;
+    transition: all var(--dur) var(--ease);
+    letter-spacing: .02em;
+}
+.view-all-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+.view-all-btn i { font-size: .75rem; }
+
 /* ===============================================================
-   PROJECTS
+   PROJECTS — Grid cards (main page)
    =============================================================== */
 .proj-grid {
     display: grid;
@@ -580,6 +642,75 @@ img { max-width:100%; display:block; }
     line-height: 1.65;
     flex: 1;
     margin-bottom: 14px;
+}
+
+/* ===============================================================
+   PROJECTS — Detail cards (sub-page, single column, larger)
+   =============================================================== */
+.proj-detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.proj-detail-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    transition: all var(--dur) var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+.proj-detail-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    transform: scaleX(0);
+    transition: transform .35s var(--ease);
+}
+.proj-detail-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-lg);
+}
+.proj-detail-card:hover::after { transform: scaleX(1); }
+
+.proj-detail-top { margin-bottom: 16px; }
+.proj-detail-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.proj-detail-card h3 a { color: var(--fg); }
+.proj-detail-card h3 a:hover { color: var(--accent); }
+
+.proj-detail-role {
+    font-size: .8rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.proj-detail-role i { font-size: .75rem; }
+
+.proj-detail-img {
+    margin-bottom: 16px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.proj-detail-img img {
+    width: 100%;
+    display: block;
+}
+
+.proj-detail-body {
+    font-size: .9rem;
+    color: var(--fg2);
+    line-height: 1.75;
+    margin-bottom: 16px;
 }
 
 /* ===============================================================
@@ -723,10 +854,16 @@ img { max-width:100%; display:block; }
     line-height: 1.5;
 }
 .award h4 strong { color: var(--accent); }
+.award-official {
+    font-size: .68rem;
+    color: var(--fg3);
+    margin-top: 3px;
+    opacity: .75;
+}
 .award-note {
     font-size: .75rem;
     color: var(--fg3);
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 /* ===============================================================
@@ -737,6 +874,64 @@ img { max-width:100%; display:block; }
     padding: 28px 20px;
     color: var(--fg3);
     font-size: .72rem;
+}
+
+/* ===============================================================
+   SUB-PAGE LAYOUT (papers.html, awards.html, projects.html)
+   =============================================================== */
+.subpage { background: var(--bg); color: var(--fg); }
+
+.sub-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 16px;
+    z-index: 100;
+    transition: background var(--dur) var(--ease);
+}
+.sub-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .82rem;
+    color: var(--fg2);
+    transition: color var(--dur);
+    flex-shrink: 0;
+}
+.sub-back:hover { color: var(--accent); }
+.sub-back i { font-size: .75rem; }
+
+.sub-title-text {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-align: center;
+}
+
+.sub-controls {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.sub-main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+}
+
+.sub-section-label {
+    font-size: .8rem;
+    color: var(--accent);
+    letter-spacing: .04em;
+    margin-bottom: 24px;
+    display: block;
 }
 
 /* ===============================================================
@@ -751,14 +946,12 @@ img { max-width:100%; display:block; }
     opacity: 1;
     transform: translateY(0);
 }
-/* Staggered delays for grids */
 .research-grid .reveal:nth-child(2) { transition-delay: .08s; }
 .proj-grid .reveal:nth-child(2) { transition-delay: .06s; }
 .proj-grid .reveal:nth-child(3) { transition-delay: .12s; }
 .proj-grid .reveal:nth-child(4) { transition-delay: .18s; }
-.pub-list .reveal:nth-child(n+2) { transition-delay: calc(var(--i,0) * .04s); }
 
-/* Cursor blink for label */
+/* Cursor blink */
 .sec-label::after {
     content: '█';
     font-size: .7em;
@@ -780,10 +973,13 @@ img { max-width:100%; display:block; }
     .research-grid { grid-template-columns: 1fr; }
     .proj-grid { grid-template-columns: 1fr; }
     .glitch-text { font-size: 2rem; }
+    .sub-header { padding: 0 16px; }
+    .sub-main { padding: 72px 16px 40px; }
 }
 
-@media (max-width: 500px) {
-    .pub { flex-direction: column; gap: 8px; }
+@media (max-width: 600px) {
+    .pub { flex-direction: column; gap: 10px; }
+    .pub-thumb { width: 100%; height: 140px; }
     .pub-badge { align-self: flex-start; }
     .tl-row { flex-direction: column; }
     .glitch-text { font-size: 1.6rem; }
