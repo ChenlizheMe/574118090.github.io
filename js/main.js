@@ -8,15 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const html = document.documentElement;
 
     /* ═══════ Theme (light / dark) ═══════ */
-    const themeBtn = document.getElementById('themeToggle');
-    const themeBtnM = document.getElementById('themeToggleMobile');
+    const themeBtns = document.querySelectorAll('.theme-toggle');
 
     function setTheme(t) {
         html.dataset.theme = t;
         localStorage.setItem('theme', t);
         const icon = t === 'dark' ? 'fa-sun' : 'fa-moon';
-        [themeBtn, themeBtnM].forEach(b => {
-            if (b) b.innerHTML = `<i class="fas ${icon}"></i>`;
+        themeBtns.forEach(b => {
+            b.innerHTML = `<i class="fas ${icon}"></i>`;
         });
     }
 
@@ -27,12 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 
-    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-    if (themeBtnM) themeBtnM.addEventListener('click', toggleTheme);
+    themeBtns.forEach(btn => btn.addEventListener('click', toggleTheme));
 
     /* ═══════ Language ═══════ */
-    const langBtn = document.getElementById('langToggle');
-    const langBtnM = document.getElementById('langToggleMobile');
+    const langBtns = document.querySelectorAll('.lang-toggle');
 
     function setLang(l) {
         html.lang = l;
@@ -45,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('lang');
     if (savedLang) html.lang = savedLang;
 
-    if (langBtn) langBtn.addEventListener('click', toggleLang);
-    if (langBtnM) langBtnM.addEventListener('click', toggleLang);
+    langBtns.forEach(btn => btn.addEventListener('click', toggleLang));
 
     /* ═══════ Mobile sidebar ═══════ */
     const sidebar = document.getElementById('sidebar');
@@ -163,6 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const badgeContent = p.statusLabelZh
             ? `<span class="en">${labelEn}</span><span class="zh">${labelZh}</span>`
             : labelEn;
+        const imgHtml = p.image ? `
+            <div class="proj-cover">
+                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.style.display='none'">
+            </div>` : '';
         return `
         <div class="proj-card reveal">
             <div class="proj-head">
@@ -170,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="proj-badge ${badgeCls}">${badgeContent}</span>
             </div>
             <h3><a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></h3>
+            ${imgHtml}
             <p>
                 <span class="en">${p.desc}</span>
                 <span class="zh">${p.descZh || p.desc}</span>

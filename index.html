@@ -63,10 +63,10 @@
             <a href="https://dreamerchen.com" target="_blank" rel="noopener" title="Blog"><i class="fas fa-rss"></i></a>
         </div>
         <div class="sidebar-controls">
-            <button class="ctrl-btn" id="langToggle" title="Switch Language">
+            <button class="ctrl-btn lang-toggle" title="Switch Language">
                 <span class="en">中</span><span class="zh">EN</span>
             </button>
-            <button class="ctrl-btn" id="themeToggle" title="Toggle Theme">
+            <button class="ctrl-btn theme-toggle" title="Toggle Theme">
                 <i class="fas fa-moon"></i>
             </button>
         </div>
@@ -78,10 +78,10 @@
     <button class="topbar-menu" id="menuToggle"><i class="fas fa-bars"></i></button>
     <span class="topbar-name mono">lizhe.chen</span>
     <div class="topbar-right">
-        <button class="ctrl-btn" id="langToggleMobile" title="Lang">
+        <button class="ctrl-btn lang-toggle" title="Lang">
             <span class="en">中</span><span class="zh">EN</span>
         </button>
-        <button class="ctrl-btn" id="themeToggleMobile" title="Theme">
+        <button class="ctrl-btn theme-toggle" title="Theme">
             <i class="fas fa-moon"></i>
         </button>
     </div>
@@ -315,6 +315,14 @@
 </main>
 
 <div class="overlay" id="overlay"></div>
+<div class="floating-controls" aria-label="Display controls">
+    <button class="ctrl-btn lang-toggle" title="Switch Language">
+        <span class="en">中</span><span class="zh">EN</span>
+    </button>
+    <button class="ctrl-btn theme-toggle" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+</div>
 <script src="/js/main.js"></script>
 </body>
 </html>
