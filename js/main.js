@@ -163,11 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="proj-cover">
                 <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.style.display='none'">
             </div>` : '';
+        const repoMatch = p.url && p.url.match(/github\.com\/([^/]+\/[^/]+)/);
+        const starsHtml = repoMatch ? `<span class="proj-stars" data-github-repo="${repoMatch[1]}" style="display:none"><i class="fas fa-star"></i> <span class="stars-count"></span></span>` : '';
         return `
         <div class="proj-card reveal">
             <div class="proj-head">
                 <span class="proj-icon mono">&gt;_</span>
                 <span class="proj-badge ${badgeCls}">${badgeContent}</span>
+                ${starsHtml}
             </div>
             <h3><a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></h3>
             ${imgHtml}
@@ -198,12 +201,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="proj-detail-img">
                 <img src="${p.image}" alt="${p.name}">
             </div>` : '';
+        const repoMatch = p.url && p.url.match(/github\.com\/([^/]+\/[^/]+)/);
+        const starsHtml = repoMatch ? `<span class="proj-stars" data-github-repo="${repoMatch[1]}" style="display:none"><i class="fas fa-star"></i> <span class="stars-count"></span></span>` : '';
         return `
         <div class="proj-detail-card reveal">
             <div class="proj-detail-top">
                 <div class="proj-head">
                     <span class="proj-icon mono">&gt;_</span>
                     <span class="proj-badge ${badgeCls}">${badgeContent}</span>
+                    ${starsHtml}
                 </div>
                 <h3><a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></h3>
                 ${roleHtml}
@@ -242,6 +248,178 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${contribHtml}
             </div>
         </div>`;
+    }
+
+    // ── Game renderers ──
+
+    function renderGameCard(g) {
+        const videoHtml = g.video ? `
+            <div class="game-video">
+                <iframe src="${g.video}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+            </div>` : g.image ? `
+            <div class="game-cover">
+                <img src="${g.image}" alt="${g.name}" onerror="this.parentElement.style.display='none'">
+            </div>` : '';
+        const awardsHtml = g.awards ? `
+            <p class="game-awards">
+                <i class="fas fa-trophy"></i>
+                <span class="en">${g.awards}</span>
+                <span class="zh">${g.awardsZh || g.awards}</span>
+            </p>` : '';
+        const bvidMatch = g.video && g.video.match(/bvid=([^&]+)/);
+        const viewsHtml = bvidMatch ? `<p class="game-views" data-bvid="${bvidMatch[1]}" style="display:none"><i class="fas fa-play"></i> <span class="en"></span><span class="zh"></span></p>` : '';
+        return `
+        <div class="game-card reveal">
+            ${videoHtml}
+            <div class="game-body">
+                <h3>
+                    <span class="en">${g.name}</span>
+                    <span class="zh">${g.nameZh || g.name}</span>
+                </h3>
+                <p class="game-role mono">
+                    <span class="en">${g.role || ''}</span>
+                    <span class="zh">${g.roleZh || g.role || ''}</span>
+                </p>
+                ${viewsHtml}
+                <p class="game-desc">
+                    <span class="en">${g.desc}</span>
+                    <span class="zh">${g.descZh || g.desc}</span>
+                </p>
+                ${awardsHtml}
+                <div class="tag-row">
+                    ${(g.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    function renderGameDetail(g) {
+        const videoHtml = g.video ? `
+            <div class="game-video game-video-lg">
+                <iframe src="${g.video}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+            </div>` : g.image ? `
+            <div class="game-cover game-cover-lg">
+                <img src="${g.image}" alt="${g.name}">
+            </div>` : '';
+        const awardsHtml = g.awards ? `
+            <p class="game-awards">
+                <i class="fas fa-trophy"></i>
+                <span class="en">${g.awards}</span>
+                <span class="zh">${g.awardsZh || g.awards}</span>
+            </p>` : '';
+        const linksHtml = (g.links || []).filter(l => l.url).map(l => `
+            <a href="${l.url}" target="_blank" rel="noopener" class="game-link">
+                <i class="${l.icon}"></i> ${l.label}
+            </a>`).join('');
+        const linksRow = linksHtml ? `<div class="game-links">${linksHtml}</div>` : '';
+        const bvidMatch = g.video && g.video.match(/bvid=([^&]+)/);
+        const viewsHtml = bvidMatch ? `<p class="game-views" data-bvid="${bvidMatch[1]}" style="display:none"><i class="fas fa-play"></i> <span class="en"></span><span class="zh"></span></p>` : '';
+        return `
+        <div class="game-detail-card reveal">
+            <h3>
+                <span class="en">${g.name}</span>
+                <span class="zh">${g.nameZh || g.name}</span>
+            </h3>
+            <p class="game-role mono">
+                <span class="en">${g.role || ''}</span>
+                <span class="zh">${g.roleZh || g.role || ''}</span>
+            </p>
+            ${viewsHtml}
+            ${videoHtml}
+            <div class="game-detail-body">
+                <span class="en">${g.detail || g.desc}</span>
+                <span class="zh">${g.detailZh || g.descZh || g.desc}</span>
+            </div>
+            ${awardsHtml}
+            <div class="tag-row">
+                ${(g.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+            ${linksRow}
+        </div>`;
+    }
+
+    // ── API helpers ──
+
+    function formatCount(n, locale) {
+        if (locale === 'zh') {
+            if (n >= 100000000) return (n / 100000000).toFixed(1).replace(/\.0$/, '') + '\u4ebf';
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + '\u4e07';
+            return String(n);
+        }
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        return String(n);
+    }
+
+    async function fetchGitHubStars() {
+        const els = document.querySelectorAll('.proj-stars[data-github-repo]');
+        if (!els.length) return;
+        const repoMap = {};
+        els.forEach(el => {
+            const repo = el.dataset.githubRepo;
+            if (!repoMap[repo]) repoMap[repo] = [];
+            repoMap[repo].push(el);
+        });
+        for (const [repo, elements] of Object.entries(repoMap)) {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${repo}`);
+                if (!res.ok) continue;
+                const data = await res.json();
+                const count = data.stargazers_count;
+                const text = formatCount(count);
+                elements.forEach(el => {
+                    el.querySelector('.stars-count').textContent = text;
+                    el.style.display = '';
+                });
+            } catch (e) {
+                console.warn('GitHub API error for', repo, e);
+            }
+        }
+    }
+
+    function fetchBilibiliViewJSONP(bvid) {
+        return new Promise((resolve, reject) => {
+            const cbName = '_bili_' + bvid.replace(/[^a-zA-Z0-9]/g, '');
+            const script = document.createElement('script');
+            const timeout = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 8000);
+            function cleanup() {
+                clearTimeout(timeout);
+                delete window[cbName];
+                if (script.parentNode) script.parentNode.removeChild(script);
+            }
+            window[cbName] = function(data) { cleanup(); resolve(data); };
+            script.src = `https://api.bilibili.com/x/web-interface/view?bvid=${bvid}&jsonp=jsonp&callback=${cbName}`;
+            script.onerror = () => { cleanup(); reject(new Error('script error')); };
+            document.head.appendChild(script);
+        });
+    }
+
+    async function fetchBilibiliViews() {
+        const els = document.querySelectorAll('.game-views[data-bvid]');
+        if (!els.length) return;
+        const bvidMap = {};
+        els.forEach(el => {
+            const bvid = el.dataset.bvid;
+            if (!bvidMap[bvid]) bvidMap[bvid] = [];
+            bvidMap[bvid].push(el);
+        });
+        for (const [bvid, elements] of Object.entries(bvidMap)) {
+            try {
+                const data = await fetchBilibiliViewJSONP(bvid);
+                if (data && data.code === 0) {
+                    const views = data.data.stat.view;
+                    const enText = formatCount(views) + ' views';
+                    const zhText = formatCount(views, 'zh') + ' \u64ad\u653e';
+                    elements.forEach(el => {
+                        el.querySelector('.en').textContent = enText;
+                        el.querySelector('.zh').textContent = zhText;
+                        el.style.display = '';
+                    });
+                }
+            } catch (e) {
+                console.warn('Bilibili API error for', bvid, e);
+            }
+        }
     }
 
     // ── Load & inject ──
@@ -301,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 projAll.innerHTML = data.map(renderProjDetail).join('');
             }
             observeReveals();
+            fetchGitHubStars();
         });
     }
 
@@ -318,6 +497,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 awardAll.innerHTML = data.map(a => renderAward(a, true)).join('');
             }
             observeReveals();
+        });
+    }
+
+    // Games
+    const gameFeatured = document.getElementById('game-featured');
+    const gameAll = document.getElementById('game-all');
+
+    if (gameFeatured || gameAll) {
+        loadJSON('/data/games.json').then(data => {
+            if (gameFeatured) {
+                const featured = data.filter(g => g.featured);
+                gameFeatured.innerHTML = featured.map(renderGameCard).join('');
+            }
+            if (gameAll) {
+                gameAll.innerHTML = data.map(renderGameDetail).join('');
+            }
+            observeReveals();
+            fetchBilibiliViews();
         });
     }
 });

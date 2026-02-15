@@ -1,0 +1,107 @@
+[
+  {
+    "id": "UnmaskingDay",
+    "featured": true,
+    "name": "Unmasking Day",
+    "nameZh": "卸装日 Unmasking Day",
+    "role": "Technical Art & Client Development",
+    "roleZh": "技术美术与客户端程序",
+    "desc": "A retro-styled text-based deduction game built at Global Game Jam 2026. Dive into hidden truths with an AI called the Unmasking System.",
+    "descZh": "Global Game Jam 2026 上完成的复古风格文字推理游戏。借助名为「Unmasking 系统」的 AI，潜入网络深水，挖掘被隐藏的真相。",
+    "detail": "A retro-styled text-based deduction game created during <strong>Global Game Jam 2026</strong>. You play as a user who has gained beta access to the <em>Unmasking System</em> — an AI tool that dives into the hidden depths of the internet to excavate buried truths. As the boundary between the virtual and the real blurs, can you still tell what is a disguise and what is genuine?",
+    "detailZh": "在 <strong>Global Game Jam 2026</strong> 上完成的复古风格文字推理游戏。玩家扮演一名获得「Unmasking 系统」内测资格的用户，这个 AI 工具能潜入网络深水，挖掘被隐藏的真相。当虚拟与现实的边界逐渐模糊，你是否还能分辨——什么是伪装，什么又是真实？",
+    "video": "//player.bilibili.com/player.html?isOutside=true&aid=115994500532047&bvid=BV1eS64BNEem&cid=35749692453&p=1",
+    "image": "",
+    "tags": ["Unity", "C#", "Tech Art", "Shader", "Text Adventure"],
+    "year": 2026,
+    "awards": "GGJ 2026 Chongqing — Best Art Style & Best Game Design",
+    "awardsZh": "GGJ 2026 重庆站 — 最佳美术风格 & 最佳游戏设计",
+    "links": [
+      { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV1eS64BNEem" }
+    ]
+  },
+  {
+    "id": "DongDaDong",
+    "featured": true,
+    "name": "Dong! Da-Dong!",
+    "nameZh": "咚！哒咚！",
+    "role": "Technical Art & Client Development",
+    "roleZh": "技术美术与客户端程序",
+    "desc": "A rhythm-action game where drumbeats are your contract, your battle, and your salvation. miHoYo 2025 Game Design Competition — National 1st Place.",
+    "descZh": "鼓点即契约、即战斗、即拯救的节奏动作游戏。米哈游游戏策划大赛 2025 全国第一名。",
+    "detail": "<em>\"Dancing together\"</em> is not merely a form of interaction — it is a philosophical attitude of resonating with nature, with living beings, and with all of existence. In <strong>Dong! Da-Dong!</strong>, dancing is a contract, a battle, and a salvation. We invite players to become <em>Drum Spiritists</em> who dance with all things, conversing with the game world through the primal rhythms of tribal drumbeats — summoning spirits of nature and spirits of beasts to dispel the <em>Silence</em> that erodes the world, so that life may surge once more across the land with every beat and every dance.",
+    "detailZh": "「共舞」不仅是一种互动方式，更是一种与自然、生灵、乃至整个存在共鸣的哲学态度。在<strong>《咚！哒咚！》</strong>中，共舞是契约，是战斗，也是拯救。我们期待玩家成为与万物共舞的「鼓灵者」，通过原始部落的鼓点节奏与游戏世界对话，召唤自然之灵与动物之灵，驱散侵蚀世界的「静默」，让生机随着鼓点与舞蹈，在这片土地上重新澎湃。",
+    "video": "//player.bilibili.com/player.html?isOutside=true&aid=115939370598910&bvid=BV1ufBZBkEp2&cid=35550200975&p=1",
+    "image": "",
+    "tags": ["Unity", "C#", "Tech Art", "Rhythm", "Shader"],
+    "year": 2025,
+    "awards": "miHoYo 2025 Game Design Competition — National 1st Place",
+    "awardsZh": "米哈游游戏策划大赛 2025 — 全国第一名",
+    "links": [
+      { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV1ufBZBkEp2" }
+    ]
+  },
+  {
+    "id": "OrganicDominion",
+    "featured": false,
+    "name": "Organic Dominion",
+    "nameZh": "有机统治",
+    "role": "Technical Art & Client Development",
+    "roleZh": "技术美术与客户端程序",
+    "desc": "An automation-factory meets swarm-evolution strategy game. Breed mutant bugs, build living assembly lines, and conquer an alien planet.",
+    "descZh": "融合自动化工厂与虫群进化的策略游戏。培育变异虫群，建立活体流水线，征服整颗星球。",
+    "detail": "<strong>Organic Dominion</strong> is a strategy game that fuses factory automation with swarm evolution. You play as a newborn Hive Mother, commanding worker drones to build living assembly lines while hunting the planet's exotic creatures to plunder their genes. Through gene synthesis and mutation, your bugs can evolve dozens of forms — fire-breathing, flight, venom, gigantification and more — stacking traits into a one-of-a-kind biological army. No micro required: just plan your evolution and production, then drown every enemy beneath an endless tide of mutant swarms. <em>Play the swarm. Devour your prey. Conquer the planet.</em>",
+    "detailZh": "<strong>《有机统治》</strong>是一款融合自动化工厂与虫群进化的策略游戏。你将扮演新生虫母，指挥工蜂建立活体流水线，并猎杀星球上的奇异生物，掠夺它们的基因。通过基因合成与变异，你的虫子可以进化出喷火、飞行、剧毒、巨大化等数十种形态，通过叠加组合可以形成独一无二的生物大军。无需繁琐操作，只需规划进化与生产，用无穷无尽的变异虫潮淹没一切敌人。<em>扮演虫族，吞噬猎物，然后征服整个星球！</em>",
+    "video": "//player.bilibili.com/player.html?isOutside=true&aid=115894239889503&bvid=BV1RSrWBhEbr&cid=35398681894&p=1",
+    "image": "",
+    "tags": ["Unity", "C#", "Tech Art", "Strategy", "Automation"],
+    "year": 2025,
+    "awards": "Tsinghua SIGS Interactive Media Workshop — Silver Award",
+    "awardsZh": "清华大学互动媒体技术工作坊 — 银奖",
+    "links": [
+      { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV1RSrWBhEbr" }
+    ]
+  },
+  {
+    "id": "Tree",
+    "featured": false,
+    "name": "TREE",
+    "nameZh": "树",
+    "role": "Technical Art & Client Development",
+    "roleZh": "技术美术与客户端程序",
+    "desc": "Begin from the void, nurture the World Tree, and cultivate an ever-evolving ecosystem of whispering, thinking, pulsing life.",
+    "descZh": "从一片虚无开始，孕育世界树，培育万物生灵构成的生态系统。",
+    "detail": "Starting from the void, you nurture a <strong>World Tree</strong> — planting seeds, cultivating grasslands, and propagating forests. Everything thinks, whispers, and pulses with life. By continuously synthesizing basic elements, you shape objects and ecological landscapes, striving to maintain the ecosystem's balance and elevate its prosperity.",
+    "detailZh": "从一片虚无开始，孕育<strong>世界树</strong>，种下种子，培育草原，繁衍森林……万物都会思考、低语、跳动。通过不断合成各种基础元素，形成各种物体和生态地貌，并尽力维护系统的生态平衡，提升丰饶度。",
+    "video": "//player.bilibili.com/player.html?isOutside=true&aid=114766156662127&bvid=BV1KT3czoEsP&cid=30759125718&p=1",
+    "image": "",
+    "tags": ["Unity", "C#", "Tech Art", "Ecosystem", "Simulation"],
+    "year": 2025,
+    "awards": "",
+    "awardsZh": "",
+    "links": [
+      { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV1KT3czoEsP" }
+    ]
+  },
+  {
+    "id": "CatExpected",
+    "featured": false,
+    "name": "Cat Expected Here",
+    "nameZh": "\u6b64\u5904\u5e94\u6709\u732b",
+    "role": "Technical Art & Client Development",
+    "roleZh": "\u6280\u672f\u7f8e\u672f\u4e0e\u5ba2\u6237\u7aef\u7a0b\u5e8f",
+    "desc": "A casual cat-teasing puzzle game! Fire lasers from security cameras to guide quirky cats \u2014 fulfill client requests, ace your internship, and live out your feline-filled dream job.",
+    "descZh": "\u4ee5\u4f11\u95f2\u9017\u732b\u4e3a\u6838\u5fc3\u7684\u8f7b\u89e3\u8c1c\u6e38\u620f\uff01\u4ece\u76d1\u63a7\u89c6\u89d2\u53d1\u5c04\u6fc0\u5149\uff0c\u6307\u5f15\u968f\u5fc3\u6240\u6b32\u7684\u732b\u54aa\u884c\u52a8\u2014\u2014\u6ee1\u8db3\u5ba2\u6237\u8981\u6c42\uff0c\u63d0\u9ad8\u4e1a\u7ee9\uff0c\u5750\u62e5\u4e34\u55b5\u7f8e\u666f\uff0c\u5c3d\u4eab\u55b5\u55b5\u81f3\u5c0a\u3002",
+    "detail": "It\u2019s graduation season, and after being rejected time and again for lacking internship experience, you stumble upon an unusual job listing\u2026 Wait \u2014 you get to admire all kinds of cats remotely?! And fire lasers from security cameras to catch their attention?! And if you take care of the cats to the clients\u2019 satisfaction, they\u2019ll even cover your housing and offer a full-time position?!<br><br>\u2b50 A casual cat-teasing puzzle game at its core!<br>\u2b50 Fire lasers from security cameras to guide the cats\u2019 movements!<br>\u2b50 But cats will be cats \u2014 they do whatever they please\u2026<br>\u2b50 Meet client objectives and boost your performance!<br>\u2b50 Bonus dream stages: pure cat-teasing fun, racing levels, and exploration-based puzzle levels!",
+    "detailZh": "\u6b63\u503c\u6bd5\u4e1a\u5b63\uff0c\u5374\u56e0\u4e3a\u6ca1\u6709\u5b9e\u4e60\u7ecf\u5386\u800c\u5c61\u5c61\u88ab\u62d2\u7edd\u7684\u4f60\uff0c\u5076\u7136\u5728\u62db\u8058\u5e73\u53f0\u4e0a\u5237\u5230\u4e86\u4e00\u4efd\u4e0d\u4e00\u6837\u7684\u5b9e\u4e60\u5de5\u4f5c\u2026\u2026<br>\u4ec0\u4e48\uff1f\uff01\u80fd\u591f\u4e91\u5438\u5404\u79cd\u5404\u6837\u7684\u732b\uff1f\uff01<br>\u4ec0\u4e48\uff1f\uff01\u80fd\u591f\u4f7f\u7528\u76d1\u63a7\u6444\u50cf\u5934\u53d1\u5c04\u6fc0\u5149\u53bb\u6293\u4f4f\u4ed6\u4eec\u7684\u6ce8\u610f\u529b\uff1f\uff01<br>\u4ec0\u4e48\uff1f\uff01\u53ea\u8981\u6309\u7167\u5ba2\u6237\u8981\u6c42\u628a\u732b\u7167\u987e\u597d\uff0c\u8fd9\u5de5\u4f5c\u8fd8\u80fd\u5305\u4f4f\u5bbf\u7ed9\u8865\u8d34\u5e26\u8f6c\u6b63\uff1f\uff01<br><br>\u2b50 \u4ee5\u4f11\u95f2\u9017\u732b\u4e3a\u6838\u5fc3\u7684\u8f7b\u89e3\u8c1c\u6e38\u620f\uff01<br>\u2b50 \u4ece\u76d1\u63a7\u89c6\u89d2\u53d1\u5c04\u6fc0\u5149\uff0c\u6307\u5f15\u732b\u54aa\u7684\u884c\u52a8\u5427\uff01<br>\u2b50 \u54e6\u4e0d\uff0c\u4f60\u77e5\u9053\u7684\uff0c\u732b\u54aa\u5411\u6765\u662f\u4e00\u79cd\u968f\u5fc3\u6240\u6b32\u7684\u751f\u7269\u2026\u2026<br>\u2b50 \u6ee1\u8db3\u5ba2\u6237\u6240\u8981\u6c42\u7684\u76ee\u6807\uff0c\u63d0\u9ad8\u4e1a\u7ee9\uff01<br>\u2b50 \u68a6\u91cc\u4ec0\u4e48\u90fd\u6709\u2026\u2026\uff1f\u9644\u5e26\u5a31\u4e50\u6027\u8d28\u7684\u7eaf\u4eab\u9017\u732b\u3001\u8d5b\u8f66\u5173\u5361\u3001\u4e0e\u57fa\u4e8e\u7a7a\u95f4\u63a2\u7d22\u7684\u7eaf\u89e3\u8c1c\u5173\u5361\u54e6\uff01",
+    "video": "//player.bilibili.com/player.html?isOutside=true&aid=113385073018175&bvid=BV18F1EYREqY&cid=26505841653&p=1",
+    "image": "",
+    "tags": ["Unity", "C#", "Tech Art", "Puzzle", "Casual"],
+    "year": 2025,
+    "awards": "",
+    "awardsZh": "",
+    "links": [
+      { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV18F1EYREqY" }
+    ]
+  }
+]

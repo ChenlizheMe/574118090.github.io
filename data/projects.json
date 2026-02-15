@@ -13,7 +13,7 @@
     "role": "",
     "roleZh": "",
     "tags": ["Vulkan", "CUDA", "C++", "pybind11", "Zero-Copy"],
-    "image": ""
+    "image": "/img/projects/vultorch.png"
   },
   {
     "id": "infengine",
@@ -29,7 +29,7 @@
     "role": "",
     "roleZh": "",
     "tags": ["Vulkan", "C++17", "Python", "RenderGraph", "ECS"],
-    "image": ""
+    "image": "/img/projects/infengine.png"
   },
   {
     "id": "ailurus-os",
@@ -45,7 +45,7 @@
     "role": "",
     "roleZh": "",
     "tags": ["Electron", "React", "Vite", "Python", "Flask", "LLM Agent", "Plugin System"],
-    "image": ""
+    "image": "/img/projects/ailurus.png"
   },
   {
     "id": "embodichain",
@@ -62,6 +62,6 @@
     "role": "OptiX 8 RT renderer & HPC module architecture",
     "roleZh": "OptiX 8 光追渲染器 & HPC模块架构",
     "tags": ["OptiX 8", "CUDA", "warp-lang", "Ray Tracing"],
-    "image": ""
+    "image": "/img/projects/embodichain.png"
   }
 ]
