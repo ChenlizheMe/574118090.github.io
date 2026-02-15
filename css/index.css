@@ -425,8 +425,10 @@ img { max-width:100%; display:block; }
     gap: 4px;
     font-size: .8rem;
     color: var(--fg3);
+    align-items: flex-start;
 }
 .intro-contact i { margin-right: 6px; color: var(--accent); }
+.intro-contact .cv-btn { margin-top: 6px; padding: 6px 16px; }
 
 /* ── Research cards ── */
 .research-grid {
