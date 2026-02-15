@@ -219,6 +219,30 @@ img { max-width:100%; display:block; }
 }
 .sidebar-icons a:hover { color: var(--accent); }
 
+.cv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 0;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    text-align: center;
+    transition: all var(--dur) var(--ease);
+    text-decoration: none;
+    letter-spacing: .03em;
+}
+.cv-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+.cv-btn i {
+    font-size: .7rem;
+}
+
 .sidebar-controls {
     display: flex;
     justify-content: center;
