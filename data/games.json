@@ -27,16 +27,14 @@
     "nameZh": "咚！哒咚！",
     "role": "Technical Art & Client Development",
     "roleZh": "技术美术与客户端程序",
-    "desc": "A rhythm-action game where drumbeats are your contract, your battle, and your salvation. miHoYo 2025 Game Design Competition — National 1st Place.",
-    "descZh": "鼓点即契约、即战斗、即拯救的节奏动作游戏。米哈游游戏策划大赛 2025 全国第一名。",
-    "detail": "<em>\"Dancing together\"</em> is not merely a form of interaction — it is a philosophical attitude of resonating with nature, with living beings, and with all of existence. In <strong>Dong! Da-Dong!</strong>, dancing is a contract, a battle, and a salvation. We invite players to become <em>Drum Spiritists</em> who dance with all things, conversing with the game world through the primal rhythms of tribal drumbeats — summoning spirits of nature and spirits of beasts to dispel the <em>Silence</em> that erodes the world, so that life may surge once more across the land with every beat and every dance.",
-    "detailZh": "「共舞」不仅是一种互动方式，更是一种与自然、生灵、乃至整个存在共鸣的哲学态度。在<strong>《咚！哒咚！》</strong>中，共舞是契约，是战斗，也是拯救。我们期待玩家成为与万物共舞的「鼓灵者」，通过原始部落的鼓点节奏与游戏世界对话，召唤自然之灵与动物之灵，驱散侵蚀世界的「静默」，让生机随着鼓点与舞蹈，在这片土地上重新澎湃。",
+    "desc": "A rhythm-action game where drumbeats become contract, battle, and salvation.",
+    "descZh": "鼓点即契约、即战斗、即拯救的节奏动作游戏。",
+    "detail": "Rhythm-combat prototype with custom shader stacks for stylized drum FX and screen-space punch. Beat-synced VFX, performance-safe mobile targets, and the core client loop for the demo build.",
+    "detailZh": "节奏战斗原型，含自定义着色器栈以呈现鼓点特效与镜头冲击。节拍同步特效、面向性能的移动目标，以及演示版客户端主循环。",
     "video": "//player.bilibili.com/player.html?isOutside=true&aid=115939370598910&bvid=BV1ufBZBkEp2&cid=35550200975&p=1",
     "image": "",
     "tags": ["Unity", "C#", "Tech Art", "Rhythm", "Shader"],
     "year": 2025,
-    "awards": "miHoYo 2025 Game Design Competition — National 1st Place",
-    "awardsZh": "米哈游游戏策划大赛 2025 — 全国第一名",
     "links": [
       { "label": "Bilibili", "icon": "fab fa-bilibili", "url": "https://www.bilibili.com/video/BV1ufBZBkEp2" }
     ]

@@ -1,5 +1,31 @@
 [
   {
+    "id": "infernux",
+    "featured": true,
+    "title": "Infernux: A Python-Native Game Engine with JIT-Accelerated Scripting",
+    "authors": "<u>L. Chen</u>",
+    "venue": "arXiv 2026 · cs.GR",
+    "venueZh": "arXiv 2026 · 计算机图形学",
+    "level": "preprint",
+    "levelLabel": "Technical Report",
+    "thumbLabel": "arXiv",
+    "image": "/img/projects/infengine.png",
+    "link": "https://arxiv.org/abs/2604.10263"
+  },
+  {
+    "id": "spatial-learning",
+    "featured": false,
+    "title": "Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives",
+    "authors": "Y. Zhang, <u>L. Chen</u>, J. Yao, Z. Wang, S. Chen",
+    "venue": "Visual Informatics, 2026",
+    "venueZh": "Visual Informatics, 2026",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "thumbLabel": "VisInf",
+    "image": "/img/papers/spatial-learning.png",
+    "link": "https://doi.org/10.1016/j.visinf.2025.100301"
+  },
+  {
     "id": "corrdetail",
     "featured": true,
     "title": "CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection",
@@ -10,7 +36,7 @@
     "levelLabel": "CCF-A",
     "thumbLabel": "IJCAI",
     "image": "/img/papers/corrdetail.png",
-    "link": ""
+    "link": "https://arxiv.org/abs/2507.05302"
   },
   {
     "id": "innate-reasoning",
@@ -23,7 +49,7 @@
     "levelLabel": "CCF-A",
     "thumbLabel": "ACL",
     "image": "/img/papers/innate-reasoning.png",
-    "link": ""
+    "link": "https://arxiv.org/abs/2503.19602"
   },
   {
     "id": "graph-descriptive",
@@ -36,33 +62,7 @@
     "levelLabel": "CCF-A",
     "thumbLabel": "ACL",
     "image": "/img/papers/graph-descriptive.png",
-    "link": ""
-  },
-  {
-    "id": "fema",
-    "featured": false,
-    "title": "FEMA: Emotion-Driven Personification in Generative Agents",
-    "authors": "S. Shao, X. Qin, S. Wu, G. Lin, Y. Zhang, <u>L. Chen</u>",
-    "venue": "IJCNN 2025 · CCF-C",
-    "venueZh": "IJCNN 2025 · CCF-C",
-    "level": "ccf-c",
-    "levelLabel": "CCF-C",
-    "thumbLabel": "IJCNN",
-    "image": "/img/papers/fema.png",
-    "link": ""
-  },
-  {
-    "id": "3d-pose",
-    "featured": false,
-    "title": "3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos",
-    "authors": "X. Cai, H. Zhang, <u>L. Chen</u>, Y. Wu, H. Sun",
-    "venue": "The Visual Computer, 2025 · CCF-C",
-    "venueZh": "The Visual Computer, 2025 · CCF-C",
-    "level": "journal",
-    "levelLabel": "CCF-C",
-    "thumbLabel": "TVC",
-    "image": "/img/papers/3d-pose.png",
-    "link": ""
+    "link": "https://aclanthology.org/2025.acl-long.321"
   },
   {
     "id": "pis",
@@ -75,20 +75,33 @@
     "levelLabel": "Preprint",
     "thumbLabel": "arXiv",
     "image": "/img/papers/pis.png",
-    "link": ""
+    "link": "https://arxiv.org/abs/2504.16574"
   },
   {
-    "id": "spatial-learning",
+    "id": "fema",
     "featured": false,
-    "title": "Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives",
-    "authors": "Y. Zhang, <u>L. Chen</u>, J. Yao, Z. Wang, S. Chen",
-    "venue": "Preprint",
-    "venueZh": "预印本",
-    "level": "preprint",
-    "levelLabel": "Preprint",
-    "thumbLabel": "Preprint",
-    "image": "/img/papers/spatial-learning.png",
-    "link": ""
+    "title": "FEMA: Emotion-Driven Personification in Generative Agents",
+    "authors": "S. Shao, X. Qin, S. Wu, G. Lin, Y. Zhang, <u>L. Chen</u>",
+    "venue": "IJCNN 2025 · CCF-C",
+    "venueZh": "IJCNN 2025 · CCF-C",
+    "level": "ccf-c",
+    "levelLabel": "CCF-C",
+    "thumbLabel": "IJCNN",
+    "image": "/img/papers/fema.png",
+    "link": "https://doi.org/10.1109/ijcnn64981.2025.11229401"
+  },
+  {
+    "id": "3d-pose",
+    "featured": false,
+    "title": "3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos",
+    "authors": "X. Cai, H. Zhang, <u>L. Chen</u>, Y. Wu, H. Sun",
+    "venue": "The Visual Computer, 2025 · CCF-C",
+    "venueZh": "The Visual Computer, 2025 · CCF-C",
+    "level": "journal",
+    "levelLabel": "CCF-C",
+    "thumbLabel": "TVC",
+    "image": "/img/papers/3d-pose.png",
+    "link": "https://doi.org/10.1007/s00371-024-03604-y"
   },
   {
     "id": "fi-gs",
@@ -101,7 +114,7 @@
     "levelLabel": "SCI Q2",
     "thumbLabel": "MTAP",
     "image": "/img/papers/fi-gs.png",
-    "link": ""
+    "link": "https://doi.org/10.1007/s11042-024-18679-x"
   },
   {
     "id": "words-to-worlds",
@@ -114,7 +127,7 @@
     "levelLabel": "SCI Q1",
     "thumbLabel": "AppSci",
     "image": "/img/papers/words-to-worlds.png",
-    "link": ""
+    "link": "https://www.mdpi.com/2076-3417/14/8/3257"
   },
   {
     "id": "npr-manga",
@@ -127,7 +140,20 @@
     "levelLabel": "Journal",
     "thumbLabel": "JSS",
     "image": "/img/papers/npr-manga.png",
-    "link": ""
+    "link": "https://doi.org/10.16182/j.issn1004731x.joss.23-0458"
+  },
+  {
+    "id": "lightweight-3d",
+    "featured": false,
+    "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
+    "authors": "Y. Liu, <u>L. Chen</u>, H. Xie, J. Li",
+    "venue": "Int'l Conf. on Advances in AI and Applications (AAIA), 2023",
+    "venueZh": "人工智能及应用国际会议 (AAIA), 2023",
+    "level": "conf",
+    "levelLabel": "Conf",
+    "thumbLabel": "AAIA",
+    "image": "/img/papers/lightweight-3d.png",
+    "link": "https://doi.org/10.1145/3603273.3634711"
   },
   {
     "id": "cybersecurity",
@@ -140,20 +166,7 @@
     "levelLabel": "CCF-C",
     "thumbLabel": "CyberSec",
     "image": "/img/papers/cybersecurity.png",
-    "link": ""
-  },
-  {
-    "id": "lightweight-3d",
-    "featured": false,
-    "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
-    "authors": "Y. Liu, <u>L. Chen</u>, H. Xie, J. Li",
-    "venue": "Int'l Conf. on Advances in AI and Applications, 2023",
-    "venueZh": "人工智能及应用国际会议, 2023",
-    "level": "conf",
-    "levelLabel": "Conf",
-    "thumbLabel": "AAIA",
-    "image": "/img/papers/lightweight-3d.png",
-    "link": ""
+    "link": "https://doi.org/10.1186/s42400-023-00179-4"
   },
   {
     "id": "vit-tcm",
@@ -161,11 +174,11 @@
     "title": "Vision Transformer Based on Knowledge Distillation in TCM Image Classification",
     "authors": "Y. Ge, Y. Cheng, J. Wang, H. Zhou, <u>L. Chen</u>",
     "venue": "IEEE CCET 2022",
-    "venueZh": "IEEE CCET 2022",
+    "venueZh": "IEEE 计算机与通信工程技术国际会议 (CCET), 2022",
     "level": "conf",
     "levelLabel": "Conf",
     "thumbLabel": "CCET",
     "image": "/img/papers/vit-tcm.png",
-    "link": ""
+    "link": "https://doi.org/10.1109/ccet55412.2022.9906332"
   }
 ]
