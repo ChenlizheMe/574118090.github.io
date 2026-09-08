@@ -245,8 +245,8 @@ function PublicationEvidence({ lang }) {
         </div>
         <p className="section__lede">
           <T
-            en="Real-time rendering, vision-language models, and understanding and generating 3D worlds."
-            zh="实时渲染、视觉语言模型，以及三维世界的理解与生成。"
+            en="Vision-language models, reasoning with large language models, and real-time rendering."
+            zh="视觉语言模型、大语言模型推理与实时渲染。"
             lang={lang}
           />
         </p>

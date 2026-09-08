@@ -1,6 +1,6 @@
 # Publication metadata audit
 
-Checked 2026-09-08 against publisher/proceedings pages, arXiv and publisher-deposited Crossref metadata. Full author names are displayed in source order, with Lizhe Chen highlighted. Author position does not establish equal contribution; no equal-contribution claims were added. Generic publication-type badges replace ranking claims without a specified ranking edition/year.
+Checked 2026-09-08 against publisher/proceedings pages, arXiv and publisher-deposited Crossref metadata. Full author names are displayed in source order, with Lizhe Chen highlighted. Author position does not establish equal contribution. CorrDetail now carries an explicit author-provided co-first-author credit for Lizhe Chen (2026-09-08); this is not inferred from author order. The proceedings PDF currently marks the first two names with a dagger and does not visibly mark Lizhe Chen, so the personal-site credit is recorded as the author’s correction, not as verified proceedings metadata. Generic publication-type badges replace ranking claims without a specified ranking edition/year.
 
 | Paper | Source | Finding |
 |---|---|---|
@@ -21,4 +21,4 @@ Checked 2026-09-08 against publisher/proceedings pages, arXiv and publisher-depo
 
 The supplied CV was copied verbatim to attaches/CV.pdf, SHA-256 DD2B5776359458924B856A274BEE5ACD5972BE5ADA241A28E5C52373F929809B. Its claims have not been edited inside the PDF. The CV and official paper records can therefore differ. Other CV details were not automatically substituted for more recent website content.
 
-Author update (2026-09-08): Innate Reasoning is labeled ACL 2026 · Long Papers at the author's explicit request. The existing arXiv link remains until a proceedings URL is supplied. Home selections now emphasize FI-GS, CorrDetail, Words to Worlds, and 3D human pose estimation.
+Author update (2026-09-08): Innate Reasoning is labeled ACL 2026 · Long Papers at the author's explicit request. The existing arXiv link remains until a proceedings URL is supplied. Home selections now prioritize CorrDetail (IJCAI 2025), Innate Reasoning (ACL 2026), and Graph Descriptive Order (ACL 2025), followed by FI-GS for real-time graphics. The publication archive uses the same leading order.
