@@ -1,0 +1,71 @@
+/* Shared environmental materials. Static layers remain when animation is paused. */
+:root {
+ --console:#183b4b;
+ --console-highlight:#365e6d;
+ --console-edge:#78969b;
+ --environment-blue:#91b8be4d;
+ --environment-gold:#d7b77a38;
+ --environment-rust:#c67d5430;
+ --orbit-ink:#365e7040;
+ --orbit-marker:#a45535a6;
+}
+:root[data-theme='dark'] {
+ --console:#102e3e;
+ --console-highlight:#2b5364;
+ --console-edge:#648592;
+ --environment-blue:#368aa03d;
+ --environment-gold:#d5af5d1f;
+ --environment-rust:#c87a4829;
+ --orbit-ink:#95c2cf38;
+ --orbit-marker:#edb578b3;
+}
+.app { isolation:isolate; }
+.app::before,.app::after,:root[data-theme='light'] .app::after { display:none; }
+.site-background { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:clip; background:var(--space-0); }
+.site-background__atmosphere { position:absolute; inset:0; background:radial-gradient(ellipse at 95% 5%,var(--environment-blue),transparent 60%),radial-gradient(ellipse at 5% 90%,var(--environment-rust),transparent 48%),radial-gradient(ellipse at 70% 85%,var(--environment-gold),transparent 58%); }
+.site-background__orbits { position:absolute; inset:0; width:100%; height:100%; }
+.background-orbit-lines { stroke:var(--orbit-ink); stroke-width:1; }
+.background-reference-marks { stroke:var(--orbit-marker); stroke-width:1; }
+.site-background .spatial-field { position:absolute; height:100%; opacity:.95; mask-image:linear-gradient(90deg,#000,transparent 30%,transparent 70%,#000); }
+.site-background__grain { position:absolute; inset:0; background-image:radial-gradient(var(--orbit-ink) .6px,transparent .8px); background-size:7px 7px; opacity:.14; }
+/* A quiet centre keeps Chinese body text crisp against the orbital field. */
+.site-background::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--space-0) 60%,transparent) 30% 70%,transparent); }
+.portrait-panel,.honors-plinth { background:linear-gradient(135deg,var(--console-highlight),var(--console) 72%); border:1px solid var(--console-edge); }
+.theater-stage { background:radial-gradient(ellipse at 50% 0%,var(--console-highlight),var(--console) 75%); border:1px solid var(--console-edge); }
+.project-viewport { background:var(--console); border-color:var(--console-edge); }
+.project-viewport__screen { border-color:var(--console); }
+.research-atlas,.flight-chronicle { background:color-mix(in srgb,var(--panel) 88%,transparent); }
+.atlas-panel { grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); }
+.atlas-copy,.theater-info > div { min-width:0; }
+.atlas-copy h3,.publication-tile h3 { overflow-wrap:anywhere; }
+.atlas-image { background:linear-gradient(135deg,var(--space-1),color-mix(in srgb,var(--panel) 80%,transparent)); }
+.btn,.detail-link,.masthead__actions button,.archive-filters button { border-radius:2px; }
+@media(max-width:700px) {
+ .atlas-panel { grid-template-columns:minmax(0,1fr); }
+ .site-background .spatial-field { opacity:.8; mask-image:linear-gradient(90deg,#000,transparent 28%,transparent 72%,#000); }
+ .site-background__orbits { opacity:.75; }
+}
+
+/* Clear section boundaries and consistent inset spacing. */
+:root { --content-inset:32px; }
+.flight-chronicle { border:1px solid var(--line-strong); overflow:clip; }
+.flight-chronicle-heading { padding:22px var(--content-inset); }
+.journey-timeline { padding:32px var(--content-inset); }
+.journey-timeline::before { top:92px; left:calc(var(--content-inset) + 10px); right:var(--content-inset); }
+.journey-record + .journey-record::after { content:''; position:absolute; top:94px; bottom:0; left:-24px; width:1px; background:var(--line); }
+.research-atlas { border:1px solid var(--line-strong); }
+.atlas-nav button:last-child { border-right:0; }
+.atlas-copy { padding:32px var(--content-inset); }
+.project-card { border:1px solid var(--line-strong); background:color-mix(in srgb,var(--panel) 88%,transparent); }
+.project-card > .panel-register { border-top:0; padding:20px var(--content-inset); }
+.project-card > .project-layout,.archive-list.projects .project-card > .project-layout { padding:28px var(--content-inset); }
+.honors-index { padding-inline:24px; }
+@media(max-width:700px) {
+ :root { --content-inset:20px; }
+ .flight-chronicle-heading { padding:20px var(--content-inset); }
+ .journey-timeline { padding:24px var(--content-inset); }
+ .journey-record + .journey-record::after { display:none; }
+ .atlas-copy { padding:26px var(--content-inset); }
+ .project-card > .project-layout,.archive-list.projects .project-card > .project-layout { padding:24px var(--content-inset); }
+ .honors-index { padding-inline:0; }
+}

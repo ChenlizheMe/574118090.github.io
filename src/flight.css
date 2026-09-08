@@ -1,0 +1,252 @@
+/* Flight hardware: ceramic panels, dark optical bays, orbital mechanics. */
+:root {
+  --flight-ink:#233b49;
+  --flight-orange:#c16c46;
+  --flight-cream:#f1eee4;
+  --flight-ease:cubic-bezier(.2,.75,.18,1);
+}
+.section { position:relative; }
+.section__head { padding-top:25px; border-top:1px solid var(--line-strong); position:relative; }
+.section__head::before { content:''; position:absolute; width:66px; height:4px; left:0; top:-2px; background:var(--accent); }
+.section__id { border:0; background:none; font-size:20px; padding:0; color:var(--accent); }
+.section__title { font-weight:500; }
+.section__head .eyebrow { display:none; }
+.btn,.hero__socials a,.masthead__actions button,.research-link { border-radius:2px; }
+.btn:hover,.hero__socials a:hover { box-shadow:4px 4px 0 var(--line); }
+.section.hero:first-of-type { padding-top:85px; padding-bottom:100px; }
+.hero { grid-template-columns:minmax(0,1fr) 340px; gap:54px; min-height:710px; }
+.hero__title,:root[data-lang='zh'] .hero__title { font-size:clamp(60px,6.4vw,88px); font-weight:500; }
+.hero__greeting { font-size:.42em; margin-bottom:14px; letter-spacing:0; }
+.hero__current { font-size:clamp(22px,2vw,26px); }
+.hero__aside { height:450px; min-height:0; justify-content:flex-end; align-items:flex-start; }
+.profile-display { width:116px; padding:5px; border-radius:0; box-shadow:7px 7px 0 var(--line); margin:0 0 6px 12px; }
+.profile-display img { filter:none; border-radius:0; aspect-ratio:4/5; }
+.orbital-field { position:absolute; inset:-20px -55px 0 -55px; pointer-events:auto; }
+.orbital-field canvas { width:100%; height:100%; display:block; }
+.orbital-reticle { position:absolute; inset:8%; border:1px solid var(--line); border-radius:50%; }
+.orbital-reticle::before,.orbital-reticle::after { content:''; position:absolute; inset:-12%; background:linear-gradient(var(--line-strong),var(--line-strong)) center/1px 100% no-repeat,linear-gradient(90deg,var(--line-strong),var(--line-strong)) center/100% 1px no-repeat; }
+.orbital-reticle::after { inset:-2%; border:1px dashed var(--line-strong); border-radius:50%; background:none; animation:instrument-rotate 100s linear infinite; }
+.orbital-axis { position:absolute; font-size:16px; color:var(--dim); }.orbital-axis--x { right:1%; top:49%; }.orbital-axis--y { top:0; left:51%; }
+.orbital-signature { position:absolute; right:20px; bottom:10px; display:flex; gap:4px; transform:skewY(-10deg); }
+.orbital-signature i { display:block; height:48px; width:12px; background:#33566e; }.orbital-signature i:nth-child(2) { background:#87a4b2; height:62px; }.orbital-signature i:nth-child(3) { background:#c8aa68; height:76px; }.orbital-signature i:nth-child(4) { background:#b95339; height:90px; }
+@keyframes instrument-rotate { to { transform:rotate(360deg); } }
+
+/* Independent chronological tracks, with a sliding open record. */
+.flight-chronicles { display:grid; gap:30px; }
+.flight-chronicle { border:1px solid var(--line-strong); background:var(--panel); position:relative; clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%); }
+.flight-chronicle::before { content:''; position:absolute; left:0; top:0; width:5px; height:100%; background:var(--flight-orange); }
+.flight-chronicle--study::before { background:#6e94a8; }
+.flight-chronicle-heading { display:flex; align-items:center; gap:14px; padding:22px 34px; border-bottom:1px solid var(--line); }
+.flight-chronicle-heading h3 { font-size:25px; font-weight:500; margin:0; }.flight-chronicle-heading > span { font-size:16px; margin-left:auto; letter-spacing:.1em; color:var(--dim); }
+.flight-chronicle-heading .icon { color:var(--accent); }
+.flight-chronicle-body { display:grid; grid-template-columns:38% minmax(0,1fr); }
+.flight-route { position:relative; padding:25px 34px 32px; background:linear-gradient(90deg,var(--space-1),transparent); }
+.flight-route ol { list-style:none; margin:0; padding:0; position:relative; }
+.flight-route-line { position:absolute; top:60px; bottom:62px; left:44px; width:1px; background:var(--line-strong); }
+.flight-route-line::after { content:''; position:absolute; top:0; left:-1px; width:3px; height:40px; background:var(--accent); animation:route-signal 5s ease-in-out infinite; animation-play-state:paused; }
+.is-in-view .flight-route-line::after { animation-play-state:running; }
+@keyframes route-signal { 0% { top:0; opacity:0; } 15%,75% { opacity:1; } 100% { top:calc(100% - 40px); opacity:0; } }
+.flight-route button { display:grid; grid-template-columns:22px 1fr 20px; gap:3px 18px; text-align:left; width:100%; padding:17px 0 24px; border:0; background:none; color:var(--mist); transition:color .4s; }
+.flight-year { font-size:46px; line-height:1.2; font-weight:300; letter-spacing:-.065em; font-variant-numeric:tabular-nums; }
+.flight-stop { grid-column:2; font-size:18px; line-height:1.6; }
+.flight-route button > .icon { grid-column:3; grid-row:1; align-self:center; opacity:0; transform:translateX(-12px); transition:transform .5s,opacity .5s; }
+.flight-node { grid-column:1; grid-row:1; width:21px; height:21px; border:1px solid var(--line-strong); background:var(--space-0); align-self:center; transform:rotate(45deg); transition:background .4s,border-color .4s; }
+.flight-node::before { content:''; display:block; width:7px; height:7px; margin:6px; background:var(--dim); }
+.flight-route button[aria-pressed='true'] { color:var(--fog); }.flight-route button[aria-pressed='true'] .flight-year { color:var(--accent); }
+.flight-route button[aria-pressed='true'] .flight-node { border-color:var(--accent); }.flight-route button[aria-pressed='true'] .flight-node::before { background:var(--accent); }
+.flight-route button[aria-pressed='true'] > .icon { opacity:1; transform:translateX(0); }.flight-route button:hover { color:var(--accent); }
+.flight-detail { position:relative; padding:32px 38px 36px; border-left:1px solid var(--line); min-height:365px; overflow:hidden; perspective:1400px; }
+.flight-detail-content { position:relative; z-index:1; animation:record-unfold .8s var(--flight-ease) both; transform-origin:left center; }
+@keyframes record-unfold { from { opacity:0; transform:translate3d(30px,12px,-70px) rotateY(-9deg); clip-path:inset(0 100% 0 0); } to { opacity:1; transform:none; clip-path:inset(0); } }
+.flight-date { display:block; font-size:16px; color:var(--accent); margin-bottom:12px; }
+.flight-detail h4 { font-size:28px; line-height:1.4; font-weight:500; margin:0 0 8px; }
+.flight-role { font-size:18px; color:var(--mist); margin:0 0 20px; }
+.flight-detail ul { list-style:none; margin:0; padding:0; display:grid; gap:10px; max-width:650px; }
+.flight-detail li { font-size:18px; line-height:1.85; padding-left:20px; position:relative; }
+.flight-detail li::before { content:''; position:absolute; left:0; top:14px; width:6px; height:6px; border:1px solid var(--accent); }
+.flight-detail .detail-link { margin:24px 0 0; }
+.flight-watermark { position:absolute; right:-8px; bottom:-34px; font-size:150px; font-weight:300; line-height:1.3; letter-spacing:-.08em; color:var(--line); pointer-events:none; transform:translateY(calc(var(--travel,0) * 20px)); }
+
+/* Optical research bay. Images stay unfiltered and fully visible. */
+.research-exhibit { position:relative; color:#f2efe5; background:#233b49; border:1px solid #556b74; box-shadow:9px 9px 0 var(--line); clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px)); }
+.research-register { display:flex; justify-content:space-between; align-items:center; padding:19px 28px; border-bottom:1px solid #c3d7de33; font-size:16px; letter-spacing:.06em; color:#c0cfd1; }
+.research-register > span:first-child::before { content:''; display:inline-block; width:7px; height:7px; background:#d1a66b; margin-right:12px; }
+.research-console { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); min-height:550px; }
+.research-visual { position:relative; min-width:0; display:flex; flex-direction:column; justify-content:center; padding:60px 34px 22px; overflow:hidden; background:radial-gradient(ellipse at 45% 45%,#47627155,transparent 70%),linear-gradient(#bbd0d00a 1px,transparent 1px),linear-gradient(90deg,#bbd0d00a 1px,transparent 1px); background-size:auto,32px 32px,32px 32px; }
+.research-orbit { position:absolute; inset:8% 6% 12%; transform:rotate(-22deg) translateY(calc(var(--travel,0) * 20px)); border:1px solid #c0d3db33; border-radius:50%; }
+.research-orbit i { position:absolute; inset:8%; border:1px solid #c0d3db22; border-radius:50%; }.research-orbit i:nth-child(2) { inset:-10%; border-style:dashed; animation:instrument-rotate 70s linear infinite; animation-play-state:paused; }.is-in-view .research-orbit i:nth-child(2) { animation-play-state:running; }
+.research-orbit i:nth-child(3) { inset:24% -15%; border-color:#cb936855; transform:rotate(35deg); }
+.research-specimen { position:relative; margin:10px 12px 50px 0; perspective:1200px; }
+.specimen-underlay { position:absolute; inset:0; transform:translate(18px,-19px) rotate(5deg); border:1px solid #b5ced066; background:#d1ded90b; }
+.specimen-underlay::after { content:''; position:absolute; inset:-14px 12px 14px -12px; border:1px solid #b5ced033; }
+.specimen-frame { position:relative; padding:15px; background:#f6f4ed; border:1px solid #fff; box-shadow:12px 30px 45px #07192455; transform:rotateY(-9deg) rotateX(6deg) rotateZ(-3deg); animation:specimen-arrive 1s var(--flight-ease) both; }
+.specimen-frame img { width:100%; height:280px; object-fit:contain; background:#fff; }
+@keyframes specimen-arrive { from { opacity:0; transform:translate3d(-70px,25px,-160px) rotateY(28deg) rotateZ(-9deg); } to { opacity:1; transform:rotateY(-9deg) rotateX(6deg) rotateZ(-3deg); } }
+.research-visual-footer { display:flex; align-items:center; justify-content:space-between; position:relative; gap:12px; margin-top:auto; font-size:16px; color:#c5d4d6; }
+.research-controls { display:flex; gap:8px; }.research-controls button { display:grid; place-items:center; width:44px; height:44px; background:none; color:#eeeae0; border:1px solid #bbd0d077; border-radius:2px; transition:background .3s,transform .3s; }.research-controls button:hover { background:#a5bdc333; transform:translateX(2px); }
+.research-info { position:relative; align-self:center; padding:38px 34px; animation:research-text-in .7s var(--flight-ease) both; }
+@keyframes research-text-in { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+.research-venue { font-size:16px; color:#e4b685; margin:0 0 18px; line-height:1.7; }
+.research-info h3 { font-size:clamp(24px,2.3vw,32px); font-weight:500; line-height:1.35; letter-spacing:-.025em; margin:0 0 22px; text-wrap:balance; }
+.research-summary { font-size:19px; line-height:1.85; color:#e1e5df; margin:0 0 18px; }
+.research-authors { font-size:16px; line-height:1.8; color:#b8cbd0; margin:0 0 26px; }.research-authors u { color:#fff2d6; text-decoration:none; }
+.research-link { display:inline-flex; align-items:center; gap:12px; font-size:17px; border:1px solid #c0d3db77; padding:11px 16px; transition:background .3s; }.research-link:hover { background:#c0d3db22; }
+.research-selectors { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid #c3d7de33; }
+.research-selectors button { position:relative; display:flex; align-items:center; gap:14px; padding:23px 24px; border:0; border-right:1px solid #c3d7de33; text-align:left; background:#172e3944; color:#bdced3; font-size:17px; transition:color .35s,background .35s; }
+.research-selectors button:last-child { border-right:0; }.research-selectors button[aria-pressed='true'] { background:#e6e2d8; color:#263d48; }.research-selectors button:hover { background:#496371; color:#fff; }.research-selectors button[aria-pressed='true']:hover { background:#f3efe3; color:#263d48; }
+.research-selector-index { font-size:23px; font-weight:300; }
+.research-selectors button i { position:absolute; height:4px; top:-2px; left:0; right:0; background:#d48a59; transform:scaleX(0); transform-origin:left; transition:transform .65s var(--flight-ease); }.research-selectors button[aria-pressed='true'] i { transform:scaleX(1); }
+.research-exhibit + .text-link { display:inline-flex; margin-top:30px; }
+
+.feature::before { content:''; position:absolute; left:10%; right:10%; top:220px; height:460px; border:1px solid var(--line); border-radius:50%; transform:perspective(1000px) rotateX(65deg) rotateZ(calc(var(--travel,0) * 8deg)); pointer-events:none; }
+.video-deck .deck-stage::before { content:''; position:absolute; left:6%; right:6%; top:32px; bottom:60px; background:repeating-linear-gradient(90deg,transparent 0 49px,var(--line) 49px 50px); mask-image:linear-gradient(transparent,#000 45%,transparent); transform:perspective(1100px) rotateX(55deg); pointer-events:none; }
+.video-deck .deck-card { border-radius:3px; }
+.project-card,.game-card { border-radius:3px; }
+.reveal { transition:opacity .9s var(--flight-ease) var(--reveal-delay,0ms),transform 1.1s var(--flight-ease) var(--reveal-delay,0ms); }
+:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }.research-exhibit :focus-visible { outline-color:#efb37c; outline-offset:-4px; }
+@media(max-width:1100px) {
+ .hero { grid-template-columns:minmax(0,1fr) 270px; gap:38px; }.orbital-field { inset:0 -25px 15px -45px; }.hero__aside { height:370px; }
+ .flight-route { padding-inline:26px; }.flight-route-line { left:36px; }.flight-detail { padding:28px; }.flight-stop { font-size:17px; }.research-console { grid-template-columns:46% 54%; }.research-info { padding:30px 26px; }.research-visual { padding-inline:24px; }.specimen-frame img { height:235px; }.research-selectors button { padding:20px 16px; gap:9px; }
+}
+@media(max-width:800px) {
+ .hero { grid-template-columns:1fr 200px; gap:25px; }.hero__title,:root[data-lang='zh'] .hero__title { font-size:62px; }.hero__aside { height:300px; }.profile-display { width:96px; }.orbital-field { inset:-10px -30px 25px -35px; }
+ .flight-chronicle-heading { padding:20px 24px; }.flight-chronicle-heading > span { font-size:16px; letter-spacing:0; }.flight-chronicle-body { grid-template-columns:34% minmax(0,1fr); }.flight-route { padding-inline:20px; }.flight-route-line { left:30px; }.flight-route button { gap:4px 12px; grid-template-columns:22px 1fr; }.flight-route button > .icon { display:none; }.flight-year { font-size:38px; }.flight-detail { padding:26px; }.flight-detail h4 { font-size:24px; }
+ .research-console { grid-template-columns:1fr; }.research-visual { min-height:360px; padding:36px 38px 20px; }.research-specimen { width:75%; margin:16px auto 30px; }.specimen-frame img { height:240px; }.research-info { padding:28px 32px 36px; }.research-info h3 { font-size:28px; }.research-selectors { grid-template-columns:1fr 1fr; }.research-selectors button { border-bottom:1px solid #c3d7de33; }.research-selectors button:nth-child(2) { border-right:0; }
+}
+@media(max-width:580px) {
+ .section.hero:first-of-type { padding-top:30px; padding-bottom:60px; }.hero { display:flex; flex-direction:column; align-items:stretch; min-height:0; gap:8px; }.hero__aside { order:-1; height:230px; width:100%; display:flex; justify-content:flex-end; align-items:flex-start; }.orbital-field { inset:-25px 0 -5px 28%; }.profile-display { width:90px; margin:0 0 20px 3px; }.orbital-signature { right:5px; bottom:12px; transform:scale(.65); transform-origin:bottom right; }.orbital-axis--x { display:none; }
+ .hero__title,:root[data-lang='zh'] .hero__title { font-size:60px; }.hero__greeting { font-size:27px; }.hero__current { font-size:22px; }.hero__about { font-size:18px; }
+ .flight-chronicles { gap:24px; }.flight-chronicle-heading { padding:20px; gap:10px; }.flight-chronicle-heading h3 { font-size:23px; }.flight-chronicle-heading > span { display:none; }.flight-chronicle-body { grid-template-columns:1fr; }
+ .flight-route { padding:16px 20px 0; }.flight-route ol { display:grid; grid-template-columns:1fr 1fr; gap:20px; }.flight-route-line { left:30px; right:30px; top:45px; height:1px; width:auto; bottom:auto; }.flight-route-line::after { display:none; }.flight-route button { padding:8px 0 22px; gap:10px; grid-template-columns:20px 1fr; }.flight-year { font-size:35px; }.flight-stop { font-size:16px; grid-column:1/-1; }.flight-node { width:19px; height:19px; }.flight-node::before { margin:5px; }.flight-year { background:var(--space-1); position:relative; }.flight-detail { border-left:0; border-top:1px solid var(--line); padding:24px 20px 30px; min-height:410px; }.flight-detail h4 { font-size:24px; }.flight-detail li { font-size:18px; }.flight-role { font-size:18px; }.flight-watermark { font-size:115px; bottom:-24px; }
+ .research-register { padding:17px 18px; font-size:16px; letter-spacing:0; }.research-register > span:first-child { max-width:190px; }.research-register > span:first-child::before { display:none; }.research-visual { min-height:300px; padding:32px 20px 20px; }.research-specimen { width:88%; margin:16px auto 30px; }.specimen-frame { padding:10px; }.specimen-frame img { height:180px; }.research-visual-footer { font-size:16px; }.research-info { padding:26px 22px 30px; }.research-info h3 { font-size:25px; line-height:1.4; text-wrap:initial; }.research-summary { font-size:18px; }.research-selectors button { padding:19px 15px; font-size:16px; gap:10px; }.research-selector-index { font-size:21px; }
+ .section__head { padding-top:20px; }.section__id { font-size:18px; }.feature::before { left:0; right:0; height:260px; top:240px; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }.flight-watermark,.research-orbit { transform:none; } }
+[data-motion='paused'] .specimen-frame { transform:none; }
+/* Explicit grid tracks reserve the full projected image footprint. */
+.research-visual { display:grid; grid-template-rows:minmax(340px,1fr) auto; gap:24px; padding-top:40px; }
+.research-specimen { align-self:center; margin:0 12px 0 0; }
+.research-visual-footer { margin-top:0; }
+.research-exhibit.revealed { transform:none; }
+.research-specimen.depth-surface { transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transform-style:flat; }
+@media(max-width:800px) { .research-visual { grid-template-rows:minmax(300px,1fr) auto; padding-top:30px; }.research-specimen { margin:0 auto; } }
+@media(max-width:580px) { .research-visual { grid-template-rows:minmax(240px,1fr) auto; gap:16px; padding-top:20px; } }
+.research-visual { padding-top:50px; overflow:clip; }
+@media(max-width:800px) { .research-visual { padding-top:65px; } }
+.section,.section + .section { border-bottom:0; border-top:0; }
+@media(max-width:580px) { .flight-year { background:none; }.flight-route-line { top:auto; bottom:0; } }
+
+/* One panel system throughout: ceramic bodies, navy registers, brass accents. */
+:root { --panel-register:#263e4b; --panel-register-text:#f1eee4; --panel-cut:18px; }
+.profile-display { width:164px; }
+.flight-chronicle,.research-exhibit,.project-card,.game-card,.award-list article,.award-card {
+ border:1px solid var(--line-strong); border-radius:0; background:var(--panel); color:var(--fog);
+ clip-path:polygon(0 0,calc(100% - var(--panel-cut)) 0,100% var(--panel-cut),100% 100%,var(--panel-cut) 100%,0 calc(100% - var(--panel-cut)));
+ box-shadow:none;
+}
+.flight-chronicle-heading,.research-register,.panel-register,.deck-card__bar {
+ background:var(--panel-register); color:var(--panel-register-text); border-bottom:1px solid var(--line-strong);
+}
+.flight-chronicle-heading { padding:20px 28px; }
+.flight-chronicle-heading .icon,.flight-chronicle-heading > span { color:#d7b37f; }
+.flight-chronicle::before { display:none; }
+.flight-detail { display:grid; align-items:start; overflow:clip; }
+.flight-detail-content { grid-area:1/1; visibility:hidden; opacity:0; pointer-events:none; animation:none; transform:translateY(16px); transition:opacity .45s,transform .65s var(--flight-ease),visibility .45s; }
+.flight-detail-content.is-selected { visibility:visible; opacity:1; pointer-events:auto; transform:none; }
+.flight-chronicle--study .flight-date,.flight-chronicle--study .flight-route button[aria-pressed='true'] .flight-year { color:var(--accent); }
+.flight-chronicles { gap:28px; }
+.flight-detail .detail-link { border-radius:2px; }
+.research-register { min-height:66px; padding:18px 28px; }
+.research-console { align-items:stretch; min-height:0; }
+.research-info-stack { display:grid; min-width:0; }
+.research-info { grid-area:1/1; align-self:stretch; display:flex; flex-direction:column; visibility:hidden; opacity:0; pointer-events:none; animation:none; transform:translateY(16px); transition:opacity .45s,transform .65s var(--flight-ease),visibility .45s; padding:36px 30px; }
+.research-info.is-selected { visibility:visible; opacity:1; pointer-events:auto; transform:none; }
+.research-info h3 { font-size:clamp(24px,2.2vw,30px); }
+.research-info .research-link { margin-top:auto; align-self:flex-start; }
+.research-venue { color:var(--accent); }.research-summary { color:var(--fog); }.research-authors { color:var(--mist); }.research-authors u { color:var(--fog); font-weight:600; }
+.research-link { border-color:var(--line-strong); color:var(--fog); }.research-link:hover { background:var(--space-1); }
+.research-visual { display:grid; grid-template-rows:1fr; min-height:430px; padding:50px 30px; overflow:clip; background:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px),var(--space-1); background-size:36px 36px; border-right:1px solid var(--line); }
+.research-specimen { margin:0; width:100%; }
+.specimen-stack { display:grid; }
+.specimen-frame { grid-area:1/1; visibility:hidden; opacity:0; animation:none; transform:translate3d(-35px,12px,-70px) rotateY(15deg) rotateZ(-5deg); transition:opacity .5s,transform .85s var(--flight-ease),visibility .5s; }
+.specimen-frame.is-selected { visibility:visible; opacity:1; transform:rotateY(-7deg) rotateX(4deg) rotateZ(-2deg); }
+.specimen-frame img { height:260px; }
+.specimen-underlay,.specimen-underlay::after { border-color:var(--line-strong); background:transparent; }
+.research-orbit,.research-orbit i { border-color:var(--line-strong); }.research-orbit i:nth-child(3) { border-color:color-mix(in srgb,var(--accent) 35%,transparent); }
+.research-navigation { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:18px; padding:16px 28px; min-height:82px; border-block:1px solid var(--line-strong); background:var(--space-1); font-size:18px; }
+.research-navigation > span { min-width:0; }.research-field { font-size:16px; color:var(--dim); }
+.research-controls button { width:46px; height:46px; color:var(--fog); border-color:var(--line-strong); background:var(--panel); }
+.research-controls button:hover { background:var(--space-2); transform:none; }
+.research-selectors { border-top:0; }
+.research-selectors button { background:var(--panel); color:var(--mist); border-color:var(--line); min-height:86px; }
+.research-selectors button[aria-pressed='true'],.research-selectors button[aria-pressed='true']:hover { background:var(--panel-register); color:var(--panel-register-text); }
+.research-selectors button:hover { background:var(--space-1); color:var(--fog); }
+.research-exhibit :focus-visible { outline-color:var(--accent); }
+.panel-register { display:flex; align-items:center; justify-content:space-between; min-height:60px; padding:15px 24px; font-size:16px; letter-spacing:.02em; }
+.panel-register > span:first-child { display:inline-flex; align-items:center; gap:12px; }.panel-register > span:last-child { color:#d7b37f; font-variant-numeric:tabular-nums; }
+.project-grid { gap:28px; align-items:stretch; }
+.project-card > .project-layout { height:calc(100% - 60px); display:flex; flex-direction:column; }
+.project-card__media { display:block; border:0; border-radius:0; margin:0; aspect-ratio:1.8; transform:none; background:var(--space-1); }
+.project-card__media img { width:100%; height:100%; object-fit:cover; }
+.project-card__body { padding:26px; transform:none; flex:1; display:flex; flex-direction:column; }
+.project-card__body h3 { font-size:30px; font-weight:500; }.project-card__body p { font-size:18px; }.project-card__body > strong { font-size:17px; font-weight:400; }
+.project-card .badge { align-self:flex-start; border:0; border-left:3px solid var(--accent); border-radius:0; padding:0 10px; font-size:16px; color:var(--accent); background:none; }
+.project-source.detail-link { align-self:flex-start; margin:24px 0 0; }
+.tag-row { gap:7px; }.tag-row span { border-radius:2px; background:var(--space-1); border:1px solid var(--line); padding:4px 9px; font-size:16px; }
+.game-grid--home { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.game-card { padding:0; overflow:clip; transition:border-color .4s,box-shadow .4s; }
+.game-card .video-frame { border:0; border-radius:0; margin:0; }
+.game-card__body { padding:26px; }
+.game-card__body h3 { margin:0 0 14px; font-size:28px; font-weight:500; }.game-card__body > strong { display:block; font-size:17px; margin-top:16px; font-weight:400; }
+.game-card__body .game-card__summary { font-size:18px; line-height:1.85; }.game-card__body small { font-size:16px; color:var(--accent); }
+.game-card__links .detail-link { margin:8px 0; }
+.game-grid--home .game-card:first-child { grid-column:1/-1; display:grid; grid-template-columns:1.2fr 1fr; }
+.game-grid--home .game-card:first-child .panel-register { grid-column:1/-1; }
+.game-grid--home .game-card:first-child .video-frame { align-self:center; margin:26px 0 26px 26px; }
+.game-card:hover,.project-card:hover { border-color:var(--accent); }
+.award-list { grid-template-columns:1fr 1fr; gap:20px; }
+.award-list article { position:relative; display:grid; grid-template-columns:88px minmax(0,1fr); gap:8px 22px; padding:28px; border-top:3px solid var(--panel-register); }
+.award-list article h3 { grid-column:2; margin:0; font-size:21px; line-height:1.55; font-weight:500; }
+.award-list__result { grid-column:2; font-size:20px; color:var(--accent); margin:0; line-height:1.7; }
+.award-list .award-list__blurb { grid-column:2; }
+.award-emblem { grid-column:1; grid-row:1/4; width:88px; align-self:center; position:relative; }
+.award-emblem svg { width:88px; height:88px; stroke:var(--signal); stroke-width:1; transition:transform 1s var(--flight-ease); }.award-emblem svg path:first-of-type { stroke:var(--accent); }
+.award-emblem > span { display:block; text-align:center; font-size:16px; color:var(--dim); letter-spacing:.15em; }
+.award-list article:hover .award-emblem svg { transform:rotate(18deg); }
+.award-card { padding:28px; border-top:3px solid var(--panel-register); }
+@media(max-width:1000px) {
+ .profile-display { width:145px; }.research-info { padding:28px 24px; }.research-visual { padding:42px 24px; }.specimen-frame img { height:230px; }
+ .award-list article { grid-template-columns:64px minmax(0,1fr); padding:22px; gap:8px 16px; }.award-emblem,.award-emblem svg { width:64px; }.award-emblem svg { height:64px; }
+}
+@media(max-width:800px) {
+ .research-visual { min-height:360px; border-right:0; border-bottom:1px solid var(--line); }.research-specimen { width:80%; margin:auto; }
+ .research-info h3 { font-size:27px; }.research-info { padding:30px; }.research-field { display:none; }
+ .game-grid--home .game-card:first-child { display:block; }.game-grid--home .game-card:first-child .video-frame { margin:0; }
+ .award-list { grid-template-columns:1fr; }
+}
+@media(max-width:580px) {
+ .profile-display { width:122px; margin-bottom:10px; }.hero__aside { height:250px; }.orbital-field { inset:-15px -5px 5px 27%; }
+ .flight-chronicle-heading { padding:18px 20px; }.flight-detail { min-height:0; }.research-register { padding:18px 20px; }.research-register > span:first-child { max-width:205px; }
+ .research-visual { min-height:300px; padding:42px 24px; }.research-specimen { width:100%; }.specimen-frame img { height:190px; }
+ .research-info { padding:26px 22px; }.research-info h3 { font-size:25px; }
+ .research-navigation { padding:15px 18px; min-height:92px; font-size:17px; }.research-selectors button { min-height:82px; padding:16px 12px; }
+ .game-grid--home,.project-grid { grid-template-columns:1fr; }.game-grid--home .game-card:first-child { grid-column:auto; }
+ .project-card__body,.game-card__body { padding:22px; }.panel-register { padding:15px 20px; }.project-card__body h3,.game-card__body h3 { font-size:27px; }
+ .award-list article { padding:22px 18px; grid-template-columns:58px minmax(0,1fr); gap:8px 14px; }.award-emblem,.award-emblem svg { width:58px; }.award-emblem svg { height:58px; }.award-list article h3 { font-size:20px; }.award-list__result { font-size:18px; }
+}
+[data-motion='paused'] .flight-detail-content,[data-motion='paused'] .research-info,[data-motion='paused'] .specimen-frame.is-selected { transform:none; }
+.flight-detail-content:not(.is-selected),.research-info:not(.is-selected) { visibility:hidden; transition:none; }
+/* Animate the contents; interaction targets never inherit a moving entrance. */
+.flight-chronicle.reveal,.research-exhibit.reveal { transform:none; transition:opacity .6s; }
+.game-grid--home .game-card { gap:0; padding:0; border:1px solid var(--line-strong); background:var(--panel); }
+.game-card { gap:0; }.game-card > .panel-register { grid-column:1/-1; }
+.game-card .game-card__body h3 { font-size:28px; }.game-card .game-card__body > strong { font-size:17px; font-weight:400; }
+.project-card__body .tag-row { margin-bottom:24px; }.project-source.detail-link { margin-top:auto; }
+@media(max-width:580px) { .game-card .game-card__body h3 { font-size:27px; } }
+.award-list article .award-list__result { color:var(--accent); font-size:20px; }
+.archive-list.papers { gap:28px; }
+.archive-list.papers .paper-card { border:1px solid var(--line-strong); background:var(--panel); clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px)); }
+.archive-list.papers .paper-card:nth-child(even) { margin-top:0; }
+.archive-list.papers .paper-figure { margin:0; border:0; border-top:5px solid var(--panel-register); border-radius:0; box-shadow:none; }
+.archive-list.papers .paper-card__content { padding:24px; }
+@media(max-width:580px) { .award-list article .award-list__result { font-size:18px; } }

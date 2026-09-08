@@ -1,16 +1,26 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
+import './dynamic.css';
+import './flight.css';
+import './constellation.css';
+import { SpatialField, SpatialGlyph } from './spatial-field.jsx';
+import { PublicationCard, ProjectViewport, GameTheater, HonorsGallery } from './content-experiences.jsx';
+import './content-experiences.css';
+import './finish.css';
+import { ResearchExhibit } from './research-exhibit.jsx';
+import { MetricsProvider, RepositoryStars } from './live-data.jsx';
+import { MotionProvider, ScrollEffects } from './motion.jsx';
+import { VideoDeck } from './video-deck.jsx';
+import { ExperienceJourney } from './experience-journey.jsx';
+import { Icon, linkIcon } from './icons.jsx';
 import {
   awards,
-  education,
   games,
   infernux,
   profile,
   projects,
-  publications,
-  researchDirections,
-  workExperience
+  publications
 } from './content.js';
 
 const NavigationContext = createContext(null);
@@ -71,7 +81,7 @@ function InternalLink({ href, children, className, ...rest }) {
 }
 
 const DOC_TITLES = {
-  home: 'Lizhe Chen | Graphics Systems, Infernux, Rendering Tools',
+  home: 'Lizhe Chen | Research & Creative Work',
   papers: 'Publications | Lizhe Chen',
   projects: 'Projects | Lizhe Chen',
   games: 'Games | Lizhe Chen',
@@ -125,7 +135,10 @@ function Shell() {
 
   return (
     <NavigationContext.Provider value={navigate}>
+      <MetricsProvider><MotionProvider lang={lang}>
       <div className="app">
+        <SpatialField/>
+        <ScrollEffects page={page} />
         <Masthead lang={lang} page={page} toggleLang={toggleLang} toggleTheme={toggleTheme} theme={theme} />
         <main className="main">
           <div key={page} className="page-transition">
@@ -133,6 +146,7 @@ function Shell() {
           </div>
         </main>
       </div>
+      </MotionProvider></MetricsProvider>
     </NavigationContext.Provider>
   );
 }
@@ -163,8 +177,8 @@ function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
         ))}
       </nav>
       <div className="masthead__actions">
-        <button type="button" onClick={toggleLang}>{lang === 'en' ? '中' : 'EN'}</button>
-        <button type="button" onClick={toggleTheme}>{theme === 'dark' ? 'Light' : 'Dark'}</button>
+        <button type="button" onClick={toggleLang}><Icon name="language"/>{lang === 'en' ? '中' : 'EN'}</button>
+        <button type="button" onClick={toggleTheme}><Icon name={theme === 'dark' ? 'sun' : 'moon'}/>{theme === 'dark' ? 'Light' : 'Dark'}</button>
       </div>
     </header>
   );
@@ -175,8 +189,8 @@ function Home({ lang }) {
     <>
       <Hero lang={lang} />
       <ResearchAndCareer lang={lang} />
-      <InfernuxFeature lang={lang} />
       <PublicationEvidence lang={lang} />
+      <InfernuxFeature lang={lang} />
       <ProjectPreview lang={lang} />
       <GamePreview lang={lang} />
       <Honors lang={lang} />
@@ -186,201 +200,58 @@ function Home({ lang }) {
 }
 
 function Hero({ lang }) {
-  const interests = lang === 'zh' ? profile.interestsZh : profile.interests;
   return (
     <section className="section hero">
       <div className="hero__primary">
-        <p className="hero__kicker">
-          <T en="GRAPHICS SYSTEMS · TSINGHUA UNIVERSITY" zh="图形系统 · 清华大学" lang={lang} />
-        </p>
-        <h1 className="hero__title">
-          <T en={`${profile.name} · ${profile.nameZh}`} zh={`${profile.nameZh} · ${profile.name}`} lang={lang} />
-        </h1>
-        <p className="hero__role"><T en={profile.title} zh={profile.titleZh} lang={lang} /></p>
-        <p className="hero__text"><T en={profile.thesis} zh={profile.thesisZh} lang={lang} /></p>
-        <p className="hero__text"><T en={profile.about} zh={profile.aboutZh} lang={lang} /></p>
-        <div className="hero__tags">
-          {interests.map((item) => <span key={item}>{item}</span>)}
-        </div>
+        <h1 className="hero__title"><span className="hero__greeting"><T en="Hello, I’m" zh="你好，我是" lang={lang} /></span><T en="Lizhe Chen." zh="陈立哲。" lang={lang} /></h1>
+        <p className="hero__text hero__current"><T en="I love making things that people can play with. Lately, I’ve been spending my time on Agentic Runtime and imagining what the next generation of AI-native games and engines could be." zh="我喜欢把脑海里的想法，做成可以亲手玩到的东西。最近在折腾 Agentic Runtime，也想看看下一代 AI-native 游戏和游戏引擎会是什么样。" lang={lang} /></p>
+        <p className="hero__text hero__about"><T en="I’m a master’s student at Tsinghua University. Along the way, I do graphics and visual intelligence research, contribute to open source, and make indie games. Welcome to have a look around." zh="现在在清华读研，做一些图形学与视觉智能研究，也写开源项目、做独立游戏。欢迎来逛逛。" lang={lang} /></p>
         <div className="hero__actions">
-          <a className="btn btn--primary" href="#infernux">Infernux</a>
-          <InternalLink className="btn btn--quiet" href="/papers.html"><T en="Publications" zh="论文" lang={lang} /></InternalLink>
+          <a className="btn btn--primary" href="#experience"><Icon name="down"/><T en="More about me" zh="了解更多" lang={lang} /></a>
+          <a className="btn btn--quiet" href="/attaches/CV.pdf" target="_blank" rel="noreferrer"><Icon name="download"/><T en="Résumé" zh="个人简历" lang={lang} /></a>
         </div>
-        <div className="hero__contacts">
-          {profile.emails.map((email) => <span key={email}>{email}</span>)}
-        </div>
+        <div className="hero__socials">{profile.links.filter(l => ['GitHub', 'Google Scholar'].includes(l.label)).map(link => <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(link.label)}/>{link.label}</a>)}<a href={`mailto:${profile.emails[0]}`}><Icon name="mail"/>Email</a></div>
       </div>
       <aside className="hero__aside">
-        <div className="portrait">
-          <img src="/img/profile.png" alt="Lizhe Chen" />
-          <div className="portrait__meta">
-            <p><T en={profile.affiliation} zh={profile.affiliationZh} lang={lang} /></p>
-            <h2>{lang === 'zh' ? profile.nameZh : profile.name}</h2>
-          </div>
-        </div>
-        <div className="stat-grid">
-          <Metric value="14+" label="papers" labelZh="论文" lang={lang} />
-          <Metric value="662+" label="Infernux ★" labelZh="Infernux ★" lang={lang} />
-        </div>
+        <div className="portrait-panel"><div className="portrait-register"><span>LIZHE CHEN</span><span>陈立哲</span></div><div className="portrait-stage"><SpatialGlyph/><div className="profile-display"><img src="/img/profile.png" alt="Lizhe Chen" /></div></div><div className="portrait-footer"><span>GRAPHICS / VLM</span><i aria-hidden="true"/></div></div>
       </aside>
     </section>
   );
 }
 
-function Metric({ value, label, labelZh, lang }) {
-  return (
-    <div className="stat">
-      <strong>{value}</strong>
-      <span><T en={label} zh={labelZh} lang={lang} /></span>
-    </div>
-  );
-}
-
 function ResearchAndCareer({ lang }) {
-  return (
-    <section className="section">
-      <header className="section__head">
-        <span className="section__id">01</span>
-        <div>
-          <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Focus & path" zh="方向与路径" lang={lang} /></p>
-          <h2 className="section__title"><T en="Research, school & work" zh="研究方向与学业/工作" lang={lang} /></h2>
-        </div>
-        <p className="section__lede">
-          <T
-            en="Neural rendering and large-scale graphics engineering on one side, VLM problems on the other—the timeline below is where those threads meet school and industry."
-            zh="一边是神经渲染和大规模图形工程，一边是视觉大模型相关题目；下面的时间线就是它们和学业、工作交汇的地方。"
-            lang={lang}
-          />
-        </p>
-      </header>
-      <div className="card-grid">
-        {researchDirections.map((item, i) => (
-          <article className="card" key={item.title}>
-            <div className="card__idx">{String(i + 1).padStart(2, '0')}</div>
-            <h3><T en={item.title} zh={item.titleZh} lang={lang} /></h3>
-            <p><T en={item.body} zh={item.bodyZh} lang={lang} /></p>
-          </article>
-        ))}
-      </div>
-      <div className="two-col research-career__timelines">
-        <div>
-          <header className="section__head section__head--stack">
-            <span className="section__id section__id--sub">01a</span>
-            <div>
-              <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Academic" zh="学历" lang={lang} /></p>
-              <h2 className="section__title section__title--sub"><T en="Education" zh="教育经历" lang={lang} /></h2>
-            </div>
-          </header>
-          <div className="timeline">
-            {education.map((item) => (
-              <article key={`${item.place}-${item.date}`}>
-                <span><T en={item.date} zh={item.dateZh || item.date} lang={lang} /></span>
-                <h3><T en={item.place} zh={item.placeZh} lang={lang} /></h3>
-                <strong><T en={item.role} zh={item.roleZh} lang={lang} /></strong>
-                <p><T en={item.desc} zh={item.descZh} lang={lang} /></p>
-              </article>
-            ))}
-          </div>
-        </div>
-        <div>
-          <header className="section__head section__head--stack">
-            <span className="section__id section__id--sub">01b</span>
-            <div>
-              <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Professional" zh="职业" lang={lang} /></p>
-              <h2 className="section__title section__title--sub"><T en="Work experience" zh="工作经历" lang={lang} /></h2>
-            </div>
-          </header>
-          <div className="timeline">
-            {workExperience.map((item) => (
-              <article key={`${item.place}-${item.date}`}>
-                <span><T en={item.date} zh={item.dateZh || item.date} lang={lang} /></span>
-                <h3><T en={item.place} zh={item.placeZh} lang={lang} /></h3>
-                <strong><T en={item.role} zh={item.roleZh} lang={lang} /></strong>
-                <p><T en={item.desc} zh={item.descZh} lang={lang} /></p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="section career-section" id="experience">
+    <header className="section__head"><span className="section__id">01</span><div><h2 className="section__title"><T en="Personal journey" zh="个人经历" lang={lang} /></h2></div><p className="section__lede"><T en="Learning, research, and the things I build along the way." zh="学习、研究，以及将想法做出来的过程。" lang={lang} /></p></header>
+    <ExperienceJourney lang={lang} />
+  </section>;
 }
 
 function InfernuxFeature({ lang }) {
-  return (
-    <section className="section feature" id="infernux">
-      <header className="section__head">
-        <span className="section__id">02</span>
-        <div>
-          <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Highlight project" zh="代表项目" lang={lang} /></p>
-          <h2 className="section__title">{infernux.name}</h2>
-        </div>
-        <p className="section__lede"><T en={infernux.headline} zh={infernux.headlineZh} lang={lang} /></p>
-      </header>
-
-      <div className="feature__split">
-        <div className="media media--infernux-video">
-          <iframe
-            src={infernux.demoVideo}
-            title="Infernux demo"
-            loading="lazy"
-            allowFullScreen
-          />
-        </div>
-        <div className="feature__copy">
-          <p><T en={infernux.summary} zh={infernux.summaryZh} lang={lang} /></p>
-          <p><T en={infernux.proposition} zh={infernux.propositionZh} lang={lang} /></p>
-          <div className="link-row">
-            <a className="btn btn--primary" href={infernux.url} target="_blank" rel="noreferrer">GitHub</a>
-            <a className="btn btn--quiet" href={infernux.website} target="_blank" rel="noreferrer">Site</a>
-            <a className="btn btn--quiet" href={infernux.docs} target="_blank" rel="noreferrer">Docs</a>
-            <a className="btn btn--quiet" href={infernux.report} target="_blank" rel="noreferrer">arXiv</a>
-          </div>
-        </div>
-      </div>
-
-      <div className="layer-grid">
-        {infernux.layers.map((layer) => (
-          <article className="layer" key={layer.title}>
-            <h3><T en={layer.title} zh={layer.titleZh} lang={lang} /></h3>
-            <p><Html value={lang === 'zh' ? (layer.bodyZh || layer.body) : layer.body} /></p>
-          </article>
-        ))}
-      </div>
-
-      <div className="capability">
-        <div>
-          <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Implementation" zh="实现范围" lang={lang} /></p>
-          <h3><T en="Current technical scope (preview)." zh="当前技术范围（预览）。" lang={lang} /></h3>
-        </div>
-        <ul>
-          {(lang === 'zh' ? infernux.capabilitiesZh : infernux.capabilities).map((cap) => <li key={cap}>{cap}</li>)}
-        </ul>
-      </div>
-    </section>
-  );
+  return <section className="section feature" id="infernux">
+    <header className="section__head"><span className="section__id">03</span><div><h2 className="section__title">Infernux</h2></div><p className="section__lede"><T en={infernux.headline} zh={infernux.headlineZh} lang={lang}/></p></header>
+    <VideoDeck lang={lang}/>
+    <div className="link-row feature-links"><a className="btn btn--primary" href={infernux.website} target="_blank" rel="noreferrer"><Icon name="globe"/><T en="Visit Infernux" zh="进入引擎官网" lang={lang}/><Icon name="external"/></a><a className="btn btn--quiet" href={infernux.url} target="_blank" rel="noreferrer"><Icon name="github"/>GitHub</a><RepositoryStars lang={lang}/></div>
+  </section>;
 }
 
 function PublicationEvidence({ lang }) {
   return (
     <section className="section">
       <header className="section__head">
-        <span className="section__id">03</span>
+        <span className="section__id">02</span>
         <div>
           <p className="eyebrow" style={{ margin: '0 0 0.5rem' }}><T en="Papers" zh="论文" lang={lang} /></p>
           <h2 className="section__title"><T en="Selected publications" zh="代表论文" lang={lang} /></h2>
         </div>
         <p className="section__lede">
           <T
-            en="Graphics and 3D representation work alongside VLM reasoning, graph-structured prompts, and vision-heavy detection."
-            zh="图形与三维表示相关论文，以及 VLM 推理、图结构提示与视觉密集型检测等工作。"
+            en="Real-time rendering, vision-language models, and understanding and generating 3D worlds."
+            zh="实时渲染、视觉语言模型，以及三维世界的理解与生成。"
             lang={lang}
           />
         </p>
       </header>
-      <div className="list-gap">
-        {publications.filter((p) => p.featured).map((paper) => <PaperCard key={paper.title} paper={paper} lang={lang} />)}
-      </div>
+      <ResearchExhibit lang={lang}/>
       <InternalLink className="text-link" href="/papers.html"><T en="All publications" zh="全部论文" lang={lang} /></InternalLink>
     </section>
   );
@@ -397,8 +268,8 @@ function ProjectPreview({ lang }) {
         </div>
         <p className="section__lede">
           <T
-            en="Rendering stacks, GPU visualization, and local tooling for graphics and multimodal experiments."
-            zh="渲染技术栈、GPU 可视化，以及服务图形与多模态实验的本地工具。"
+            en="Open-source projects I build and contribute to."
+            zh="我开发和参与的开源项目。"
             lang={lang}
           />
         </p>
@@ -424,9 +295,7 @@ function GamePreview({ lang }) {
           <T en="Making games is my purest hobby." zh="做游戏是我最纯粹的爱好。" lang={lang} />
         </p>
       </header>
-      <div className="game-grid game-grid--home">
-        {games.slice(0, 5).map((game) => <GameCard key={game.name} game={game} lang={lang} />)}
-      </div>
+      <GameTheater games={[games.find(g=>g.name==='Dong! Da-Dong!'),...games.filter(g=>g.name!=='Dong! Da-Dong!')]} lang={lang}/>
       <InternalLink className="text-link" href="/games.html"><T en="All games" zh="全部游戏" lang={lang} /></InternalLink>
     </section>
   );
@@ -443,60 +312,23 @@ function Honors({ lang }) {
         </div>
         <p className="section__lede section__lede--narrow">
           <T
-            en="Competition highlights with a one-line “what is this?” so friends outside the field can skim."
-            zh="挑了一些比赛成绩，每条附一句白话说明，方便非同行快速扫一眼。"
+            en="Some milestones from building, competing and working with wonderful teammates."
+            zh="和伙伴们一起做作品、参加比赛，留下的一些纪念。"
             lang={lang}
           />
         </p>
       </header>
-      <div className="award-list award-list--verbose">
-        {awards.map((item) => (
-          <article key={item.title}>
-            <h3><T en={item.title} zh={item.titleZh} lang={lang} /></h3>
-            <p className="award-list__result"><T en={item.result} zh={item.resultZh} lang={lang} /></p>
-            <p className="award-list__blurb"><T en={item.blurb} zh={item.blurbZh} lang={lang} /></p>
-          </article>
-        ))}
-      </div>
+      <HonorsGallery awards={awards} lang={lang}/>
     </section>
-  );
-}
-
-function PaperCard({ paper, lang }) {
-  const body = (
-    <>
-      <span className={`badge ${paper.level === 'ccf-a' ? 'badge--ccf-a' : ''} ${paper.level === 'journal' ? 'badge--journal' : ''}`}>{paper.levelLabel}</span>
-      <h3>{paper.title}</h3>
-      <p><Html value={paper.authors} /></p>
-      {(paper.intro || paper.introZh) && (
-        <p className="paper-card__intro"><T en={paper.intro} zh={paper.introZh || paper.intro} lang={lang} /></p>
-      )}
-      <small><T en={paper.venue} zh={paper.venueZh} lang={lang} /></small>
-    </>
-  );
-
-  return (
-    <article className="paper-card">
-      {paper.link ? <a href={paper.link} target="_blank" rel="noreferrer">{body}</a> : body}
-    </article>
   );
 }
 
 function ProjectCard({ project, lang }) {
   return (
     <article className="project-card">
-      <a
-        className="project-card__media"
-        href={project.url}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src={project.image}
-          alt={project.name}
-          onError={(e) => { e.currentTarget.parentElement?.classList.add('is-missing'); }}
-        />
-      </a>
+      <PanelRegister label={project.name} index={project.name === 'Infernux' ? '01' : '02'} icon="github"/>
+      <div className="project-layout">
+      <ProjectViewport project={project} lang={lang}/>
       <div className="project-card__body">
         <span className="badge">{lang === 'zh' ? project.statusZh : project.status}</span>
         <h3><a href={project.url} target="_blank" rel="noreferrer">{project.name}</a></h3>
@@ -508,35 +340,8 @@ function ProjectCard({ project, lang }) {
         )}
         <strong><T en={project.role} zh={project.roleZh} lang={lang} /></strong>
         <TagRow tags={project.tags} />
+        <a className="detail-link project-source" href={project.url} target="_blank" rel="noreferrer"><Icon name="github"/>{lang==='zh'?'查看项目':'Explore project'}<Icon name="external"/></a>
       </div>
-    </article>
-  );
-}
-
-function GameCard({ game, lang }) {
-  return (
-    <article className="game-card">
-      <div className="video-frame">
-        <iframe src={game.video} title={game.name} loading="lazy" allowFullScreen />
-      </div>
-      <div>
-        <h3><T en={game.name} zh={game.nameZh} lang={lang} /></h3>
-        <strong><T en={game.role} zh={game.roleZh} lang={lang} /></strong>
-        <p className="game-card__summary"><T en={game.desc} zh={game.descZh} lang={lang} /></p>
-        {game.detail && (
-          <p className="game-card__detail">
-            <Html value={lang === 'zh' ? (game.detailZh || game.detail) : game.detail} />
-          </p>
-        )}
-        {(game.awards || game.awardsZh) && (
-          <small><T en={game.awards} zh={game.awardsZh} lang={lang} /></small>
-        )}
-        {game.bilibili && (
-          <p className="game-card__links">
-            <a href={game.bilibili} target="_blank" rel="noreferrer">Bilibili</a>
-          </p>
-        )}
-        <TagRow tags={game.tags} />
       </div>
     </article>
   );
@@ -550,25 +355,30 @@ function TagRow({ tags }) {
   );
 }
 
+function PanelRegister({ label, index, icon }) {
+  return <div className="panel-register"><span><Icon name={icon}/>{label}</span><span>{index}</span></div>;
+}
+
 function ArchivePage({ page, lang }) {
+  const [filter, setFilter] = useState('all');
   const config = {
     papers: {
       eyebrow: 'Publication archive',
       eyebrowZh: '论文档案',
-      title: 'Research outputs',
-      titleZh: '研究产出',
-      intro: 'Papers, reports, and preprints across graphics, engines, and reasoning.',
-      introZh: '图形、引擎与推理相关的论文、报告与预印本。',
+      title: 'Publications',
+      titleZh: '论文',
+      intro: 'Research in computer graphics, visual understanding and language-model reasoning.',
+      introZh: '计算机图形学、视觉理解与语言模型推理相关研究。',
       items: publications,
-      render: (item) => <PaperCard key={item.title} paper={item} lang={lang} />
+
     },
     projects: {
       eyebrow: 'Project archive',
       eyebrowZh: '项目档案',
       title: 'Systems & tools',
       titleZh: '系统与工具',
-      intro: 'Graphics stacks, GPU tools, and VLM-facing workbenches with repository links.',
-      introZh: '图形技术栈、GPU 工具与面向 VLM 的工作台，附仓库链接。',
+      intro: 'Open-source projects I build and contribute to.',
+      introZh: '我开发和参与的开源项目。',
       items: projects,
       render: (item) => <ProjectCard key={item.name} project={item} lang={lang} />
     },
@@ -580,7 +390,6 @@ function ArchivePage({ page, lang }) {
       intro: 'Game projects and demos.',
       introZh: '游戏项目与演示。',
       items: games,
-      render: (item) => <GameCard key={item.name} game={item} lang={lang} />
     },
     awards: {
       eyebrow: 'Awards',
@@ -590,25 +399,21 @@ function ArchivePage({ page, lang }) {
       intro: 'Selected competition results.',
       introZh: '部分竞赛与评选结果。',
       items: awards,
-      render: (item) => (
-        <article className="award-card" key={item.title}>
-          <h3><T en={item.title} zh={item.titleZh} lang={lang} /></h3>
-          <p className="award-list__result"><T en={item.result} zh={item.resultZh} lang={lang} /></p>
-          <p className="award-list__blurb"><T en={item.blurb} zh={item.blurbZh} lang={lang} /></p>
-        </article>
-      )
+
     }
   }[page];
 
+  const paperGroup = paper => /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(paper.image) ? 'graphics' : /corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(paper.image) ? 'vision' : 'other';
+  const categories = [['all','全部','All'],['graphics','图形与三维','Graphics & 3D'],['vision','视觉与语言','Vision & language'],['other','其他研究','Other research']];
+  const visibleItems = page==='papers' && filter!=='all' ? config.items.filter(p=>paperGroup(p)===filter) : config.items;
+
+
   return (
     <>
-      <section className="archive-hero">
-        <p className="eyebrow"><T en={config.eyebrow} zh={config.eyebrowZh} lang={lang} /></p>
-        <h1><T en={config.title} zh={config.titleZh} lang={lang} /></h1>
-        <p><T en={config.intro} zh={config.introZh} lang={lang} /></p>
-      </section>
-      <section className={`archive-list ${page}`}>
-        {config.items.map(config.render)}
+      <h1 className="visually-hidden">{lang==='zh'?config.titleZh:config.title}</h1>
+      {page==='papers' && <div className="archive-filters" aria-label={lang==='zh'?'研究方向':'Research areas'}>{categories.map(([id,zh,en])=><button key={id} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{lang==='zh'?zh:en}</button>)}</div>}
+      <section className={['games','awards'].includes(page)?`content-archive content-archive--${page}`:`archive-list ${page} archive-content`}>
+        {page==='papers' ? visibleItems.map(p=><PublicationCard key={p.title} paper={p} lang={lang}/>) : page==='games' ? <GameTheater games={[games.find(g=>g.name==='Dong! Da-Dong!'),...games.filter(g=>g.name!=='Dong! Da-Dong!')]} lang={lang}/> : page==='awards' ? <HonorsGallery awards={awards} lang={lang}/> : visibleItems.map(config.render)}
       </section>
       <Footer lang={lang} />
     </>
@@ -620,13 +425,16 @@ function Footer({ lang }) {
     <footer className="footer">
       <div>
         <strong>{lang === 'zh' ? profile.nameZh : profile.name}</strong>
-        <p><T en="Graphics, vision-language models, publications, and game shipping." zh="图形学、视觉语言模型、论文与游戏交付。" lang={lang} /></p>
+        <p><T en="Bridging virtual worlds and physical reality." zh="Bridging virtual worlds and physical reality." lang={lang} /></p>
       </div>
       <div className="footer-links">
-        {profile.links.map((link) => <a key={link.label} href={link.url} target="_blank" rel="noreferrer">{link.label}</a>)}
+        {profile.links.map((link) => <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(link.label)}/>{link.label}</a>)}
       </div>
     </footer>
   );
 }
 
-createRoot(document.getElementById('root')).render(<Shell />);
+// Keep the React root when Vite refreshes the entry module during design edits.
+const root = import.meta.hot?.data.root ?? createRoot(document.getElementById('root'));
+if (import.meta.hot) import.meta.hot.data.root = root;
+root.render(<Shell />);

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-08T06:24:45.470Z",
+  "videos": {
+    "BV1jXXaBQE1R": {
+      "views": 115502,
+      "likes": 5670,
+      "title": "在清华读研半年，我做了个开源游戏引擎",
+      "poster": "https://i1.hdslb.com/bfs/archive/5f9911aa9d0f81bedfa8a1f43d670f05b0dd93d6.jpg",
+      "url": "https://www.bilibili.com/video/BV1jXXaBQE1R",
+      "updatedAt": "2026-09-08T06:24:46.426Z",
+      "attemptedAt": "2026-09-08T06:24:46.426Z",
+      "status": "ok"
+    },
+    "BV1538P6jELT": {
+      "views": 28803,
+      "likes": 739,
+      "title": "人24岁，在自研游戏引擎。引擎1岁，刚长出粒子系统。",
+      "poster": "https://i0.hdslb.com/bfs/archive/8b33b81e3a75f1d3eab6b9cf1d8faad4e3bbf3ad.jpg",
+      "url": "https://www.bilibili.com/video/BV1538P6jELT",
+      "updatedAt": "2026-09-08T06:24:46.708Z",
+      "attemptedAt": "2026-09-08T06:24:46.708Z",
+      "status": "ok"
+    },
+    "BV1dSRkBnEXU": {
+      "views": 47744,
+      "likes": 1764,
+      "title": "［引擎日志］Python写的游戏引擎，能比Unity更快么？",
+      "poster": "https://i0.hdslb.com/bfs/archive/bc962decd12fc1c21f6d9639132264ad5c278909.jpg",
+      "url": "https://www.bilibili.com/video/BV1dSRkBnEXU",
+      "updatedAt": "2026-09-08T06:24:46.809Z",
+      "attemptedAt": "2026-09-08T06:24:46.809Z",
+      "status": "ok"
+    },
+    "BV1ZG5F6NEd4": {
+      "views": 8273,
+      "likes": 159,
+      "title": "《有求必应》| 用七天搓一个游戏Demo，“三个愿望一次满足”",
+      "poster": "https://i1.hdslb.com/bfs/archive/78acccd7d79f1e8b72e57c0b837d2f076f914767.jpg",
+      "url": "https://www.bilibili.com/video/BV1ZG5F6NEd4",
+      "updatedAt": "2026-09-08T06:24:46.871Z",
+      "attemptedAt": "2026-09-08T06:24:46.871Z",
+      "status": "ok"
+    },
+    "BV18F1EYREqY": {
+      "views": 14507,
+      "likes": 1853,
+      "title": "【Taptap聚光灯2024】轻解谜休闲游戏《此处应有猫》宣传片&实机演示预告片",
+      "poster": "https://i0.hdslb.com/bfs/archive/30ce8c235d7294f2c6ea725595301579d5531174.jpg",
+      "url": "https://www.bilibili.com/video/BV18F1EYREqY",
+      "updatedAt": "2026-09-08T06:24:46.925Z",
+      "attemptedAt": "2026-09-08T06:24:46.925Z",
+      "status": "ok"
+    },
+    "BV1KT3czoEsP": {
+      "views": 6565,
+      "likes": 282,
+      "title": "2025CIGA Gamejam双人作品 禅系游戏《樹》",
+      "poster": "https://i0.hdslb.com/bfs/archive/a6e076edf0812a0deb4e45206ffcb76179be6b25.jpg",
+      "url": "https://www.bilibili.com/video/BV1KT3czoEsP",
+      "updatedAt": "2026-09-08T06:24:46.991Z",
+      "attemptedAt": "2026-09-08T06:24:46.991Z",
+      "status": "ok"
+    },
+    "BV1eS64BNEem": {
+      "views": 6724,
+      "likes": 2116,
+      "title": "[Global Gamejam2026]双人作品：卸装日Unmasking Day",
+      "poster": "https://i2.hdslb.com/bfs/archive/35fe5abace11f609180eeb7c0fa6df58a8947645.jpg",
+      "url": "https://www.bilibili.com/video/BV1eS64BNEem",
+      "updatedAt": "2026-09-08T06:24:47.058Z",
+      "attemptedAt": "2026-09-08T06:24:47.058Z",
+      "status": "ok"
+    },
+    "BV1ufBZBkEp2": {
+      "views": 230483,
+      "likes": 21153,
+      "title": "《咚！哒咚！》我们拿到了米哈游策划大赛一等奖！",
+      "poster": "https://i1.hdslb.com/bfs/archive/e60d9e64887c7d76e8837e382a50a56d30af8c14.jpg",
+      "url": "https://www.bilibili.com/video/BV1ufBZBkEp2",
+      "updatedAt": "2026-09-08T06:24:47.124Z",
+      "attemptedAt": "2026-09-08T06:24:47.124Z",
+      "status": "ok"
+    },
+    "BV1RSrWBhEbr": {
+      "views": 4112,
+      "likes": 1078,
+      "title": "我们直接把虫子改造成了活体流水线！[学生作品demo]",
+      "poster": "https://i2.hdslb.com/bfs/archive/ed411761eeeecc057ac6c47d5a66c446ec5913c4.jpg",
+      "url": "https://www.bilibili.com/video/BV1RSrWBhEbr",
+      "updatedAt": "2026-09-08T06:24:47.194Z",
+      "attemptedAt": "2026-09-08T06:24:47.194Z",
+      "status": "ok"
+    }
+  },
+  "github": {
+    "stars": 982,
+    "forks": 82,
+    "url": "https://github.com/ChenlizheMe/Infernux",
+    "updatedAt": "2026-09-08T06:24:45.471Z",
+    "attemptedAt": "2026-09-08T06:24:45.471Z",
+    "status": "ok"
+  },
+  "release": {
+    "tag": "v0.4.0",
+    "url": "https://github.com/ChenlizheMe/Infernux/releases/tag/v0.4.0",
+    "publishedAt": "2026-09-06T17:56:54Z",
+    "updatedAt": "2026-09-08T06:24:46.020Z",
+    "attemptedAt": "2026-09-08T06:24:46.020Z",
+    "status": "ok"
+  }
+}
