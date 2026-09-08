@@ -27,23 +27,25 @@ export const profile = {
 export const infernux = {
   name: 'Infernux',
   url: 'https://github.com/ChenlizheMe/Infernux',
-  docs: 'https://chenlizheme.github.io/Infernux/wiki.html',
-  website: 'https://chenlizheme.github.io/Infernux/',
+  docs: 'https://infernux-engine.com/wiki.html',
+  website: 'https://infernux-engine.com/',
   report: 'https://arxiv.org/abs/2604.10263',
   demoVideo:
     'https://player.bilibili.com/player.html?isOutside=true&aid=116318384753366&bvid=BV1jXXaBQE1R&cid=37098294014&p=1',
-  image: '/img/projects/infengine.png',
-  stars: '662+',
-  forks: '52',
-  release: 'v0.1.4',
+  videos: [
+    { bvid: 'BV1538P6jELT', url: 'https://player.bilibili.com/player.html?bvid=BV1538P6jELT&p=1', chapter: 'DEVELOPMENT', title: 'An engine grows a particle system', titleZh: '引擎一岁，刚长出粒子系统', short: 'Particles', shortZh: '粒子系统' },
+    { bvid: 'BV1dSRkBnEXU', url: 'https://player.bilibili.com/player.html?bvid=BV1dSRkBnEXU&p=1', chapter: 'SYSTEMS', title: 'Animation, MCP & engine performance', titleZh: '动画系统、MCP 与引擎性能', short: 'Animation & MCP', shortZh: '动画与 MCP' },
+    { bvid: 'BV1jXXaBQE1R', url: 'https://player.bilibili.com/player.html?bvid=BV1jXXaBQE1R&p=1', chapter: 'ORIGIN', title: 'Building an open-source game engine', titleZh: '在清华读研半年，我做了个开源游戏引擎', short: 'The beginning', shortZh: '引擎的起点' }
+  ],
+  image: '/img/projects/infernux-editor-current.png',
   headline:
-    'Every graphics enthusiast wants a renderer to call their own; I pushed that dream one step further—I want a game engine of my own. Infernux is that engine.',
+    'An open-source game engine, from the rendering core to the editor.',
   headlineZh:
-    '每一个图形学爱好者都想拥有一个属于自己的渲染器，我把这个愿望往前推了一步——我想拥有一个属于自己的游戏引擎。Infernux 就是这样一款引擎。',
+    '从渲染核心到编辑器，持续开发中的开源游戏引擎。',
   summary:
-    'At its core Infernux is a game engine: Vulkan-first runtime, integrated editor, physics, assets, and a pass stack you can actually reshape. I use it to ship real-time features—forward/deferred paths, PBR, cascaded shadows, post-processing, RenderGraph-style composition—while keeping shaders, passes, and scene data easy to iterate on.',
+    'I started Infernux to explore real-time rendering through a complete, working engine. It brings together a Vulkan renderer, editor, physics and asset tools.',
   summaryZh:
-    'Infernux 本质上是一款游戏引擎：Vulkan 运行时、集成编辑器、物理与资产管线，以及可以真正改写的通道栈。我在其中落地并压测实时特性——前向/延迟路径、PBR、级联阴影、后处理、类 RenderGraph 的编排——同时让 shader、通道与场景数据保持可快速迭代。',
+    '我用 Infernux 实践实时渲染，也逐步把它做成一款完整的游戏引擎。目前包含 Vulkan 渲染器、编辑器、物理系统与资产工具。',
   proposition:
     'It is still deliberately graphics-led: the renderer owns the frame budget, and the editor exists to shrink the gap between an idea and something you can play or profile. A technical report covers batch data paths and optional acceleration when tooling stacks get heavy.',
   propositionZh:
@@ -97,7 +99,7 @@ export const researchDirections = [
     title: 'Neural rendering, GPU parallelism & large-scale graphics',
     titleZh: '神经渲染、GPU 并行与大规模图形工程',
     body: 'Radiance fields / splats, OptiX-class ray tracing, and the kind of CUDA–warp parallel patterns you need when scenes, sensors, or batch sizes stop being toy-sized—plus the engineering discipline to keep a big renderer maintainable.',
-    bodyZh: '辐射场与高斯泼溅、OptiX 类光追，以及场景/传感器/批量一大就不够玩的 CUDA–warp 并行套路；再加上把大型渲染管线做成可维护工程的那套习惯。'
+    bodyZh: '关注辐射场与高斯泼溅、光线追踪，以及大规模场景与多传感器仿真中的 GPU 并行计算。'
   },
   {
     title: 'Vision-language models',
@@ -115,276 +117,263 @@ export const researchDirections = [
 
 export const publications = [
   {
-    title: 'Infernux: A Python-Native Game Engine with JIT-Accelerated Scripting',
-    authors: '<u>L. Chen</u>',
-    venue: 'arXiv 2026 · cs.GR',
-    venueZh: 'arXiv 2026 · 计算机图形学',
-    level: 'preprint',
-    levelLabel: 'Technical Report',
-    link: 'https://arxiv.org/abs/2604.10263',
-    image: '/img/projects/infengine.png',
-    intro:
-      'Every graphics kid secretly wants their own engine; mine just would not stay a weekend toy. Infernux is the notebook where I admit that dream out loud—Python on top for iteration, Vulkan underneath for the frame, and a few batchy fast paths so the editor does not eat the budget you fought for.',
-    introZh:
-      '学图形的人心里多少都藏过「做自己的引擎」这句大话；我的区别大概是没让它停在周末玩具。Infernux 算是一页公开的实验记录：上面用 Python 换迭代速度，底下用 Vulkan 扛帧，再在工具链变重时偷偷铺几条批量快速路——不然调试一开会，帧时间先替你脸红。',
-    featured: true
+    "title": "Infernux: A Python-Native Game Engine with JIT-Accelerated Scripting",
+    "authors": "<u>Lizhe Chen</u>",
+    "venue": "arXiv 2026 · cs.GR",
+    "venueZh": "arXiv 2026 · cs.GR",
+    "level": "preprint",
+    "levelLabel": "Technical Report",
+    "link": "https://arxiv.org/abs/2604.10263",
+    "image": "/img/projects/infernux-editor-current.png",
+    "intro": "A technical report on a Python-native game engine and JIT-accelerated scripting.",
+    "introZh": "Python 原生游戏引擎与 JIT 加速脚本系统的技术报告。",
+    "featured": false,
+    "imageKind": "project"
   },
   {
-    title: 'Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives',
-    authors: 'Y. Zhang, <u>L. Chen</u>, J. Yao, Z. Wang, S. Chen',
-    venue: 'Visual Informatics, 2026',
-    venueZh: 'Visual Informatics, 2026',
-    level: 'journal',
-    levelLabel: 'Journal',
-    link: 'https://doi.org/10.1016/j.visinf.2025.100301',
-    intro:
-      'We kept the virtual maze honest—same walls, same goals—and only moved the “stage lighting”: where landmarks sit and how dramatic the camera behaves. The punchline is pedestrian but useful: spatial memory is surprisingly sensitive to those cues, which matters if you teach VR or build map UIs.',
-    introZh:
-      '虚拟场景里找路这件事，听起来不如冰雪和海浪浪漫，却最像日常做产品时会踩的坑。我们把迷宫本体固定住，只动地标和镜头气质，看人的空间记忆跟着怎么飘——结论很朴素：眼睛被怎样「导演」，脑子里的地图就怎样长；做教程和导航界面的人大概会点头。',
-    featured: false
+    "title": "Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives",
+    "authors": "Yifei Zhang, <u>Lizhe Chen</u>, Jun-Hsiang Yao, Zhan Wang, Siming Chen",
+    "venue": "Visual Informatics 10(2), 100301, 2026",
+    "venueZh": "Visual Informatics 10(2), 100301, 2026",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://doi.org/10.1016/j.visinf.2025.100301",
+    "intro": "A comparative study of visual cues, virtual environments and viewing perspectives in spatial learning.",
+    "introZh": "比较视觉线索、虚拟环境与观察视角对空间学习的影响。",
+    "featured": false,
+    "image": "/img/papers/spatial-learning.png",
+    "imageKind": "figure"
   },
   {
-    title: 'CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection',
-    authors: 'B. Zhou, H. Lou, <u>L. Chen</u>, H. Li, D. Luo, S. Chen, J. Lei, Z. Feng, Y. Bei',
-    venue: 'IJCAI 2025',
-    venueZh: 'IJCAI 2025',
-    level: 'ccf-a',
-    levelLabel: 'CCF-A',
-    link: 'https://arxiv.org/abs/2507.05302',
-    intro:
-      'Deepfakes often win the poster frame and lose the pores. CorrDetail is the small habit of looking twice: if the first verdict feels lazy, the model argues with its own mistake, magnifies the brittle texture band, then merges evidence—less theatre, more “did we actually check the seams?”',
-    introZh:
-      '伪造脸最狡猾的地方，往往是远景像模像样，近看纹理却经不起推敲。CorrDetail 做的是一件很小但像习惯的事：第一遍若心里发虚，就让模型自己跟自己抬杠——把容易露馅的细节带拿出来再看一眼，再谈融合。像不像画动画时那句「再检查一遍线脚」？只是这次对线脚较真的是网络。',
-    featured: true
+    "title": "CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection",
+    "authors": "Binjia Zhou, Hengrui Lou, <u>Lizhe Chen</u>, Haoyuan Li, Dawei Luo, Shuai Chen, Jie Lei, Zunlei Feng, Yijun Bei",
+    "venue": "IJCAI 2025 · 2485–2493",
+    "venueZh": "IJCAI 2025 · 2485–2493",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://www.ijcai.org/proceedings/2025/277",
+    "intro": "Visual detail enhancement and self-correction for interpretable face forgery detection.",
+    "introZh": "结合视觉细节增强与自我纠正，实现可解释的人脸伪造检测。",
+    "featured": true,
+    "image": "/img/papers/corrdetail.png",
+    "imageKind": "figure"
   },
   {
-    title: 'Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking',
-    authors: 'Y. Ge, S. Liu, Y. Wang, L. Mei, <u>L. Chen</u>, B. Bi, X. Cheng',
-    venue: 'ACL 2025',
-    venueZh: 'ACL 2025',
-    level: 'ccf-a',
-    levelLabel: 'CCF-A',
-    link: 'https://arxiv.org/abs/2503.19602',
-    intro:
-      'Reasoning models can already “do math,” yet they sometimes write a whole essay to feel safe. We chased the boring but practical question: do a few in-context examples still help? Turns out they can trim that overthinking without pretending the model forgot how to think.',
-    introZh:
-      '推理模型明明会算，却常常在纸上写满自我安慰的步骤——像怕老师扣分的中学生。我们回头问了一句很朴素的话：给几条上下文示范，还会不会帮它？答案有点反直觉：能，而且常常是把「写太多」的毛病先按住，而不是把智商借给它。',
-    featured: true
+    "title": "Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking",
+    "authors": "Yuyao Ge, Shenghua Liu, Yiwei Wang, Lingrui Mei, <u>Lizhe Chen</u>, Baolong Bi, Xueqi Cheng",
+    "venue": "ACL 2026 · Long Papers",
+    "venueZh": "ACL 2026 · Long Papers",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://arxiv.org/abs/2503.19602",
+    "intro": "An analysis of chain-of-thought prompting and in-context examples for reasoning models and overthinking.",
+    "introZh": "分析思维链提示与上下文示例对推理模型表现及过度思考的影响。",
+    "featured": false,
+    "image": "/img/papers/innate-reasoning.png",
+    "imageKind": "figure"
   },
   {
-    title: 'Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?',
-    authors: 'Y. Ge, S. Liu, B. Bi, Y. Wang, L. Mei, W. Feng, <u>L. Chen</u>, X. Cheng',
-    venue: 'ACL 2025',
-    venueZh: 'ACL 2025',
-    level: 'ccf-a',
-    levelLabel: 'CCF-A',
-    link: 'https://aclanthology.org/2025.acl-long.321',
-    intro:
-      'A graph does not change when you permute its edges—but the story you tell about it does. We systematically re-ordered text descriptions (walks that feel like BFS, DFS, PageRank tours) and watched classic tasks tilt; the moral is that “just wording” deserves a seat at the table, not a footnote.',
-    introZh:
-      '图还是那张图，可一旦要念给大模型听，先念哪条边、后念哪个角，竟像换了一支笔。我们把叙述顺序当成正经变量扫了一遍——BFS 气质的、DFS 气质的、带着 PageRank 口吻的——连通、最短路一类老题居然跟着摇摆。说来好笑：最「文科」的排版，偏偏最理科地改了分数。',
-    featured: true
+    "title": "Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?",
+    "authors": "Yuyao Ge, Shenghua Liu, Baolong Bi, Yiwei Wang, Lingrui Mei, Wenjie Feng, <u>Lizhe Chen</u>, Xueqi Cheng",
+    "venue": "ACL 2025 · Long Papers · 6404–6420",
+    "venueZh": "ACL 2025 · Long Papers · 6404–6420",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://aclanthology.org/2025.acl-long.321/",
+    "intro": "A study of how graph description order affects large language models on graph reasoning tasks.",
+    "introZh": "研究图的描述顺序如何影响大语言模型求解图推理任务。",
+    "featured": false,
+    "image": "/img/papers/graph-descriptive.png",
+    "imageKind": "figure"
   },
   {
-    title: 'PIS: Linking Importance Sampling and Attention Mechanisms for Efficient Prompt Compression',
-    authors: '<u>L. Chen</u>, B. Zhou, Y. Ge, J. Chen, S. Ni',
-    venue: 'arXiv 2025',
-    venueZh: 'arXiv 2025',
-    level: 'preprint',
-    levelLabel: 'Preprint',
-    link: 'https://arxiv.org/abs/2504.16574',
-    intro:
-      'Long prompts are a tax on every forward pass. PIS borrows a sampler’s instinct—keep probability mass where it matters—and hands it to attention so pruning stops feeling like random vandalism.',
-    introZh:
-      '长提示词像随身携带的行李，每走一步都要重新过安检。PIS 借的是采样里那句老话：质量要留在该在的地方。把它和注意力对上号之后，砍 token 就不像乱删句子，而更像「知道哪几句其实在划水」。',
-    featured: false
+    "title": "PIS: Linking Importance Sampling and Attention Mechanisms for Efficient Prompt Compression",
+    "authors": "<u>Lizhe Chen</u>, Binjia Zhou, Yuyao Ge, Jiayi Chen, Shiguang Ni",
+    "venue": "arXiv 2025",
+    "venueZh": "arXiv 2025",
+    "level": "preprint",
+    "levelLabel": "Preprint",
+    "link": "https://arxiv.org/abs/2504.16574",
+    "intro": "Connecting importance sampling with attention mechanisms for efficient prompt compression.",
+    "introZh": "将重要性采样与注意力机制联系起来，用于高效提示词压缩。",
+    "featured": false,
+    "image": "/img/papers/pis.png",
+    "imageKind": "figure"
   },
   {
-    title: 'FEMA: Emotion-Driven Personification in Generative Agents',
-    authors: 'S. Shao, X. Qin, S. Wu, G. Lin, Y. Zhang, <u>L. Chen</u>',
-    venue: 'IJCNN 2025 · CCF-C',
-    venueZh: 'IJCNN 2025 · CCF-C',
-    level: 'ccf-c',
-    levelLabel: 'CCF-C',
-    link: 'https://doi.org/10.1109/ijcnn64981.2025.11229401',
-    intro:
-      'NPC small talk dies the moment it feels drawn from a hat. FEMA is a modest attempt to let mood steer habit, and habit steer persona—so generated agents at least fake continuity instead of roulette.',
-    introZh:
-      '生成式角色最容易穿帮的，是情绪像抽签、习惯像刷新。FEMA 想做的其实很小：让「心情」先养成一点惯性，再让惯性沉淀成人格——聊天不至于每一步都换人格。做演示 NPC 时，这点体面有时比堆参数管用。',
-    featured: false
+    "title": "FEMA: Emotion-Driven Personification in Generative Agents",
+    "authors": "Sihan Shao, Xinshan Qin, Shuangjin Wu, Guanhua Lin, Yu Zhang, <u>Lizhe Chen</u>",
+    "venue": "IJCNN 2025",
+    "venueZh": "IJCNN 2025",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://doi.org/10.1109/ijcnn64981.2025.11229401",
+    "intro": "Emotion-driven personification for generative agents.",
+    "introZh": "面向生成式智能体的情绪驱动人格化研究。",
+    "featured": false,
+    "image": "/img/papers/fema.png",
+    "imageKind": "figure"
   },
   {
-    title: '3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos',
-    authors: 'X. Cai, H. Zhang, <u>L. Chen</u>, Y. Wu, H. Sun',
-    venue: 'The Visual Computer, 2025 · CCF-C',
-    venueZh: 'The Visual Computer, 2025 · CCF-C',
-    level: 'journal',
-    levelLabel: 'CCF-C',
-    link: 'https://doi.org/10.1007/s00371-024-03604-y',
-    intro:
-      'Stage opera stretches bodies into poses that everyday mocap benchmarks barely see—graceful, brutal, and unfair to off-the-shelf lifting. We coupled joints across time with spatiotemporal hypergraphs and released a public bench so the community stops treating those motions as anecdotes.',
-    introZh:
-      '戏曲身段那种又美又刁的扭法，常见数据集里反而不常出现；拿来当 benchmark 时，总像在说轶事而不是在说科学。我们用时空超图把关节在时间里绑得更紧，又把这个舞台公开出去——希望以后写论文时，别再把「水袖一挥」只当插图说明。',
-    featured: false
+    "title": "3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos",
+    "authors": "Xingquan Cai, Haoyu Zhang, <u>Lizhe Chen</u>, Yijie Wu, Haiyan Sun",
+    "venue": "The Visual Computer 41, 3309–3327, 2025",
+    "venueZh": "The Visual Computer 41, 3309–3327, 2025",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://doi.org/10.1007/s00371-024-03604-y",
+    "intro": "Spatiotemporal hypergraphs for 3D pose estimation and a public opera-video benchmark. First published online in September 2024.",
+    "introZh": "利用时空超图进行三维人体姿态估计，并提供戏曲视频公开基准；2024 年 9 月首次在线发表。",
+    "featured": true,
+    "image": "/img/papers/3d-pose.png",
+    "imageKind": "figure"
   },
   {
-    title: 'Frequency-Importance Gaussian Splatting for Real-Time Lightweight Radiance Field Rendering',
-    authors: '<u>L. Chen</u>, Y. Hu, Y. Zhang, Y. Ge, H. Zhang, X. Cai',
-    venue: 'Multimedia Tools and Applications, 2024 · SCI Q2, CCF-C',
-    venueZh: 'Multimedia Tools and Applications, 2024 · SCI Q2, CCF-C',
-    level: 'journal',
-    levelLabel: 'SCI Q2',
-    link: 'https://doi.org/10.1007/s11042-024-18679-x',
-    intro:
-      'Gaussian splatting made real-time fields feel reachable, then VRAM reminded us pride comes before the swap. We asked which frequency bands actually buy pixels, folded that bias into primitives and losses, and let density grow only where the signal—not ego—asks for it.',
-    introZh:
-      '高斯泼溅把实时辐射场从「能跑」推到「像样」，紧接着显存就来收学费。我们索性问一句老实话：哪些频带真在换观感？把答案写进基元和损失里，再让密度只在信号需要的地方长——虚荣粒子能少一颗是一颗。',
-    featured: false
+    "title": "Frequency-Importance Gaussian Splatting for Real-Time Lightweight Radiance Field Rendering",
+    "authors": "<u>Lizhe Chen</u>, Yan Hu, Yu Zhang, Yuyao Ge, Haoyu Zhang, Xingquan Cai",
+    "venue": "Multimedia Tools and Applications 83, 83377–83401, 2024",
+    "venueZh": "Multimedia Tools and Applications 83, 83377–83401, 2024",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://doi.org/10.1007/s11042-024-18679-x",
+    "intro": "Frequency-importance Gaussian splatting for lightweight, real-time radiance field rendering.",
+    "introZh": "基于频率重要性的高斯泼溅方法，面向轻量实时辐射场渲染。",
+    "featured": true,
+    "image": "/img/papers/fi-gs.png",
+    "imageKind": "figure"
   },
   {
-    title: 'Translating Words to Worlds: Zero-Shot Synthesis of 3D Terrain from Textual Descriptions Using LLMs',
-    authors: 'G. Zhang, <u>L. Chen</u>, Y. Zhang, Y. Liu, Y. Ge, X. Cai',
-    venue: 'Applied Sciences, 2024 · SCI Q1',
-    venueZh: 'Applied Sciences, 2024 · SCI Q1',
-    level: 'journal',
-    levelLabel: 'SCI Q1',
-    link: 'https://www.mdpi.com/2076-3417/14/8/3257',
-    intro:
-      'We wanted hills from paragraphs without summoning a planet-sized diffusion stack: a Voronoi scaffold, a behavior tree that reads almost like chain-of-thought for terrain, and tiny bickering editor-agents that nag the heightfield until it matches the tale.',
-    introZh:
-      '想把一段描写落成山脊河谷，又不愿先祭出一整座扩散模型的大阵仗。于是先铺 Voronoi 当骨架，再用行为树把文字拆成「怎么走笔」；最后放几个爱抬杠的小编辑智能体，对着网格絮絮叨叨，直到地貌和剧情对上号——有点像写长篇小说时互相改稿的那帮人。',
-    featured: false
+    "title": "Translating Words to Worlds: Zero-Shot Synthesis of 3D Terrain from Textual Descriptions Using Large Language Models",
+    "authors": "Guangzi Zhang, <u>Lizhe Chen</u>, Yu Zhang, Yan Liu, Yuyao Ge, Xingquan Cai",
+    "venue": "Applied Sciences 14(8), 3257, 2024",
+    "venueZh": "Applied Sciences 14(8), 3257, 2024",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://www.mdpi.com/2076-3417/14/8/3257",
+    "intro": "Zero-shot synthesis of 3D terrain from textual descriptions using large language models.",
+    "introZh": "利用大语言模型，从文本描述零样本合成三维地形。",
+    "featured": true,
+    "image": "/img/papers/words-to-worlds.png",
+    "imageKind": "figure"
   },
   {
-    title: 'Real-time Non-photorealistic Rendering Method for Black and White Comic Style in Games and Animation',
-    authors: 'Y. Hu, <u>L. Chen</u>, H. Xie, Y. Ge, S. Zhou, X. Cai',
-    venue: 'Journal of System Simulation, 2024',
-    venueZh: '系统仿真学报, 2024',
-    level: 'journal',
-    levelLabel: 'Journal',
-    link: 'https://doi.org/10.16182/j.issn1004731x.joss.23-0458',
-    intro:
-      'Comic ink wants crisp halftone without renting a render farm. The pipeline is almost embarrassingly practical: stylized lighting to separate figure from ground, a three-pass edge hunt in screen space, then region-wise halftone versus ink—built for GPUs you already own.',
-    introZh:
-      '黑白漫的网点与墨线，最馋的是利落，最怕的是重。我们的路子很土：先用人造光照把主体从背景里托出来，再在屏幕空间分三步「摸边」，最后按区域在网点与墨线之间插值——像有位原画师在盯帧，只是这位原画师住在 shader 里，跑在你手边的显卡上。',
-    featured: false
+    "title": "Real-time Non-photorealistic Rendering Method for Black and White Comic Style in Games and Animation",
+    "authors": "Yan Hu, <u>Lizhe Chen</u>, Hanna Xie, Yuyao Ge, Shun Zhou, Xingquan Cai",
+    "venue": "Journal of System Simulation 36(7), 1699–1712, 2024",
+    "venueZh": "系统仿真学报 36(7), 1699–1712, 2024",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://www.china-simulation.com/CN/abstract/article/1004-731X/3445",
+    "intro": "A real-time non-photorealistic rendering method for black and white comic styles.",
+    "introZh": "面向游戏与动漫的黑白漫画风格非真实感实时渲染方法。",
+    "featured": false,
+    "imageKind": "concept",
+    "image": "/img/papers/npr-manga-concept.png"
   },
   {
-    title: 'Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting',
-    authors: 'Y. Liu, <u>L. Chen</u>, H. Xie, J. Li',
-    venue: "Proc. Int'l Conf. Advances in AI and Applications (AAIA), 2023",
-    venueZh: '人工智能及应用国际会议 (AAIA), 2023',
-    level: 'conf',
-    levelLabel: 'Conf',
-    link: 'https://doi.org/10.1145/3603273.3634711',
-    intro:
-      'Before splats were everywhere, we were already shaving them for lab-sized budgets—fewer Gaussians to lug around, faster iteration for small teams, and the engineering honesty to admit what you lose when you strip weight.',
-    introZh:
-      '高斯泼溅后来成了显学，这篇写得更早，也更像课程笔记：粒子少带几颗、迭代就能轻快些，小团队也敢玩。回头看，它提醒一件朴素的事——表示一瘦，承诺也要跟着瘦，别把「还能看」吹成「一样好」。',
-    featured: false
+    "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
+    "authors": "Yan Liu, <u>Lizhe Chen</u>, Hanna Xie, Jie Li",
+    "venue": "AAIA 2023 · Proceedings published 2024",
+    "venueZh": "AAIA 2023 · 论文集出版于 2024 年",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://doi.org/10.1145/3603273.3634711",
+    "intro": "Lightweight 3D reconstruction based on Gaussian splatting. Presented at AAIA 2023; proceedings published in January 2024.",
+    "introZh": "基于高斯泼溅的轻量三维重建研究；会议为 AAIA 2023，论文集于 2024 年 1 月出版。",
+    "featured": false,
+    "imageKind": "concept",
+    "image": "/img/papers/lightweight-3d-concept.png"
   },
   {
-    title: 'Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly',
-    authors: 'Y. Ge, Z. Yang, <u>L. Chen</u>, Y. Wang, C. Li',
-    venue: 'Cybersecurity, 2023 · CCF-C',
-    venueZh: 'Cybersecurity, 2023 · CCF-C',
-    level: 'ccf-c',
-    levelLabel: 'CCF-C',
-    link: 'https://doi.org/10.1186/s42400-023-00179-4',
-    intro:
-      'Some defenses polish the API while the training data still whispers where it hurts. We followed that whisper—aiming at statistically sensitive mass instead of only the obvious interface—so the threat model reads less like a movie hacker and more like a careful statistician.',
-    introZh:
-      '有的防线把大门擦得锃亮，数据却在角落里小声说「这里好欺负」。这篇换了个不那么戏剧化的视角：少拍接口特写，多盯统计上发软的那块质量分布——像做实验前先问「样本到底被谁牵着走」，而不是只问「权重被谁牵着走」。',
-    featured: false
+    "title": "Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly",
+    "authors": "Yuyao Ge, Zhongguo Yang, <u>Lizhe Chen</u>, Yiming Wang, Chengyang Li",
+    "venue": "Cybersecurity 6, 43, 2023",
+    "venueZh": "Cybersecurity 6, 43, 2023",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "https://doi.org/10.1186/s42400-023-00179-4",
+    "intro": "A data-based perspective on directly attacking sensitive points.",
+    "introZh": "从数据出发研究直接攻击敏感点的方法。",
+    "featured": false,
+    "imageKind": "figure",
+    "image": "/img/papers/cybersecurity.png"
   },
   {
-    title: 'Vision Transformer Based on Knowledge Distillation in TCM Image Classification',
-    authors: 'Y. Ge, Y. Cheng, J. Wang, H. Zhou, <u>L. Chen</u>',
-    venue: 'IEEE CCET 2022',
-    venueZh: 'IEEE 计算机与通信工程技术国际会议 (CCET), 2022',
-    level: 'conf',
-    levelLabel: 'Conf',
-    link: 'https://doi.org/10.1109/ccet55412.2022.9906332',
-    intro:
-      'TCM imaging is the old story—small folders, heavy stakes. We kept the textbook recipe (big ViT teacher, modest student) but cared most about the textures clinicians actually squint at, not leaderboard vanity.',
-    introZh:
-      '中医影像常常是「样本不多、责任很重」的老故事。我们没发明新魔法，只是把大 ViT 请来讲课、让小网络当学徒——真正较劲的是：大夫眯眼去看的那点纹理，学生有没有学到，而不是榜上的小数点多跳了零点几。',
-    featured: false
+    "title": "Vision Transformer Based on Knowledge Distillation in TCM Image Classification",
+    "authors": "Yuyao Ge, Yiting Cheng, Jia Wang, Hanlin Zhou, <u>Lizhe Chen</u>",
+    "venue": "IEEE CCET 2022",
+    "venueZh": "IEEE CCET 2022",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://doi.org/10.1109/ccet55412.2022.9906332",
+    "intro": "Knowledge distillation for Vision Transformers in traditional Chinese medicine image classification.",
+    "introZh": "面向中医图像分类的 Vision Transformer 知识蒸馏研究。",
+    "featured": false,
+    "imageKind": "concept",
+    "image": "/img/papers/vit-tcm-concept.png"
   }
 ];
 
 export const projects = [
   {
-    name: 'Infernux',
-    url: infernux.url,
-    status: 'Open Source',
-    statusZh: '开源',
-    image: infernux.image,
-    desc: 'Game engine from scratch: Vulkan runtime, integrated editor, and a pass stack you can reshape—born from wanting my own renderer, taken one step further.',
-    descZh: '从零搭建的游戏引擎：Vulkan 运行时、集成编辑器与可改写的通道栈——源于“自己的渲染器”，并再往前一步做成完整引擎。',
-    detail:
-      'Infernux is my primary open-source game engine. Native C++17 / Vulkan owns the frame: PBR, cascaded shadows, MSAA, shader reflection, and post-processing. An integrated editor (scene/game views, hierarchy, inspectors, asset pipeline) keeps projects shippable and experiments reproducible. Pass composition follows a RenderGraph / RenderStack-style model so resource flow stays visible. The arXiv technical report documents batch-oriented engine integration and optional acceleration for tooling-heavy loops alongside the rendering core.',
-    detailZh:
-      'Infernux 是我主要的开源游戏引擎。C++17 / Vulkan 原生层负责帧级工作：PBR、级联阴影、MSAA、着色器反射与后处理。集成编辑器（场景/游戏视图、层级、检视器与资产管线）让项目可交付、实验可复现。通道组合采用 RenderGraph / RenderStack 式模型，使资源流动可检视。arXiv 技术报告在渲染核心之外，还记录面向批量的引擎集成与工具链重负载时的可选加速。',
-    role: 'Creator — renderer, editor, pipeline, release',
-    roleZh: '作者 — 渲染器、编辑器、管线与发布',
-    tags: ['Vulkan', 'Real-time Rendering', 'RenderGraph', 'Editor', 'Graphics Research'],
-    featured: true
+    "name": "Infernux",
+    "url": "https://github.com/ChenlizheMe/Infernux",
+    "status": "Open Source",
+    "statusZh": "开源",
+    "image": "/img/projects/infernux-editor-current.png",
+    "desc": "An open-source game engine I build from scratch.",
+    "descZh": "从零开发的开源游戏引擎。",
+    "role": "Creator — renderer, editor, pipeline, release",
+    "roleZh": "作者 — 渲染器、编辑器、管线与发布",
+    "tags": [
+      "Vulkan",
+      "C++",
+      "Python"
+    ],
+    "featured": true
   },
   {
-    name: 'Vultorch',
-    url: 'https://github.com/ChenlizheMe/Vultorch',
-    status: 'Open Source',
-    statusZh: '开源',
-    image: '/img/projects/vultorch.png',
-    desc: 'GPU-native tensor visualization: CUDA tensors displayed through Vulkan without CPU readback; optional true zero-copy via shared GPU memory.',
-    descZh: 'GPU 原生张量可视化：通过 Vulkan 直接显示 CUDA 张量、避免 CPU 回读；可选基于共享显存的真零拷贝。',
-    detail:
-      'Vultorch targets the graphics–compute boundary: <code>show()</code> keeps data on the GPU with a fast GPU→GPU path into Vulkan; <code>create_tensor()</code> can back tensors with Vulkan shared memory for zero memcpy. The stack pairs a C++ core (Vulkan, CUDA interop, ImGui, optional 3D scene view with MSAA and Blinn–Phong) with a declarative Python API (View → Panel → Canvas) for live training monitors, neural rendering debuggers, and multi-channel depth/normal viewers. It is MIT-licensed with packaged wheels and MkDocs tutorials.',
-    detailZh:
-      'Vultorch 面向图形与计算的交界：<code>show()</code> 将数据留在 GPU，经快速 GPU→Vulkan 路径上屏；<code>create_tensor()</code> 可用 Vulkan 共享显存支撑张量，实现零 memcpy。技术栈为 C++ 核心（Vulkan、CUDA 互操作、ImGui、可选带 MSAA 与 Blinn–Phong 的 3D 场景视图）与声明式 Python API（View → Panel → Canvas），适用于训练过程监视、神经渲染调试与多通道深度/法线查看等。MIT 协议，提供打包 wheel 与 MkDocs 文档。',
-    role: 'Creator — Vulkan/CUDA interop, Python API, docs & packaging',
-    roleZh: '作者 — Vulkan/CUDA 互操作、Python API、文档与打包',
-    tags: ['Vulkan', 'CUDA', 'GPU Viz', 'Zero-Copy', 'Graphics'],
-    featured: true
-  },
-  {
-    name: 'Ailurus OS',
-    url: 'https://github.com/ChenlizheMe/AilurusEngine',
-    status: 'Open Source',
-    statusZh: '开源',
-    image: '/img/projects/ailurus.png',
-    desc: 'Local-first desktop workbench for VLM/LLM tooling: Electron shell, React UI, pluggable apps with capability manifests.',
-    descZh: '面向 VLM/LLM 工具链的本地优先桌面工作台：Electron 壳、React 界面、带能力清单的可插拔应用。',
-    detail:
-      'Ailurus OS (codename Machiavelli) is a local-first “desktop OS” for building and running model-facing tools offline. Electron provides the shell; React + Vite powers the UI; a Flask-based runtime routes agent calls to pluggable apps under <code>apps/</code>, each described by <code>ailurus.json</code> (frontend entry, backend entry, capability schemas). I use it to prototype VLM/LLM workflows—dataset browsers, prompt routers, small annotation utilities—without shipping data to a hosted IDE. Packaging supports <code>.ail</code> bundles for third-party plugins.',
-    detailZh:
-      'Ailurus OS（代号 Machiavelli）是面向模型工具、本地优先的“桌面操作系统”式工作台。Electron 提供桌面壳；React + Vite 负责界面；基于 Flask 的运行时将智能体调用路由到 <code>apps/</code> 下的可插拔应用，每个应用由 <code>ailurus.json</code> 描述（前端入口、后端入口、能力模式）。我将其用于快速搭建 VLM/LLM 相关工具原型——数据浏览、提示路由、小型标注工具等——而无需把数据交给云端 IDE。支持 <code>.ail</code> 包分发第三方插件。',
-    role: 'Architecture — shell, runtime routing, app manifest design',
-    roleZh: '架构 — 桌面壳、运行时路由与应用清单设计',
-    tags: ['VLM', 'LLM Tools', 'Electron', 'React', 'Local-first'],
-    featured: true
-  },
-  {
-    name: 'EmbodiChain',
-    url: 'https://github.com/DexForce/EmbodiChain',
-    status: 'Contrib',
-    statusZh: '参与',
-    image: '/img/projects/embodichain.png',
-    desc: 'DexForce’s GPU-accelerated embodied-AI stack: high-fidelity sim, ray-traced sensors, and scalable training pipelines.',
-    descZh: '跨维端到端 GPU 具身智能栈：高保真仿真、光追传感器与可扩展训练管线。',
-    detail:
-      'EmbodiChain is DexForce’s embodied-AI stack for GPU sim, data, and training. On my side I shipped a <strong>full multi-camera OptiX renderer</strong> inside it (not a single-camera demo), and integrated a <strong>warp-based GPU parallel compute framework</strong> so batches of camera renders and sensor-heavy passes stay on sensible bandwidth/latency budgets. The public pitch is still Sim2Real and big synthetic datasets—I focused on the rendering/compute plumbing that makes that scale.',
-    detailZh:
-      'EmbodiChain 是跨维的具身智能 GPU 仿真与训练栈。我这边落地的是：<strong>完整的多相机 OptiX 渲染器</strong>（不是单机位演示），以及一套<strong>基于 NVIDIA warp 的 GPU 并行计算框架</strong>，嵌进框架里跑多路相机和重传感器管线时，带宽和延迟仍可控。对外叙事仍是 Sim2Real 与大规模合成数据——我主要负责把渲染/算子这层工程打牢。',
-    role: 'Rendering — multi-camera OptiX path, warp GPU parallel stack integration',
-    roleZh: '渲染 — 多相机 OptiX 路径、warp GPU 并行框架集成',
-    tags: ['Embodied AI', 'OptiX', 'Ray Tracing', 'Simulation', 'GPU'],
-    featured: true
+    "name": "EmbodiChain",
+    "url": "https://github.com/DexForce/EmbodiChain",
+    "status": "Contrib",
+    "statusZh": "参与",
+    "image": "/img/projects/embodichain.png",
+    "desc": "DexForce’s GPU-accelerated embodied-AI stack: high-fidelity sim, ray-traced sensors, and scalable training pipelines.",
+    "descZh": "跨维端到端 GPU 具身智能栈：高保真仿真、光追传感器与可扩展训练管线。",
+    "detail": "EmbodiChain is DexForce’s embodied-AI stack for GPU sim, data, and training. On my side I shipped a <strong>full multi-camera OptiX renderer</strong> inside it (not a single-camera demo), and integrated a <strong>warp-based GPU parallel compute framework</strong> so batches of camera renders and sensor-heavy passes stay on sensible bandwidth/latency budgets. The public pitch is still Sim2Real and big synthetic datasets—I focused on the rendering/compute plumbing that makes that scale.",
+    "detailZh": "EmbodiChain 是跨维的具身智能 GPU 仿真与训练栈。我这边落地的是：<strong>完整的多相机 OptiX 渲染器</strong>（不是单机位演示），以及一套<strong>基于 NVIDIA warp 的 GPU 并行计算框架</strong>，嵌进框架里跑多路相机和重传感器管线时，带宽和延迟仍可控。对外叙事仍是 Sim2Real 与大规模合成数据——我主要负责把渲染/算子这层工程打牢。",
+    "role": "Rendering — multi-camera OptiX path, warp GPU parallel stack integration",
+    "roleZh": "渲染 — 多相机 OptiX 路径、warp GPU 并行框架集成",
+    "tags": [
+      "Embodied AI",
+      "OptiX",
+      "Ray Tracing",
+      "Simulation",
+      "GPU"
+    ],
+    "featured": true
   }
 ];
 
 export const games = [
+{
+  "name": "You Qiu Bi Ying",
+  "nameZh": "有求必应",
+  "role": "Two-person collaboration · Seven-day prototype",
+  "roleZh": "双人合作 · 七日原型",
+  "desc": "A card-stacking management game about urban folk wishes, set in a workshop above the clouds.",
+  "descZh": "以都市民俗祈愿为主题的卡牌堆叠经营游戏，在云海工坊中为人间制作承载心愿的器物。",
+  "detail": "Made with Endless_Beach in seven days, drawing inspiration from Stacklands. Collect incense and materials, combine cards, and fulfill wishes for safety, companionship, and a new beginning.",
+  "detailZh": "与 Endless_Beach 合作，用七天完成，设计参考《堆叠大陆》。收集香火与灵材，通过卡牌合成完成订单，回应人们关于平安、陪伴与未来的心愿。",
+  "video": "https://player.bilibili.com/player.html?bvid=BV1ZG5F6NEd4&p=1",
+  "bilibili": "https://www.bilibili.com/video/BV1ZG5F6NEd4/",
+  "tags": [
+    "Card Stacking",
+    "Management",
+    "Prototype"
+  ],
+  "featured": true
+},
   {
     name: 'There Should Be a Cat Here',
     nameZh: '此处应有猫',
@@ -404,15 +393,16 @@ export const games = [
     tags: ['Unity', 'Mobile', 'Puzzle', 'TapTap', 'Tech Art']
   },
   {
-    name: 'Extra trailer (Bilibili)',
-    nameZh: '宣传片 / 实机（Bilibili）',
+    name: 'Tree',
+    nameZh: '樹',
+    homeFeatured: false,
     role: 'Technical Art & Client Development',
     roleZh: '技术美术与客户端程序',
-    desc: 'Another short trailer or gameplay cut from the same batch of jams/spotlight work—hosted on Bilibili for sharing.',
-    descZh: '同一批比赛/聚光灯相关的另一条短片或实机剪辑，放在 B 站方便转发。（若页面提示验证，可直接在 B 站 App 内打开。）',
+    desc: 'A contemplative game made by a two-person team for CIGA Game Jam 2025.',
+    descZh: '2025 CIGA Game Jam 双人团队作品，一款禅系游戏。',
     detail:
-      'Use this as a second entry point if you want a different cut than the main “cat intern” video above.',
-    detailZh: '如果你想看另一条剪辑版本，可以点这里；和上面的《此处应有猫》主片互为补充。',
+      'Watch the original project presentation on Bilibili.',
+    detailZh: '可在 B 站观看该作品的原始演示视频。',
     video:
       'https://player.bilibili.com/player.html?isOutside=true&bvid=BV1KT3czoEsP&page=1&high_quality=1&danmaku=0',
     bilibili: 'https://www.bilibili.com/video/BV1KT3czoEsP',
@@ -436,6 +426,9 @@ export const games = [
   },
   {
     name: 'Dong! Da-Dong!',
+    extraVideos: [{label:'Competition demo',labelZh:'参赛版本',url:'https://www.bilibili.com/video/BV1HpkyBeEc7/'}],
+    awards: 'miHoYo 2025 Game Design Competition · National first place',
+    awardsZh: '米哈游 2025 游戏策划大赛 · 全国第一名',
     nameZh: '咚！哒咚！',
     role: 'Technical Art & Client Development',
     roleZh: '技术美术与客户端程序',
@@ -468,84 +461,76 @@ export const games = [
 
 export const awards = [
   {
-    title: 'IEEE ICRA 2025 WBCD Robotics & Automation Competition',
-    titleZh: 'IEEE ICRA 2025 WBCD 机器人与自动化大赛',
-    result: 'Co-1st place',
-    resultZh: '并列第一名',
-    blurb:
-      'WBCD is the ICRA workshop track on benchmarking collaborative / autonomous driving. The contest ties together simulation, perception, and automation stacks—we placed co-first in the robotics & automation competition thread.',
-    blurbZh:
-      'WBCD 是 ICRA 上围绕协同与自动驾驶评测的工作坊赛道，比赛会把仿真、感知与自动化管线串在一起；我们在机器人与自动化大赛环节拿到并列第一。'
+    "title": "IEEE ICRA 2025 WBCD Robotics & Automation Competition",
+    "titleZh": "IEEE ICRA 2025 WBCD 机器人与自动化大赛",
+    "result": "Co-1st place",
+    "resultZh": "并列第一名",
+    "blurb": "WBCD is the ICRA workshop track on benchmarking collaborative / autonomous driving. The contest ties together simulation, perception, and automation stacks—we placed co-first in the robotics & automation competition thread.",
+    "blurbZh": "WBCD 是 ICRA 上围绕协同与自动驾驶评测的工作坊赛道，比赛会把仿真、感知与自动化管线串在一起；我们在机器人与自动化大赛环节拿到并列第一。"
   },
   {
-    title: 'TapTap 2024 Spotlight',
-    titleZh: 'TapTap 2024 聚光灯',
-    result: '400K+ views · 50K+ downloads · #2 New Releases',
-    resultZh: '浏览 40 万+ · 下载 5 万+ · 新品榜第二',
-    blurb:
-      'TapTap Spotlight is a mobile game incubation season: teams ship a playable slice fast and compete for store featuring. Our entry picked up strong organic traffic during the campaign window.',
-    blurbZh:
-      'TapTap 聚光灯是面向手机游戏的孵化赛季，要在短时间内拿出可玩切片并争取商店推荐位；我们的作品在活动期间拿到了不错的自然流量。'
+    "title": "miHoYo 2025 Game Design Competition",
+    "titleZh": "米哈游 2025 游戏策划大赛",
+    "result": "National first place",
+    "resultZh": "全国第一名",
+    "blurb": "Dong! Da-Dong! won national first place in the miHoYo 2025 Game Design Competition.",
+    "blurbZh": "《咚！哒咚！》在米哈游 2025 游戏策划大赛中获得全国第一名。"
   },
   {
-    title: 'China Virtual Reality Competition (CCVR)',
-    titleZh: '中国虚拟现实大赛（CCVR）',
-    result: 'National first prize × 3',
-    resultZh: '全国一等奖 × 3',
-    blurb:
-      'CCVR is a national VR contest in China for student/pro teams; repeated first prizes usually mean the jury liked both the interactive design and stable real-time delivery.',
-    blurbZh:
-      'CCVR 是国内高校与团队常参加的全国性虚拟现实赛事，三次国一说明作品在交互设计和实时演示稳定性上都比较能打。'
+    "title": "TapTap 2024 Spotlight",
+    "titleZh": "TapTap 2024 聚光灯",
+    "result": "2024 campaign: 400K+ views · 50K+ downloads · #2 New Releases",
+    "resultZh": "2024 活动期间：浏览 40 万+ · 下载 5 万+ · 新品榜第二",
+    "blurb": "TapTap Spotlight is a mobile game incubation season: teams ship a playable slice fast and compete for store featuring. Our entry picked up strong organic traffic during the campaign window.",
+    "blurbZh": "TapTap 聚光灯是面向手机游戏的孵化赛季，要在短时间内拿出可玩切片并争取商店推荐位；我们的作品在活动期间拿到了不错的自然流量。"
   },
   {
-    title: 'ACM-ICPC Asia Regional',
-    titleZh: 'ACM-ICPC 亚洲区域赛',
-    result: 'Bronze medal',
-    resultZh: '铜奖',
-    blurb:
-      'ICPC is the classic collegiate programming contest (teams of three, one keyboard). A regional bronze is still a grind—five hours, tight penalty minutes, and brutal geometry/graph tasks.',
-    blurbZh:
-      'ICPC 是经典的大学生程序设计团队赛（三人一队、一台机器）。区域赛铜奖也不水——五小时、罚时扣得紧，几何/图论题经常把人写麻。'
+    "title": "China Virtual Reality Competition (CCVR)",
+    "titleZh": "中国虚拟现实大赛（CCVR）",
+    "result": "National first prize × 3",
+    "resultZh": "全国一等奖 × 3",
+    "blurb": "CCVR is a national VR contest in China for student/pro teams; repeated first prizes usually mean the jury liked both the interactive design and stable real-time delivery.",
+    "blurbZh": "CCVR 是国内高校与团队常参加的全国性虚拟现实赛事，三次国一说明作品在交互设计和实时演示稳定性上都比较能打。"
   },
   {
-    title: 'G-Bit Future Game Maker (college division)',
-    titleZh: '吉比特未来游戏制作人大赛（大学生组）',
-    result: 'National top 10',
-    resultZh: '全国十强',
-    blurb:
-      'Sponsored by G-bits (a listed Chinese game studio), this contest backs student prototypes with mentorship and publishing eyes—top 10 is the late-stage shortlist.',
-    blurbZh:
-      '由吉比特等发起的面向大学生的游戏制作赛，常有导师与发行视角跟进；全国十强相当于后半程的精选名单。'
+    "title": "ACM-ICPC Asia Regional",
+    "titleZh": "ACM-ICPC 亚洲区域赛",
+    "result": "Bronze medal",
+    "resultZh": "铜奖",
+    "blurb": "ICPC is the classic collegiate programming contest (teams of three, one keyboard). A regional bronze is still a grind—five hours, tight penalty minutes, and brutal geometry/graph tasks.",
+    "blurbZh": "ICPC 是经典的大学生程序设计团队赛（三人一队、一台机器）。区域赛铜奖也不水——五小时、罚时扣得紧，几何/图论题经常把人写麻。"
   },
   {
-    title: 'CUSGA — China University Student Game Dev Competition',
-    titleZh: 'CUSGA 中国大学生游戏开发创作大赛',
-    result: 'Best multiplayer game',
-    resultZh: '最佳多人游戏',
-    blurb:
-      'CUSGA gathers student teams from many universities; the “best multiplayer” award highlights netcode, session flow, or couch/online play that actually works.',
-    blurbZh:
-      'CUSGA 汇聚多校学生团队；「最佳多人」看重联机或同屏玩法是否扎实——同步、会话流程、手感要比单机多踩不少坑。'
+    "title": "G-Bit Future Game Maker (college division)",
+    "titleZh": "吉比特未来游戏制作人大赛（大学生组）",
+    "result": "National top 10",
+    "resultZh": "全国十强",
+    "blurb": "Sponsored by G-bits (a listed Chinese game studio), this contest backs student prototypes with mentorship and publishing eyes—top 10 is the late-stage shortlist.",
+    "blurbZh": "由吉比特等发起的面向大学生的游戏制作赛，常有导师与发行视角跟进；全国十强相当于后半程的精选名单。"
   },
   {
-    title: 'Xiamen International Animation Festival — Golden Dolphin (student)',
-    titleZh: '厦门国际动漫节 · 金海豚奖（最佳学生作品）',
-    result: 'Nominated',
-    resultZh: '入围',
-    blurb:
-      'Golden Dolphin is the headline award at Xiamen’s animation fest; the student category spotlights school-year projects with festival-level polish.',
-    blurbZh:
-      '金海豚奖是厦门国际动漫节的主单元；学生作品入围意味着完成度和表达在评委眼里达到了节展水准。'
+    "title": "CUSGA — China University Student Game Dev Competition",
+    "titleZh": "CUSGA 中国大学生游戏开发创作大赛",
+    "result": "Best multiplayer game",
+    "resultZh": "最佳多人游戏",
+    "blurb": "CUSGA gathers student teams from many universities; the “best multiplayer” award highlights netcode, session flow, or couch/online play that actually works.",
+    "blurbZh": "CUSGA 汇聚多校学生团队；「最佳多人」看重联机或同屏玩法是否扎实——同步、会话流程、手感要比单机多踩不少坑。"
   },
   {
-    title: 'Tsinghua SIGS Interactive Media Workshop',
-    titleZh: '清华大学深圳国际研究生院 · 互动媒体技术工作坊',
-    result: 'Silver award (Organic Dominion)',
-    resultZh: '银奖（《有机统治》）',
-    blurb:
-      'SIGS workshop course demo fair: faculty and peers judge vertical slices built in a few weeks—silver went to our factory-meets-swarm strategy prototype.',
-    blurbZh:
-      '深研院互动媒体工作坊的阶段性路演，老师和同学一起评几周做出来的垂直切片；我们的工厂+虫群策略原型拿了银奖。'
+    "title": "Xiamen International Animation Festival — Golden Dolphin (student)",
+    "titleZh": "厦门国际动漫节 · 金海豚奖（最佳学生作品）",
+    "result": "Nominated",
+    "resultZh": "入围",
+    "blurb": "Golden Dolphin is the headline award at Xiamen’s animation fest; the student category spotlights school-year projects with festival-level polish.",
+    "blurbZh": "金海豚奖是厦门国际动漫节的主单元；学生作品入围意味着完成度和表达在评委眼里达到了节展水准。"
+  },
+  {
+    "title": "Tsinghua SIGS Interactive Media Workshop",
+    "titleZh": "清华大学深圳国际研究生院 · 互动媒体技术工作坊",
+    "result": "Silver award (Organic Dominion)",
+    "resultZh": "银奖（《有机统治》）",
+    "blurb": "SIGS workshop course demo fair: faculty and peers judge vertical slices built in a few weeks—silver went to our factory-meets-swarm strategy prototype.",
+    "blurbZh": "深研院互动媒体工作坊的阶段性路演，老师和同学一起评几周做出来的垂直切片；我们的工厂+虫群策略原型拿了银奖。"
   }
 ];
 

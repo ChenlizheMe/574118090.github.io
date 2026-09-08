@@ -16,6 +16,17 @@
     "year": 2025
   },
   {
+    "id": "mihoyo-2025",
+    "featured": true,
+    "year": 2025,
+    "title": "miHoYo 2025 Game Design Competition",
+    "titleZh": "米哈游 2025 游戏策划大赛",
+    "result": "National first place",
+    "resultZh": "全国第一名",
+    "blurb": "Dong! Da-Dong! won national first place in the miHoYo 2025 Game Design Competition.",
+    "blurbZh": "《咚！哒咚！》在米哈游 2025 游戏策划大赛中获得全国第一名。"
+  },
+  {
     "id": "taptap-2024",
     "featured": true,
     "icon": "fa-gamepad",

@@ -6,6 +6,8 @@ on:
       - main
       - master
   workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
 
 permissions:
   contents: read
@@ -31,6 +33,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Refresh public metrics
+        run: node scripts/update-metrics.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Test data resilience
+        run: node --test tests/*.test.mjs
 
       - name: Build
         run: npm run build
