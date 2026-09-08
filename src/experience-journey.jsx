@@ -12,18 +12,15 @@ const details = {
   ]
 };
 function Chronicle({ kind, items, lang }) {
-  const [selected, setSelected] = useState(0); const zh = lang === 'zh';
+  const [selected, setSelected] = useState(null); const zh = lang === 'zh';
 
   return <section className={'flight-chronicle flight-chronicle--'+kind} aria-labelledby={'chronicle-'+kind}>
     <header className="flight-chronicle-heading"><Icon name={kind === 'work' ? 'briefcase' : 'scholar'}/><h3 id={'chronicle-'+kind}>{kind === 'work' ? (zh ? '工作经历' : 'Work experience') : (zh ? '学习经历' : 'Education')}</h3><span aria-hidden="true">{kind==='work'?'01 / WORK':'02 / EDUCATION'}</span></header>
     <div className="flight-chronicle-body">
-      <div className="journey-slope" aria-label={zh?'选择经历':'Select an experience'}>
-        <svg className="journey-track" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8 78 88 10"/><path className="journey-track__rail" d="M22 66 74 22"/><circle cx={selected===0?74:22} cy={selected===0?22:66} r="2"/></svg>
-        <div className="journey-grid" aria-hidden="true"/>
-        {[...items].reverse().map((entry,order)=>{const i=items.length-1-order;return <button className="journey-stop" style={{'--stop-x':order===0?'22%':'74%','--stop-y':order===0?'66%':'22%'}} key={entry.place} aria-label={`${details[kind][i].year} ${zh?entry.placeZh:entry.place}`} aria-pressed={selected===i} aria-controls={kind+'-experience-panel'} onClick={()=>setSelected(i)}><span className="journey-stop__point" aria-hidden="true"/><span className="journey-stop__label"><strong>{details[kind][i].year}</strong><span>{kind==='work'&&i===1?(zh?'跨维智能':'DexForce'):kind==='study'&&i===0?(zh?'清华大学':'Tsinghua University'):kind==='study'&&i===1?(zh?'北方工业大学':'NCUT'):(zh?entry.placeZh:entry.place)}</span></span></button>;})}
-        <span className="journey-direction" aria-hidden="true">↗</span>
+      <div className="journey-timeline" aria-label={zh?'选择经历':'Select an experience'}>
+        {[...items].reverse().map((entry,order)=>{const i=items.length-1-order;const expanded=selected===i;return <button className="journey-event" key={entry.place} aria-label={`${details[kind][i].year} ${zh?entry.placeZh:entry.place}`} aria-expanded={expanded} aria-controls={kind+'-experience-panel'} onClick={()=>setSelected(expanded?null:i)}><strong>{details[kind][i].year}</strong><span className="journey-event__point" aria-hidden="true"/><span className="journey-event__name">{kind==='work'&&i===1?(zh?'跨维智能':'DexForce'):kind==='study'&&i===0?(zh?'清华大学':'Tsinghua University'):kind==='study'&&i===1?(zh?'北方工业大学':'NCUT'):(zh?entry.placeZh:entry.place)}</span><span className="journey-event__action"><span aria-hidden="true">{expanded?'−':'+'}</span>{expanded?(zh?'收起详情':'Close details'):(zh?'展开详情':'View details')}</span></button>;})}
       </div>
-      <div className="flight-detail" id={kind+'-experience-panel'}>{items.map((item,i)=> {
+      <div className="flight-detail" hidden={selected===null} id={kind+'-experience-panel'}>{items.map((item,i)=> {
         const info=details[kind][i];
         return <div className={'flight-detail-content '+(selected===i?'is-selected':'')} key={item.place} aria-hidden={selected!==i} inert={selected!==i}>
           <span className="flight-date">{zh?item.dateZh:item.date}</span>
@@ -32,7 +29,7 @@ function Chronicle({ kind, items, lang }) {
           <ul>{(zh?info.pointsZh:info.points).map(point=><li key={point}>{point}</li>)}</ul>
           {info.link && <a className="detail-link" href={info.link} target="_blank" rel="noreferrer"><Icon name="github"/>{info.linkLabel}<Icon name="external"/></a>}
         </div>;
-      })}<span className="flight-watermark" aria-hidden="true">{details[kind][selected].year}</span></div>
+      })}</div>
     </div>
   </section>;
 }

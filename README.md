@@ -38,7 +38,7 @@ The schedule only becomes active after this branch is merged into the repository
 - `src/content.js`: bilingual profile, projects, publications, education, work and honors.
 - `src/main.jsx`: page composition and archives.
 - `src/dynamic.css`, `src/flight.css`, `src/constellation.css`, `src/finish.css`: NASA-Punk layout, typography and shared environmental materials.
-- `src/experience-journey.jsx`: separate diagonal work and education timelines with selectable details.
+- `src/experience-journey.jsx`: separate horizontal work and education timelines with expandable details.
 - `src/research-exhibit.jsx`, `src/content-experiences.jsx`: layered paper exhibit, publication reader, project inspection, game theater and honors gallery.
 - `src/spatial-field.jsx`: persistent orbital backdrop and animated wire geometry.
 - `src/motion.jsx`, `src/video-deck.jsx`: content depth, film carousel, playback and reduced-motion handling.

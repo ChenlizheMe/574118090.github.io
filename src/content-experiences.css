@@ -47,24 +47,29 @@
 .atlas-sheet__back,.atlas-sheet__edge { position:absolute; inset:0; border:1px solid var(--line-strong); background:var(--space-2); transform:translate3d(15px,12px,-18px); pointer-events:none; backface-visibility:hidden; }
 .atlas-sheet__edge { background:#c8b98e; transform:translate3d(7px,6px,-8px); }
 .atlas-copy { border-left:0; padding-inline:30px; }.atlas-field { position:relative; text-align:left; font-size:16px; }
-/* Two chronological routes climb diagonally, with level, readable labels. */
+/* Two horizontal timelines; details expand below the selected route. */
 .flight-chronicle { clip-path:none; border:0; border-block:1px solid var(--line-strong); overflow:clip; }
-.flight-chronicle-heading { background:none; color:var(--fog); padding:22px 0; }.flight-chronicle-heading > span { color:var(--dim); }.flight-chronicle-heading .icon { color:var(--accent); }
-.flight-chronicle-body { grid-template-columns:45% minmax(0,1fr); }
-.journey-slope { height:380px; position:relative; isolation:isolate; background:radial-gradient(ellipse at 80% 0%,var(--space-2),transparent 65%); overflow:clip; }
-.journey-track { position:absolute; inset:0; width:100%; height:100%; overflow:visible; z-index:1; }
-.journey-track path { fill:none; stroke:var(--line-strong); stroke-width:1; vector-effect:non-scaling-stroke; stroke-dasharray:3 7; }
-.journey-track path.journey-track__rail { stroke:var(--signal); stroke-width:3; stroke-dasharray:none; }
-.journey-track circle { fill:var(--accent); stroke:var(--space-0); stroke-width:1; transition:cx .75s var(--flight-ease),cy .75s var(--flight-ease); }
-.journey-grid { position:absolute; inset:10%; border:1px solid var(--line); background:repeating-linear-gradient(90deg,transparent 0 39px,var(--line) 39px 40px); transform:perspective(650px) rotateX(55deg) rotateZ(-22deg); opacity:.5; pointer-events:none; }
-.journey-stop { position:absolute; left:var(--stop-x); top:var(--stop-y); width:1px; height:1px; border:0; background:none; padding:0; color:var(--mist); z-index:2; }
-.journey-stop__point { position:absolute; width:26px; height:26px; top:-13px; left:-13px; border:1px solid var(--signal); background:var(--space-0); transform:rotate(45deg); box-shadow:4px 4px 0 var(--line); transition:background .35s; }
-.journey-stop__point::after { content:''; position:absolute; inset:7px; background:var(--signal); }.journey-stop[aria-pressed='true'] .journey-stop__point { border-color:var(--accent); background:var(--accent); }.journey-stop[aria-pressed='true'] .journey-stop__point::after { background:var(--space-0); }
-.journey-stop__label { position:absolute; left:0; top:22px; width:175px; transform:translateX(-40%); display:flex; flex-direction:column; text-align:left; padding:4px 8px; background:var(--space-0); border-left:2px solid transparent; }
-.journey-stop__label strong { font-size:38px; line-height:1.15; font-weight:300; letter-spacing:-.04em; }.journey-stop__label > span { font-size:18px; line-height:1.5; margin-top:6px; }.journey-stop[aria-pressed='true'] .journey-stop__label { color:var(--fog); border-left-color:var(--accent); }.journey-stop[aria-pressed='true'] strong { color:var(--accent); }
-.journey-stop:focus-visible { outline:none; }.journey-stop:focus-visible .journey-stop__label { outline:2px solid var(--accent); outline-offset:4px; }
-.journey-direction { position:absolute; top:16px; right:24px; color:var(--accent); font-size:40px; font-weight:300; }
-.flight-detail { border-left:1px solid var(--line-strong); border-top:0; box-shadow:none; background:none; padding:34px; }.flight-watermark { opacity:.45; font-size:130px; }.flight-chronicles { gap:38px; }
+.flight-chronicle-heading { background:none; color:var(--fog); padding:22px 0; }
+.flight-chronicle-heading > span { color:var(--dim); }
+.flight-chronicle-heading .icon { color:var(--accent); }
+.flight-chronicle-body { grid-template-columns:minmax(0,1fr); }
+.journey-timeline { position:relative; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:28px 0; }
+.journey-timeline::before { content:''; position:absolute; top:88px; left:25%; right:25%; height:2px; background:var(--line-strong); }
+.journey-event { position:relative; display:flex; flex-direction:column; align-items:center; gap:10px; min-width:0; padding:0 12px; border:0; background:none; color:var(--fog); text-align:center; }
+.journey-event > strong { font-size:34px; line-height:40px; font-weight:400; font-variant-numeric:tabular-nums; }
+.journey-event__point { width:20px; height:20px; flex:none; border:1px solid var(--signal); border-radius:50%; background:var(--panel); position:relative; }
+.journey-event__point::after { content:''; position:absolute; inset:5px; border-radius:50%; background:var(--signal); }
+.journey-event__name { font-size:19px; line-height:1.5; }
+.journey-event__action { display:flex; align-items:center; gap:8px; font-size:16px; color:var(--mist); }
+.journey-event__action > span { font-size:22px; line-height:1; }
+.journey-event[aria-expanded='true'] > strong,.journey-event:hover .journey-event__action { color:var(--accent); }
+.journey-event[aria-expanded='true'] .journey-event__point { border-color:var(--accent); }
+.journey-event[aria-expanded='true'] .journey-event__point::after { background:var(--accent); }
+.journey-event:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.flight-detail { border-left:0; border-top:1px solid var(--line); box-shadow:none; background:none; padding:28px; min-height:0; }
+.flight-detail[hidden] { display:none; }
+.flight-detail-content { transform:none; transition:none; }
+.flight-chronicles { gap:30px; }
 /* Honors use a horizontal featured display above a compact three-column index. */
 .honors-gallery { display:flex; flex-direction:column; gap:0; }
 .honors-plinth { position:relative; top:auto; display:grid; grid-template-columns:255px minmax(0,1fr); gap:35px; padding:30px 38px; align-items:center; width:100%; }
@@ -74,5 +79,5 @@
 .honors-index strong { font-size:18px; }.honors-index small { font-size:16px; }.honors-index button > .icon { width:18px; margin-top:4px; }
 .game-extra-video { margin-right:16px; }.footer > div:first-child p { max-width:450px; font-size:19px; line-height:1.6; }
 @media(max-width:900px) { .journey-stop__label { width:145px; }.journey-stop__label strong { font-size:34px; }.journey-stop__label > span { font-size:17px; }.flight-detail { padding:28px; }.honors-plinth { grid-template-columns:200px minmax(0,1fr); gap:22px; padding:25px; }.honors-inscription { padding-left:24px; }.honors-index { grid-template-columns:1fr 1fr; }.honors-medals .honor-mark { width:185px; height:185px; } }
-@media(max-width:700px) { .atlas-image { padding:40px 32px 20px; }.atlas-copy { padding:25px 0; }.atlas-sheet { margin-bottom:14px; }.atlas-sheet .figure-viewer { aspect-ratio:1.5; padding:12px; }.flight-chronicle-body { grid-template-columns:1fr; }.journey-slope { height:330px; }.journey-stop__label { width:138px; transform:translateX(-48%); }.journey-stop__label strong { font-size:32px; }.journey-stop__label > span { font-size:16px; }.flight-chronicle-heading { padding:20px 0; }.flight-detail { border-left:0; border-top:1px solid var(--line); padding:24px 0; }.honors-plinth { display:grid; grid-template-columns:1fr; padding:22px; gap:8px; }.honors-medals { height:205px; }.honors-inscription { padding:22px 0 0; border-left:0; border-top:1px solid #d6c08e55; }.honors-inscription p { font-size:28px; }.honors-inscription h3 { font-size:22px; }.honors-index { order:0; display:grid; grid-template-columns:1fr 1fr; gap:0 16px; padding-top:8px; overflow:visible; }.honors-index button { display:grid; grid-template-columns:22px minmax(0,1fr); flex:auto; gap:8px; }.honors-index button > .icon { display:none; }.honors-index strong { display:block; font-size:17px; overflow:visible; }.honors-index small { display:block; overflow:visible; }.footer > div:first-child p { font-size:18px; } }
+@media(max-width:700px) { .atlas-image { padding:40px 32px 20px; }.atlas-copy { padding:25px 0; }.atlas-sheet { margin-bottom:14px; }.atlas-sheet .figure-viewer { aspect-ratio:1.5; padding:12px; }.flight-chronicle-body { grid-template-columns:1fr; }.journey-event { padding-inline:8px; }.journey-event__name { font-size:17px; }.flight-chronicle-heading { padding:20px 0; }.flight-detail { border-left:0; border-top:1px solid var(--line); padding:24px 0; }.honors-plinth { display:grid; grid-template-columns:1fr; padding:22px; gap:8px; }.honors-medals { height:205px; }.honors-inscription { padding:22px 0 0; border-left:0; border-top:1px solid #d6c08e55; }.honors-inscription p { font-size:28px; }.honors-inscription h3 { font-size:22px; }.honors-index { order:0; display:grid; grid-template-columns:1fr 1fr; gap:0 16px; padding-top:8px; overflow:visible; }.honors-index button { display:grid; grid-template-columns:22px minmax(0,1fr); flex:auto; gap:8px; }.honors-index button > .icon { display:none; }.honors-index strong { display:block; font-size:17px; overflow:visible; }.honors-index small { display:block; overflow:visible; }.footer > div:first-child p { font-size:18px; } }
 @media(prefers-reduced-motion:reduce) { .atlas-sheet,.atlas-sheet__assembly,.atlas-sheet:hover .atlas-sheet__assembly { transform:none!important; }.journey-track circle { transition:none; } }
