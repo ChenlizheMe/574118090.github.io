@@ -30,18 +30,47 @@
 .site-background__grain { position:absolute; inset:0; background-image:radial-gradient(var(--orbit-ink) .6px,transparent .8px); background-size:7px 7px; opacity:.14; }
 /* A quiet centre keeps Chinese body text crisp against the orbital field. */
 .site-background::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--space-0) 60%,transparent) 30% 70%,transparent); }
-.portrait-panel,.honors-plinth { background:linear-gradient(135deg,var(--console-highlight),var(--console) 72%); border:1px solid var(--console-edge); }
-.theater-stage { background:radial-gradient(ellipse at 50% 0%,var(--console-highlight),var(--console) 75%); border:1px solid var(--console-edge); }
-.project-viewport { background:var(--console); border-color:var(--console-edge); }
-.project-viewport__screen { border-color:var(--console); }
-.research-atlas,.flight-chronicle { background:color-mix(in srgb,var(--panel) 88%,transparent); }
+
 .atlas-panel { grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); }
 .atlas-copy,.theater-info > div { min-width:0; }
 .atlas-copy h3,.publication-tile h3 { overflow-wrap:anywhere; }
-.atlas-image { background:linear-gradient(135deg,var(--space-1),color-mix(in srgb,var(--panel) 80%,transparent)); }
+
 .btn,.detail-link,.masthead__actions button,.archive-filters button { border-radius:2px; }
 @media(max-width:700px) {
  .atlas-panel { grid-template-columns:minmax(0,1fr); }
  .site-background .spatial-field { opacity:.8; mask-image:linear-gradient(90deg,#000,transparent 28%,transparent 72%,#000); }
  .site-background__orbits { opacity:.75; }
+}
+
+/* Open compositions: the page is the backdrop, rather than a stack of panels. */
+.portrait-panel,.flight-chronicle,.research-atlas,.project-card,.honors-gallery,.honors-plinth,.project-viewport,.theater-stage {
+ border:0; background:none; box-shadow:none; clip-path:none;
+}
+.portrait-panel { color:var(--fog); }
+.portrait-register,.portrait-footer { border:0; color:var(--dim); }
+.portrait-register span:last-child { color:var(--accent); }
+.portrait-stage { background:none; }
+.portrait-stage .glyph-face { border-color:var(--signal); }
+.flight-chronicle-heading { border:0; }
+.flight-chronicle-heading::after { display:none; }
+.atlas-image { border:0; background:none; }
+.atlas-copy { border:0; padding-right:0; }
+.atlas-nav { gap:16px; }
+.atlas-nav button,.atlas-nav button[aria-pressed='true'] { border:0; background:none; }
+.project-card > .panel-register { border:0; }
+.project-viewport__screen { border:0; box-shadow:0 16px 28px #15384320; }
+.project-viewport__toolbar { padding-inline:0; color:var(--fog); }
+.project-viewport__toolbar > button { color:var(--fog); background:transparent; border:1px solid var(--line-strong); }
+.publication-tile > .figure-viewer { border:0; }
+.theater-stage,.is-playing .theater-stage { background:none; padding-inline:7%; }
+.theater-floor { display:none; }
+.honors-plinth { color:var(--fog); padding-inline:0; }
+.honors-spotlight { background:radial-gradient(ellipse,var(--environment-gold),transparent 70%); }
+.honors-inscription { border-color:var(--line); }
+.honors-inscription p { color:var(--accent); }
+.honors-inscription article > span { color:var(--mist); }
+@media(max-width:700px) {
+ .atlas-nav { gap:0 12px; }
+ .theater-stage,.is-playing .theater-stage { padding-inline:0; }
+ .honors-plinth { padding-inline:0; }
 }
