@@ -37,7 +37,7 @@ export const infernux = {
     { bvid: 'BV1dSRkBnEXU', url: 'https://player.bilibili.com/player.html?bvid=BV1dSRkBnEXU&p=1', chapter: 'SYSTEMS', title: 'Animation, MCP & engine performance', titleZh: '动画系统、MCP 与引擎性能', short: 'Animation & MCP', shortZh: '动画与 MCP' },
     { bvid: 'BV1jXXaBQE1R', url: 'https://player.bilibili.com/player.html?bvid=BV1jXXaBQE1R&p=1', chapter: 'ORIGIN', title: 'Building an open-source game engine', titleZh: '在清华读研半年，我做了个开源游戏引擎', short: 'The beginning', shortZh: '引擎的起点' }
   ],
-  image: '/img/projects/infernux-editor-current.png',
+  image: '/img/projects/infernux-editor-current.webp',
   headline:
     'An open-source game engine, from the rendering core to the editor.',
   headlineZh:
@@ -119,12 +119,12 @@ export const publications = [
   {
     "title": "PromptCD: Test-Time Behavior Enhancement via Polarity-Prompt Contrastive Decoding",
     "authors": "Baolong Bi, Yuyao Ge, Shenghua Liu, Yuchen He, Siqian Tong, <u>Lizhe Chen</u>, Lingrui Mei, Zehao Li, Yiwei Wang, Yujun Cai, Ming-Hsuan Yang, Xueqi Cheng",
-    "venue": "IEEE TPAMI · Accepted, 2026",
-    "venueZh": "IEEE TPAMI · 已录用 · 2026",
+    "venue": "IEEE TPAMI 2026",
+    "venueZh": "IEEE TPAMI 2026",
     "level": "journal",
     "levelLabel": "Journal",
     "link": "/attaches/papers/promptcd-tpami.pdf",
-    "image": "/img/papers/promptcd.png",
+    "image": "/img/papers/promptcd.webp",
     "intro": "Polarity-prompt contrastive decoding for training-free test-time behavior enhancement across LLMs and vision-language models.",
     "introZh": "通过极性提示对比解码，在无需额外训练的情况下增强大语言模型与视觉语言模型的测试时行为。",
     "featured": true,
@@ -133,44 +133,44 @@ export const publications = [
   {
     "title": "CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection",
     "authors": "Binjia Zhou, Hengrui Lou, <u>Lizhe Chen</u>, Haoyuan Li, Dawei Luo, Shuai Chen, Jie Lei, Zunlei Feng, Yijun Bei",
-    "venue": "IJCAI 2025 · 2485–2493",
-    "venueZh": "IJCAI 2025 · 2485–2493",
+    "venue": "IJCAI 2025 Main Track",
+    "venueZh": "IJCAI 2025 Main Track",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://www.ijcai.org/proceedings/2025/277",
     "intro": "Visual detail enhancement and self-correction for interpretable face forgery detection.",
     "introZh": "结合视觉细节增强与自我纠正，实现可解释的人脸伪造检测。",
     "featured": true,
-    "image": "/img/papers/corrdetail.png",
+    "image": "/img/papers/corrdetail.webp",
     "imageKind": "figure",
     "coFirstAuthor": true
   },
   {
     "title": "Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking",
     "authors": "Yuyao Ge, Shenghua Liu, Yiwei Wang, Lingrui Mei, <u>Lizhe Chen</u>, Baolong Bi, Xueqi Cheng",
-    "venue": "ACL 2026 · Long Papers",
-    "venueZh": "ACL 2026 · Long Papers",
+    "venue": "ACL 2026 Long Papers",
+    "venueZh": "ACL 2026 Long Papers",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://arxiv.org/abs/2503.19602",
     "intro": "An analysis of chain-of-thought prompting and in-context examples for reasoning models and overthinking.",
     "introZh": "分析思维链提示与上下文示例对推理模型表现及过度思考的影响。",
     "featured": true,
-    "image": "/img/papers/innate-reasoning.png",
+    "image": "/img/papers/innate-reasoning.webp",
     "imageKind": "figure"
   },
   {
     "title": "Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?",
     "authors": "Yuyao Ge, Shenghua Liu, Baolong Bi, Yiwei Wang, Lingrui Mei, Wenjie Feng, <u>Lizhe Chen</u>, Xueqi Cheng",
-    "venue": "ACL 2025 · Long Papers · 6404–6420",
-    "venueZh": "ACL 2025 · Long Papers · 6404–6420",
+    "venue": "ACL 2025 Long Papers",
+    "venueZh": "ACL 2025 Long Papers",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://aclanthology.org/2025.acl-long.321/",
     "intro": "A study of how graph description order affects large language models on graph reasoning tasks.",
     "introZh": "研究图的描述顺序如何影响大语言模型求解图推理任务。",
     "featured": true,
-    "image": "/img/papers/graph-descriptive.png",
+    "image": "/img/papers/graph-descriptive.webp",
     "imageKind": "figure"
   },
   {
@@ -184,7 +184,7 @@ export const publications = [
     "intro": "Frequency-importance Gaussian splatting for lightweight, real-time radiance field rendering.",
     "introZh": "基于频率重要性的高斯泼溅方法，面向轻量实时辐射场渲染。",
     "featured": true,
-    "image": "/img/papers/fi-gs.png",
+    "image": "/img/papers/fi-gs.webp",
     "imageKind": "figure"
   },
   {
@@ -195,7 +195,7 @@ export const publications = [
     "level": "preprint",
     "levelLabel": "Technical Report",
     "link": "https://arxiv.org/abs/2604.10263",
-    "image": "/img/projects/infernux-editor-current.png",
+    "image": "/img/projects/infernux-editor-current.webp",
     "intro": "A technical report on a Python-native game engine and JIT-accelerated scripting.",
     "introZh": "Python 原生游戏引擎与 JIT 加速脚本系统的技术报告。",
     "featured": false,
@@ -212,7 +212,7 @@ export const publications = [
     "intro": "A comparative study of visual cues, virtual environments and viewing perspectives in spatial learning.",
     "introZh": "比较视觉线索、虚拟环境与观察视角对空间学习的影响。",
     "featured": false,
-    "image": "/img/papers/spatial-learning.png",
+    "image": "/img/papers/spatial-learning.webp",
     "imageKind": "figure"
   },
   {
@@ -226,7 +226,7 @@ export const publications = [
     "intro": "Connecting importance sampling with attention mechanisms for efficient prompt compression.",
     "introZh": "将重要性采样与注意力机制联系起来，用于高效提示词压缩。",
     "featured": false,
-    "image": "/img/papers/pis.png",
+    "image": "/img/papers/pis.webp",
     "imageKind": "figure"
   },
   {
@@ -240,7 +240,7 @@ export const publications = [
     "intro": "Emotion-driven personification for generative agents.",
     "introZh": "面向生成式智能体的情绪驱动人格化研究。",
     "featured": false,
-    "image": "/img/papers/fema.png",
+    "image": "/img/papers/fema.webp",
     "imageKind": "figure"
   },
   {
@@ -254,7 +254,7 @@ export const publications = [
     "intro": "Spatiotemporal hypergraphs for 3D pose estimation and a public opera-video benchmark. First published online in September 2024.",
     "introZh": "利用时空超图进行三维人体姿态估计，并提供戏曲视频公开基准；2024 年 9 月首次在线发表。",
     "featured": false,
-    "image": "/img/papers/3d-pose.png",
+    "image": "/img/papers/3d-pose.webp",
     "imageKind": "figure"
   },
   {
@@ -268,7 +268,7 @@ export const publications = [
     "intro": "Zero-shot synthesis of 3D terrain from textual descriptions using large language models.",
     "introZh": "利用大语言模型，从文本描述零样本合成三维地形。",
     "featured": false,
-    "image": "/img/papers/words-to-worlds.png",
+    "image": "/img/papers/words-to-worlds.webp",
     "imageKind": "figure"
   },
   {
@@ -283,7 +283,7 @@ export const publications = [
     "introZh": "面向游戏与动漫的黑白漫画风格非真实感实时渲染方法。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/npr-manga-concept.png"
+    "image": "/img/papers/npr-manga-concept.webp"
   },
   {
     "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
@@ -297,7 +297,7 @@ export const publications = [
     "introZh": "基于高斯泼溅的轻量三维重建研究；会议为 AAIA 2023，论文集于 2024 年 1 月出版。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/lightweight-3d-concept.png"
+    "image": "/img/papers/lightweight-3d-concept.webp"
   },
   {
     "title": "Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly",
@@ -311,7 +311,7 @@ export const publications = [
     "introZh": "从数据出发研究直接攻击敏感点的方法。",
     "featured": false,
     "imageKind": "figure",
-    "image": "/img/papers/cybersecurity.png"
+    "image": "/img/papers/cybersecurity.webp"
   },
   {
     "title": "Vision Transformer Based on Knowledge Distillation in TCM Image Classification",
@@ -325,7 +325,7 @@ export const publications = [
     "introZh": "面向中医图像分类的 Vision Transformer 知识蒸馏研究。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/vit-tcm-concept.png"
+    "image": "/img/papers/vit-tcm-concept.webp"
   }
 ];
 
@@ -335,15 +335,17 @@ export const projects = [
     "url": "https://github.com/ChenlizheMe/Infernux",
     "status": "Open Source",
     "statusZh": "开源",
-    "image": "/img/projects/infernux-editor-current.png",
+    "image": "/img/projects/infernux-editor-current.webp",
     "desc": "An open-source game engine I build from scratch.",
     "descZh": "从零开发的开源游戏引擎。",
-    "role": "Creator — renderer, editor, pipeline, release",
-    "roleZh": "作者 — 渲染器、编辑器、管线与发布",
+    "role": "Creator — engine architecture, renderer, editor and release pipeline",
+    "roleZh": "作者 — 引擎架构、渲染器、编辑器与发布管线",
     "tags": [
       "Vulkan",
-      "C++",
-      "Python"
+      "WebGPU",
+      "C++17",
+      "Python 3.13",
+      "InxPackage"
     ],
     "featured": true
   },
@@ -352,13 +354,13 @@ export const projects = [
     "url": "https://github.com/DexForce/EmbodiChain",
     "status": "Contrib",
     "statusZh": "参与",
-    "image": "/img/projects/embodichain.png",
+    "image": "/img/projects/embodichain.webp",
     "desc": "DexForce’s GPU-accelerated embodied-AI stack: high-fidelity sim, ray-traced sensors, and scalable training pipelines.",
     "descZh": "跨维端到端 GPU 具身智能栈：高保真仿真、光追传感器与可扩展训练管线。",
     "detail": "EmbodiChain is DexForce’s embodied-AI stack for GPU sim, data, and training. On my side I shipped a <strong>full multi-camera OptiX renderer</strong> inside it (not a single-camera demo), and integrated a <strong>warp-based GPU parallel compute framework</strong> so batches of camera renders and sensor-heavy passes stay on sensible bandwidth/latency budgets. The public pitch is still Sim2Real and big synthetic datasets—I focused on the rendering/compute plumbing that makes that scale.",
     "detailZh": "EmbodiChain 是跨维的具身智能 GPU 仿真与训练栈。我这边落地的是：<strong>完整的多相机 OptiX 渲染器</strong>（不是单机位演示），以及一套<strong>基于 NVIDIA warp 的 GPU 并行计算框架</strong>，嵌进框架里跑多路相机和重传感器管线时，带宽和延迟仍可控。对外叙事仍是 Sim2Real 与大规模合成数据——我主要负责把渲染/算子这层工程打牢。",
-    "role": "Rendering — multi-camera OptiX path, warp GPU parallel stack integration",
-    "roleZh": "渲染 — 多相机 OptiX 路径、warp GPU 并行框架集成",
+    "role": "Rendering — multi-camera OptiX renderer and warp GPU parallel layer",
+    "roleZh": "渲染 — 多相机 OptiX 渲染器与 warp GPU 并行计算层",
     "tags": [
       "Embodied AI",
       "OptiX",
@@ -374,12 +376,12 @@ export const games = [
 {
   "name": "You Qiu Bi Ying",
   "nameZh": "有求必应",
-  "role": "Two-person collaboration · Seven-day prototype",
-  "roleZh": "双人合作 · 七日原型",
+  "role": "Card-stacking management",
+  "roleZh": "卡牌堆叠经营",
   "desc": "A card-stacking management game about urban folk wishes, set in a workshop above the clouds.",
   "descZh": "以都市民俗祈愿为主题的卡牌堆叠经营游戏，在云海工坊中为人间制作承载心愿的器物。",
-  "detail": "Made with Endless_Beach in seven days, drawing inspiration from Stacklands. Collect incense and materials, combine cards, and fulfill wishes for safety, companionship, and a new beginning.",
-  "detailZh": "与 Endless_Beach 合作，用七天完成，设计参考《堆叠大陆》。收集香火与灵材，通过卡牌合成完成订单，回应人们关于平安、陪伴与未来的心愿。",
+  "detail": "Collect incense and materials, combine cards into ritual objects, and fulfill wishes for safety, companionship, and a new beginning.",
+  "detailZh": "收集香火与灵材，将卡牌组合成承载愿望的器物，完成关于平安、陪伴与未来的祈愿。",
   "video": "https://player.bilibili.com/player.html?bvid=BV1ZG5F6NEd4&p=1",
   "bilibili": "https://www.bilibili.com/video/BV1ZG5F6NEd4/",
   "tags": [
@@ -392,14 +394,14 @@ export const games = [
   {
     name: 'There Should Be a Cat Here',
     nameZh: '此处应有猫',
-    role: 'Technical Art & Client Development',
-    roleZh: '技术美术与客户端程序',
+    role: 'Remote cat-guiding puzzle',
+    roleZh: '远程逗猫轻解谜',
     desc: 'TapTap 2024 Spotlight game: you take a weird remote “cat intern” job—point a CCTV laser, nudge stubborn cats, and clear cute light-puzzle goals.',
     descZh: 'TapTap 2024 聚光灯作品：扮演远程「猫咪实习生」，用监控激光逗猫、完成轻解谜目标，偏休闲可爱向。',
     detail:
-      'Trailer and gameplay on Bilibili show the loop: monitor UI, laser pointer interaction, and level goals around herding cats. I handled tech art and client work for the build we shipped to the contest.',
+      'Watch through security cameras, guide unpredictable cats with a laser pointer, and complete each client’s objectives across puzzle, racing, and exploration stages.',
     detailZh:
-      'B 站宣传片/实机里能看到监控界面、激光指引和围绕逗猫的目标循环。我负责技术美术与客户端侧，把参赛版本打磨到可发布状态。',
+      '通过监控观察猫咪，用激光引导这些随心所欲的小家伙，并在解谜、竞速与探索关卡中完成客户目标。',
     video:
       'https://player.bilibili.com/player.html?isOutside=true&bvid=BV18F1EYREqY&page=1&high_quality=1&danmaku=0',
     bilibili: 'https://www.bilibili.com/video/BV18F1EYREqY',
@@ -411,13 +413,13 @@ export const games = [
     name: 'Tree',
     nameZh: '樹',
     homeFeatured: false,
-    role: 'Technical Art & Client Development',
-    roleZh: '技术美术与客户端程序',
+    role: 'Ecosystem cultivation',
+    roleZh: '生态培育与合成',
     desc: 'A contemplative game made by a two-person team for CIGA Game Jam 2025.',
     descZh: '2025 CIGA Game Jam 双人团队作品，一款禅系游戏。',
     detail:
-      'Watch the original project presentation on Bilibili.',
-    detailZh: '可在 B 站观看该作品的原始演示视频。',
+      'Begin in a void, nurture a World Tree, synthesize basic elements into landscapes, and keep the growing ecosystem balanced and prosperous.',
+    detailZh: '从虚无中孕育世界树，将基础元素不断合成为草原、森林与生态地貌，并维持整个系统的平衡与丰饶。',
     video:
       'https://player.bilibili.com/player.html?isOutside=true&bvid=BV1KT3czoEsP&page=1&high_quality=1&danmaku=0',
     bilibili: 'https://www.bilibili.com/video/BV1KT3czoEsP',
@@ -426,14 +428,14 @@ export const games = [
   {
     name: 'Unmasking Day',
     nameZh: '卸装日 Unmasking Day',
-    role: 'Technical Art & Client Development',
-    roleZh: '技术美术与客户端程序',
+    role: 'AI-assisted text deduction',
+    roleZh: 'AI 文字推理',
     desc: 'A retro-styled text deduction game built at Global Game Jam 2026, using AI fiction as the interaction frame.',
     descZh: 'Global Game Jam 2026 完成的复古风文字推理游戏，以 AI 系统作为交互叙事框架。',
     detail:
-      '48-hour GGJ build emphasizing monospace UI, shader-driven retro CRT motifs, and narrative pacing through a diegetic “Unmasking” terminal. I owned client architecture, tech-art shaders, and tooling hooks for writers.',
+      'Use the “Unmasking System” to dive through layers of online evidence, connect buried clues, and decide what is disguise and what is real as both worlds begin to blur.',
     detailZh:
-      '48 小时 GGJ 作品，强调等宽 UI、着色器驱动的复古终端感，以及通过叙事内“卸装”终端控制节奏。我负责客户端架构、技术美术着色器与供编剧使用的工具挂钩。',
+      '借助「Unmasking 系统」深入网络信息层，串联被掩埋的线索；当虚拟与现实逐渐交叠，判断何为伪装、何为真实。',
     video: 'https://player.bilibili.com/player.html?isOutside=true&aid=115994500532047&bvid=BV1eS64BNEem&cid=35749692453&p=1',
     awards: 'GGJ 2026 Chongqing · Best Art Style & Best Game Design',
     awardsZh: 'GGJ 2026 重庆站 · 最佳美术风格 & 最佳游戏设计',
@@ -445,28 +447,28 @@ export const games = [
     awards: 'miHoYo 2025 Game Design Competition · National first place',
     awardsZh: '米哈游 2025 游戏策划大赛 · 全国第一名',
     nameZh: '咚！哒咚！',
-    role: 'Technical Art & Client Development',
-    roleZh: '技术美术与客户端程序',
+    role: 'Rhythm-action combat',
+    roleZh: '节奏动作战斗',
     desc: 'A rhythm-action game where drumbeats become contract, battle, and salvation.',
     descZh: '鼓点即契约、即战斗、即拯救的节奏动作游戏。',
     detail:
-      'Rhythm-combat prototype with custom shader stacks for stylized drum FX and screen-space punch. I implemented beat-synced VFX, performance-safe mobile targets, and the core client loop for the demo build.',
+      'Read the drum pattern, strike and evade on the beat, and turn each rhythmic exchange into a fast, stylized combat sequence.',
     detailZh:
-      '节奏战斗原型，含自定义着色器栈以呈现鼓点特效与镜头冲击。我实现节拍同步特效、面向性能的移动目标，以及演示版客户端主循环。',
+      '辨认鼓点节奏，在拍点上攻击与闪避，把每一次节拍交换推进成快速而强烈的动作战斗。',
     video: 'https://player.bilibili.com/player.html?isOutside=true&aid=115939370598910&bvid=BV1ufBZBkEp2&cid=35550200975&p=1',
     tags: ['Unity', 'C#', 'Tech Art', 'Rhythm', 'Shader']
   },
   {
     name: 'Organic Dominion',
     nameZh: '有机统治',
-    role: 'Technical Art & Client Development',
-    roleZh: '技术美术与客户端程序',
+    role: 'Factory automation & swarm evolution',
+    roleZh: '工厂自动化与虫群进化',
     desc: 'An automation-factory meets swarm-evolution strategy game about living production systems.',
     descZh: '融合自动化工厂与虫群进化的策略游戏，围绕活体生产系统展开。',
     detail:
-      'Strategy vertical slice blending factory automation and swarm evolution. I built instanced swarm rendering passes, UI-heavy tech-art polish, and profiling hooks to keep draw calls stable when bug counts spike.',
+      'Build living assembly lines, harvest genes from alien creatures, combine mutations into new swarm forms, and overwhelm the planet through planned evolution and production.',
     detailZh:
-      '融合工厂自动化与虫群进化的策略垂直切片。我负责实例化虫群渲染通道、偏 UI 向的技术美术打磨，以及 Profiling 挂钩以在单位数量激增时稳定绘制开销。',
+      '建立活体流水线，从异星生物身上收集基因，将不同变异组合成新的虫群形态，再通过进化规划与自动生产征服星球。',
     video: 'https://player.bilibili.com/player.html?isOutside=true&aid=115894239889503&bvid=BV1RSrWBhEbr&cid=35398681894&p=1',
     awards: 'Tsinghua SIGS Interactive Media Workshop · Silver Award',
     awardsZh: '清华大学互动媒体技术工作坊 · 银奖',

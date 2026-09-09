@@ -8,14 +8,16 @@
     "statusLabel": "Open Source",
     "desc": "An open-source game engine I build from scratch.",
     "descZh": "从零开发的开源游戏引擎。",
-    "role": "Creator — renderer, editor, pipeline, release",
-    "roleZh": "作者 — 渲染器、编辑器、管线与发布",
+    "role": "Creator — engine architecture, renderer, editor and release pipeline",
+    "roleZh": "作者 — 引擎架构、渲染器、编辑器与发布管线",
     "tags": [
       "Vulkan",
-      "C++",
-      "Python"
+      "WebGPU",
+      "C++17",
+      "Python 3.13",
+      "InxPackage"
     ],
-    "image": "/img/projects/infernux-editor-current.png",
+    "image": "/img/projects/infernux-editor-current.webp",
     "statusZh": "开源"
   },
   {
@@ -30,8 +32,8 @@
     "descZh": "跨维端到端 GPU 具身智能栈：高保真仿真、光追传感器与可扩展训练管线。",
     "detail": "EmbodiChain is DexForce’s embodied-AI stack for GPU sim, data, and training. On my side I shipped a <strong>full multi-camera OptiX renderer</strong> inside it (not a single-camera demo), and integrated a <strong>warp-based GPU parallel compute framework</strong> so batches of camera renders and sensor-heavy passes stay on sensible bandwidth/latency budgets. The public pitch is still Sim2Real and big synthetic datasets—I focused on the rendering/compute plumbing that makes that scale.",
     "detailZh": "EmbodiChain 是跨维的具身智能 GPU 仿真与训练栈。我这边落地的是：<strong>完整的多相机 OptiX 渲染器</strong>（不是单机位演示），以及一套<strong>基于 NVIDIA warp 的 GPU 并行计算框架</strong>，嵌进框架里跑多路相机和重传感器管线时，带宽和延迟仍可控。对外叙事仍是 Sim2Real 与大规模合成数据——我主要负责把渲染/算子这层工程打牢。",
-    "role": "Rendering — multi-camera OptiX path, warp GPU parallel stack integration",
-    "roleZh": "渲染 — 多相机 OptiX 路径、warp GPU 并行框架集成",
+    "role": "Rendering — multi-camera OptiX renderer and warp GPU parallel layer",
+    "roleZh": "渲染 — 多相机 OptiX 渲染器与 warp GPU 并行计算层",
     "tags": [
       "Embodied AI",
       "OptiX",
@@ -39,7 +41,7 @@
       "Simulation",
       "GPU"
     ],
-    "image": "/img/projects/embodichain.png",
+    "image": "/img/projects/embodichain.webp",
     "statusZh": "参与"
   }
 ]

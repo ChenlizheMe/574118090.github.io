@@ -2,12 +2,12 @@
   {
     "title": "PromptCD: Test-Time Behavior Enhancement via Polarity-Prompt Contrastive Decoding",
     "authors": "Baolong Bi, Yuyao Ge, Shenghua Liu, Yuchen He, Siqian Tong, <u>Lizhe Chen</u>, Lingrui Mei, Zehao Li, Yiwei Wang, Yujun Cai, Ming-Hsuan Yang, Xueqi Cheng",
-    "venue": "IEEE TPAMI · Accepted, 2026",
-    "venueZh": "IEEE TPAMI · 已录用 · 2026",
+    "venue": "IEEE TPAMI 2026",
+    "venueZh": "IEEE TPAMI 2026",
     "level": "journal",
     "levelLabel": "Journal",
     "link": "/attaches/papers/promptcd-tpami.pdf",
-    "image": "/img/papers/promptcd.png",
+    "image": "/img/papers/promptcd.webp",
     "intro": "Polarity-prompt contrastive decoding for training-free test-time behavior enhancement across LLMs and vision-language models.",
     "introZh": "通过极性提示对比解码，在无需额外训练的情况下增强大语言模型与视觉语言模型的测试时行为。",
     "featured": true,
@@ -16,44 +16,44 @@
   {
     "title": "CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection",
     "authors": "Binjia Zhou, Hengrui Lou, <u>Lizhe Chen</u>, Haoyuan Li, Dawei Luo, Shuai Chen, Jie Lei, Zunlei Feng, Yijun Bei",
-    "venue": "IJCAI 2025 · 2485–2493",
-    "venueZh": "IJCAI 2025 · 2485–2493",
+    "venue": "IJCAI 2025 Main Track",
+    "venueZh": "IJCAI 2025 Main Track",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://www.ijcai.org/proceedings/2025/277",
     "intro": "Visual detail enhancement and self-correction for interpretable face forgery detection.",
     "introZh": "结合视觉细节增强与自我纠正，实现可解释的人脸伪造检测。",
     "featured": true,
-    "image": "/img/papers/corrdetail.png",
+    "image": "/img/papers/corrdetail.webp",
     "imageKind": "figure",
     "coFirstAuthor": true
   },
   {
     "title": "Innate Reasoning is Not Enough: In-Context Learning Enhances Reasoning Large Language Models with Less Overthinking",
     "authors": "Yuyao Ge, Shenghua Liu, Yiwei Wang, Lingrui Mei, <u>Lizhe Chen</u>, Baolong Bi, Xueqi Cheng",
-    "venue": "ACL 2026 · Long Papers",
-    "venueZh": "ACL 2026 · Long Papers",
+    "venue": "ACL 2026 Long Papers",
+    "venueZh": "ACL 2026 Long Papers",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://arxiv.org/abs/2503.19602",
     "intro": "An analysis of chain-of-thought prompting and in-context examples for reasoning models and overthinking.",
     "introZh": "分析思维链提示与上下文示例对推理模型表现及过度思考的影响。",
     "featured": true,
-    "image": "/img/papers/innate-reasoning.png",
+    "image": "/img/papers/innate-reasoning.webp",
     "imageKind": "figure"
   },
   {
     "title": "Can Graph Descriptive Order Affect Solving Graph Problems with LLMs?",
     "authors": "Yuyao Ge, Shenghua Liu, Baolong Bi, Yiwei Wang, Lingrui Mei, Wenjie Feng, <u>Lizhe Chen</u>, Xueqi Cheng",
-    "venue": "ACL 2025 · Long Papers · 6404–6420",
-    "venueZh": "ACL 2025 · Long Papers · 6404–6420",
+    "venue": "ACL 2025 Long Papers",
+    "venueZh": "ACL 2025 Long Papers",
     "level": "conf",
     "levelLabel": "Conference",
     "link": "https://aclanthology.org/2025.acl-long.321/",
     "intro": "A study of how graph description order affects large language models on graph reasoning tasks.",
     "introZh": "研究图的描述顺序如何影响大语言模型求解图推理任务。",
     "featured": true,
-    "image": "/img/papers/graph-descriptive.png",
+    "image": "/img/papers/graph-descriptive.webp",
     "imageKind": "figure"
   },
   {
@@ -67,7 +67,7 @@
     "intro": "Frequency-importance Gaussian splatting for lightweight, real-time radiance field rendering.",
     "introZh": "基于频率重要性的高斯泼溅方法，面向轻量实时辐射场渲染。",
     "featured": true,
-    "image": "/img/papers/fi-gs.png",
+    "image": "/img/papers/fi-gs.webp",
     "imageKind": "figure"
   },
   {
@@ -78,7 +78,7 @@
     "level": "preprint",
     "levelLabel": "Technical Report",
     "link": "https://arxiv.org/abs/2604.10263",
-    "image": "/img/projects/infernux-editor-current.png",
+    "image": "/img/projects/infernux-editor-current.webp",
     "intro": "A technical report on a Python-native game engine and JIT-accelerated scripting.",
     "introZh": "Python 原生游戏引擎与 JIT 加速脚本系统的技术报告。",
     "featured": false,
@@ -95,7 +95,7 @@
     "intro": "A comparative study of visual cues, virtual environments and viewing perspectives in spatial learning.",
     "introZh": "比较视觉线索、虚拟环境与观察视角对空间学习的影响。",
     "featured": false,
-    "image": "/img/papers/spatial-learning.png",
+    "image": "/img/papers/spatial-learning.webp",
     "imageKind": "figure"
   },
   {
@@ -109,7 +109,7 @@
     "intro": "Connecting importance sampling with attention mechanisms for efficient prompt compression.",
     "introZh": "将重要性采样与注意力机制联系起来，用于高效提示词压缩。",
     "featured": false,
-    "image": "/img/papers/pis.png",
+    "image": "/img/papers/pis.webp",
     "imageKind": "figure"
   },
   {
@@ -123,7 +123,7 @@
     "intro": "Emotion-driven personification for generative agents.",
     "introZh": "面向生成式智能体的情绪驱动人格化研究。",
     "featured": false,
-    "image": "/img/papers/fema.png",
+    "image": "/img/papers/fema.webp",
     "imageKind": "figure"
   },
   {
@@ -137,7 +137,7 @@
     "intro": "Spatiotemporal hypergraphs for 3D pose estimation and a public opera-video benchmark. First published online in September 2024.",
     "introZh": "利用时空超图进行三维人体姿态估计，并提供戏曲视频公开基准；2024 年 9 月首次在线发表。",
     "featured": false,
-    "image": "/img/papers/3d-pose.png",
+    "image": "/img/papers/3d-pose.webp",
     "imageKind": "figure"
   },
   {
@@ -151,7 +151,7 @@
     "intro": "Zero-shot synthesis of 3D terrain from textual descriptions using large language models.",
     "introZh": "利用大语言模型，从文本描述零样本合成三维地形。",
     "featured": false,
-    "image": "/img/papers/words-to-worlds.png",
+    "image": "/img/papers/words-to-worlds.webp",
     "imageKind": "figure"
   },
   {
@@ -166,7 +166,7 @@
     "introZh": "面向游戏与动漫的黑白漫画风格非真实感实时渲染方法。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/npr-manga-concept.png"
+    "image": "/img/papers/npr-manga-concept.webp"
   },
   {
     "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
@@ -180,7 +180,7 @@
     "introZh": "基于高斯泼溅的轻量三维重建研究；会议为 AAIA 2023，论文集于 2024 年 1 月出版。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/lightweight-3d-concept.png"
+    "image": "/img/papers/lightweight-3d-concept.webp"
   },
   {
     "title": "Attack Based on Data: A Novel Perspective to Attack Sensitive Points Directly",
@@ -194,7 +194,7 @@
     "introZh": "从数据出发研究直接攻击敏感点的方法。",
     "featured": false,
     "imageKind": "figure",
-    "image": "/img/papers/cybersecurity.png"
+    "image": "/img/papers/cybersecurity.webp"
   },
   {
     "title": "Vision Transformer Based on Knowledge Distillation in TCM Image Classification",
@@ -208,6 +208,6 @@
     "introZh": "面向中医图像分类的 Vision Transformer 知识蒸馏研究。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/vit-tcm-concept.png"
+    "image": "/img/papers/vit-tcm-concept.webp"
   }
 ]

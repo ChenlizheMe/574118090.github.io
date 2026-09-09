@@ -213,7 +213,7 @@ function Hero({ lang }) {
         <div className="hero__socials">{profile.links.filter(l => ['GitHub', 'Google Scholar'].includes(l.label)).map(link => <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(link.label)}/>{link.label}</a>)}<a href={`mailto:${profile.emails[0]}`}><Icon name="mail"/>Email</a></div>
       </div>
       <aside className="hero__aside">
-        <div className="portrait-panel"><div className="portrait-register"><span>LIZHE CHEN</span><span>陈立哲</span></div><div className="portrait-stage"><SpatialGlyph/><div className="profile-display"><img src="/img/profile.png" alt="Lizhe Chen" /></div></div><div className="portrait-footer"><span>GRAPHICS / VLM</span><i aria-hidden="true"/></div></div>
+        <div className="portrait-panel"><div className="portrait-register"><span>LIZHE CHEN</span><span>陈立哲</span></div><div className="portrait-stage"><SpatialGlyph/><div className="profile-display"><img src="/img/profile.webp" alt="Lizhe Chen" /></div></div><div className="portrait-footer"><span>GRAPHICS / VLM</span><i aria-hidden="true"/></div></div>
       </aside>
     </section>
   );
