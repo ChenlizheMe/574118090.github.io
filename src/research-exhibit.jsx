@@ -4,10 +4,10 @@ import { FigureViewer, PublicationAuthors } from './content-experiences.jsx';
 import { Icon } from './icons.jsx';
 import { DepthSurface } from './motion.jsx';
 const selection = [
+  { id:'promptcd', shortTitle:'PromptCD', subject:'TPAMI · LLM / VLM', field:'MULTIMODAL AI' },
   { id:'corrdetail', shortTitle:'CorrDetail', subject:'IJCAI 2025 · 视觉语言模型', field:'VLM' },
   { id:'innate-reasoning', shortTitle:'Innate Reasoning', subject:'ACL 2026 · Long Papers', field:'LLM REASONING' },
-  { id:'graph-descriptive', shortTitle:'Graph Descriptive Order', subject:'ACL 2025 · Long Papers', field:'GRAPH REASONING' },
-  { id:'fi-gs', shortTitle:'FI-GS', subject:'实时渲染', field:'GRAPHICS' }
+  { id:'graph-descriptive', shortTitle:'Graph Descriptive Order', subject:'ACL 2025 · Long Papers', field:'GRAPH REASONING' }
 ];
 export function ResearchExhibit({lang}) {
  const [selected,setSelected]=useState(0),zh=lang==='zh';

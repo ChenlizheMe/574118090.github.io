@@ -403,7 +403,7 @@ function ArchivePage({ page, lang }) {
     }
   }[page];
 
-  const paperGroup = paper => /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(paper.image) ? 'graphics' : /corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(paper.image) ? 'vision' : 'other';
+  const paperGroup = paper => /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(paper.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(paper.image) ? 'vision' : 'other';
   const categories = [['all','全部','All'],['graphics','图形与三维','Graphics & 3D'],['vision','视觉与语言','Vision & language'],['other','其他研究','Other research']];
   const visibleItems = page==='papers' && filter!=='all' ? config.items.filter(p=>paperGroup(p)===filter) : config.items;
 

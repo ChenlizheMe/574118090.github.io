@@ -4,6 +4,7 @@ Checked 2026-09-08 against publisher/proceedings pages, arXiv and publisher-depo
 
 | Paper | Source | Finding |
 |---|---|---|
+| PromptCD: Test-Time Behavior Enhancement via Polarity-Prompt Contrastive Decoding | Author-supplied manuscript | Title, author order and technical description checked against the supplied 15-page manuscript. TPAMI acceptance is displayed from the author's explicit update on 2026-09-09; a public proceedings or DOI link is not yet available. |
 | Infernux: A Python-Native Game Engine with JIT-Accelerated Scripting | [Primary record](https://arxiv.org/abs/2604.10263) | Title and sole author confirmed; retain technical-report status. |
 | Enhancing Spatial Learning under Visual Cues: A Comparative Study of Virtual Environments and Perspectives | [Primary record](https://doi.org/10.1016/j.visinf.2025.100301) | Confirmed 2026 issue; expand Jun-Hsiang Yao correctly (previously J. Yao). |
 | CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection | [Primary record](https://www.ijcai.org/proceedings/2025/277) | Use the official IJCAI proceedings link and official author order. |

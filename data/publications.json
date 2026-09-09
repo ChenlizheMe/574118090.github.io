@@ -1,5 +1,19 @@
 [
   {
+    "title": "PromptCD: Test-Time Behavior Enhancement via Polarity-Prompt Contrastive Decoding",
+    "authors": "Baolong Bi, Yuyao Ge, Shenghua Liu, Yuchen He, Siqian Tong, <u>Lizhe Chen</u>, Lingrui Mei, Zehao Li, Yiwei Wang, Yujun Cai, Ming-Hsuan Yang, Xueqi Cheng",
+    "venue": "IEEE TPAMI · Accepted, 2026",
+    "venueZh": "IEEE TPAMI · 已录用 · 2026",
+    "level": "journal",
+    "levelLabel": "Journal",
+    "link": "/attaches/papers/promptcd-tpami.pdf",
+    "image": "/img/papers/promptcd.png",
+    "intro": "Polarity-prompt contrastive decoding for training-free test-time behavior enhancement across LLMs and vision-language models.",
+    "introZh": "通过极性提示对比解码，在无需额外训练的情况下增强大语言模型与视觉语言模型的测试时行为。",
+    "featured": true,
+    "imageKind": "figure"
+  },
+  {
     "title": "CorrDetail: Visual Detail Enhanced Self-Correction for Face Forgery Detection",
     "authors": "Binjia Zhou, Hengrui Lou, <u>Lizhe Chen</u>, Haoyuan Li, Dawei Luo, Shuai Chen, Jie Lei, Zunlei Feng, Yijun Bei",
     "venue": "IJCAI 2025 · 2485–2493",
