@@ -21,7 +21,8 @@ export function PublicationAuthors({ paper, lang }) {
 export function PublicationCard({ paper,lang }) {
   const zh=lang==='zh';
   const title=zh?(paper.titleZh||paper.title):paper.title;
-  return <article className="publication-tile"><FigureViewer src={paper.image} title={title} lang={lang}/><div className="publication-tile__copy"><p className="publication-venue">{zh?(paper.venueZh||paper.venue):paper.venue}</p><h3>{paper.link?<a href={paper.link} target="_blank" rel="noreferrer">{title}</a>:title}</h3><p className="publication-summary">{zh?(paper.introZh||paper.intro):paper.intro}</p>{paper.authors&&<PublicationAuthors paper={paper} lang={lang}/>} {paper.link&&<a className="detail-link" href={paper.link} target="_blank" rel="noreferrer"><Icon name="book"/>{zh?'阅读论文':'Read paper'}<Icon name="external"/></a>}</div></article>;
+  const venue=zh?(paper.venueZh||paper.venue):paper.venue;
+  return <article className="publication-tile"><FigureViewer src={paper.image} title={title} lang={lang}/><div className="publication-tile__copy">{venue&&<p className="publication-venue">{venue}</p>}<h3>{paper.link?<a href={paper.link} target="_blank" rel="noreferrer">{title}</a>:title}</h3><p className="publication-summary">{zh?(paper.introZh||paper.intro):paper.intro}</p>{paper.authors&&<PublicationAuthors paper={paper} lang={lang}/>} {paper.link&&<a className="detail-link" href={paper.link} target="_blank" rel="noreferrer"><Icon name="book"/>{zh?'阅读论文':'Read paper'}<Icon name="external"/></a>}</div></article>;
 }
 
 export function ProjectViewport({project,lang}) {

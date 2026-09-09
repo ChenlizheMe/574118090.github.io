@@ -117,15 +117,16 @@ export const researchDirections = [
 
 export const publications = [
   {
-    "title": "Research on Emotional Expression in Chinese Social Media",
-    "titleZh": "中文社交媒体情绪表达研究",
-    "venue": "[Under Review] Nature Human Behaviour",
-    "venueZh": "[审稿中] Nature Human Behaviour",
+    "title": "[Under Review] Nature Human Behaviour",
+    "titleZh": "[审稿中] Nature Human Behaviour",
+    "venue": "",
+    "venueZh": "",
+    "authors": "****, <u>Lizhe Chen</u>, ****",
     "level": "journal",
     "levelLabel": "Under Review",
     "image": "/img/papers/emotional-expression-review.webp",
-    "intro": "The public title and research details are withheld until anonymous peer review concludes.",
-    "introZh": "匿名审稿期间暂不公开正式标题与研究细节，审稿结束后更新。",
+    "intro": "The title, co-authors and research details are withheld until anonymous peer review concludes.",
+    "introZh": "匿名审稿期间暂不公开正式标题、其他作者与研究细节，审稿结束后更新。",
     "featured": false,
     "imageKind": "figure",
     "underReview": true
