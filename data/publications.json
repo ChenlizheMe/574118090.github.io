@@ -1,5 +1,19 @@
 [
   {
+    "title": "Research on Emotional Expression in Chinese Social Media",
+    "titleZh": "中文社交媒体情绪表达研究",
+    "venue": "[Under Review] Nature Human Behaviour",
+    "venueZh": "[审稿中] Nature Human Behaviour",
+    "level": "journal",
+    "levelLabel": "Under Review",
+    "image": "/img/papers/emotional-expression-review.webp",
+    "intro": "The public title and research details are withheld until anonymous peer review concludes.",
+    "introZh": "匿名审稿期间暂不公开正式标题与研究细节，审稿结束后更新。",
+    "featured": false,
+    "imageKind": "figure",
+    "underReview": true
+  },
+  {
     "title": "PromptCD: Test-Time Behavior Enhancement via Polarity-Prompt Contrastive Decoding",
     "authors": "Baolong Bi, Yuyao Ge, Shenghua Liu, Yuchen He, Siqian Tong, <u>Lizhe Chen</u>, Lingrui Mei, Zehao Li, Yiwei Wang, Yujun Cai, Ming-Hsuan Yang, Xueqi Cheng",
     "venue": "IEEE TPAMI 2026",
