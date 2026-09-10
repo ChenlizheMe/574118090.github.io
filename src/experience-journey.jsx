@@ -3,7 +3,19 @@ import { education, workExperience } from './content.js';
 import { Icon } from './icons.jsx';
 const details = {
   work: [
-    { year:'2026', points:['Neural rendering research and development.','Integrating rendering methods into engine and tooling workflows.'], pointsZh:['围绕神经渲染开展研发工作。','将相关方法接入实际引擎与工具链，关注研究方法在工程中的落地。'] },
+    {
+      year: '2026',
+      points: [
+        'Adapted Neural Texture Compression (NTC) to Unity’s ISPC-based texture compression pipeline, enabling compatibility with GPU-native BC (Block Compression) formats.',
+        'Proposed GSNTC, replacing NTC’s MLP-based reconstruction with Gaussian Splatting and optimizing it for lightmap fitting; achieved 4× the speed and a 5 dB gain in reconstruction quality over the original NTC at the same compressed size.',
+        'Further developed GSNTC for Lumen Radiance Cache compression and reconstruction, reducing data size by 99% and improving reconstruction quality by 10 dB over the original NTC.'
+      ],
+      pointsZh: [
+        '改造神经纹理压缩（Neural Texture Compression，NTC），适配 Unity 基于 ISPC 的纹理压缩流程，实现与 GPU 原生 BC（Block Compression）格式的兼容。',
+        '提出 GSNTC，以 Gaussian Splatting 替代 NTC 的 MLP 重建过程，并针对光照贴图拟合进行优化；在压缩后体积相同的条件下，速度达到原始 NTC 的 4 倍，重建质量提升 5 dB。',
+        '进一步改进 GSNTC，用于 Lumen Radiance Cache 的压缩与重建，实现数据体积减少 99%，重建质量较原始 NTC 提升 10 dB。'
+      ]
+    },
     { year:'2025', points:['Built a complete multi-camera OptiX renderer in EmbodiChain.','Integrated a warp-based GPU parallel compute layer.','Contributed to simulation, engine and asset tooling.'], pointsZh:['在 EmbodiChain 内实现完整的多相机 OptiX 渲染器。','集成基于 NVIDIA warp 的 GPU 并行计算层。','参与仿真、引擎与资产侧工具开发。'], link:'https://github.com/DexForce/EmbodiChain', linkLabel:'EmbodiChain' }
   ],
   study: [
