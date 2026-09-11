@@ -597,8 +597,8 @@ export const workExperience = [
     dateZh: '2026年6月12日 — 至今',
     role: 'Engine R&D Intern',
     roleZh: '引擎研发实习生',
-    desc: 'Engine R&D internship (in progress); day-to-day focus is neural rendering and shipping it in real engine/tooling loops.',
-    descZh: '引擎研发实习（进行中），日常工作重心在神经渲染，以及把它接进真实的引擎与工具链路里。'
+    desc: 'Engine R&D internship focused on neural texture compression and neural rendering systems.',
+    descZh: '引擎研发实习，主要围绕神经纹理压缩与神经渲染系统展开。'
   },
   {
     place: 'DexForce Intelligent Digital Tech',
