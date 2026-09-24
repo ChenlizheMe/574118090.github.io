@@ -1,0 +1,166 @@
+/* Phone reading layout. Keep the desktop composition in its existing stylesheets. */
+.archive-mobile-head { display: none; }
+
+@media (max-width: 640px) {
+  :root { --content-inset: 18px; }
+  html { scroll-padding-top: 106px; }
+  body { font-size: 16px; line-height: 1.7; }
+  .site-background__orbits,
+  .site-background .spatial-field,
+  .site-background__grain { display: none; }
+  .site-background__atmosphere { opacity: .32; }
+  .site-background::after { display: none; }
+  .main { padding-inline: 18px; padding-bottom: 42px; }
+  .section { padding-block: 46px; }
+  .section + .section { border-top-color: var(--line-strong); }
+  .section__head { display: grid; grid-template-columns: 1fr; gap: 5px; margin-bottom: 24px; padding-top: 18px; }
+  .section__id { justify-self: start; padding: 0; font-size: 12px; line-height: 1.5; letter-spacing: .12em; text-align: left; }
+  .section__title { font-size: clamp(27px, 7vw, 31px); line-height: 1.25; }
+  .section__lede, .section__head--stack .section__lede { grid-column: 1; max-width: none; margin-top: 2px; font-size: 15px; line-height: 1.6; }
+
+  .masthead { padding: 10px 18px 0; gap: 8px 10px; background: color-mix(in srgb, var(--space-0) 96%, transparent); backdrop-filter: blur(16px); }
+  .masthead__brand { gap: 8px; }
+  .masthead__mark { width: 31px; height: 31px; font-size: 12px; }
+  .masthead__brand strong { font-size: 15px; white-space: nowrap; }
+  .masthead__brand small { display: none; }
+  .masthead__actions { gap: 6px; }
+  .masthead__actions button { min-height: 40px; padding: 4px 7px; font-size: 13px; }
+  .masthead__actions .icon { width: 15px; height: 15px; flex-basis: 15px; }
+  .masthead__nav { order: 3; width: 100%; display: flex; justify-content: space-between; gap: 0; padding: 0; border: 0; box-shadow: none; background: transparent; }
+  .masthead__nav a { flex: 1 1 0; display: grid; place-items: center; min-width: 0; min-height: 42px; padding: 9px 3px 10px; border-bottom: 2px solid transparent; border-radius: 0; color: var(--mist); font-size: 14px; letter-spacing: 0; text-align: center; }
+  .masthead__nav a.is-active, :root[data-theme='light'] .masthead__nav a.is-active { color: var(--accent); background: transparent; border-bottom-color: var(--accent); }
+
+  .section.hero:first-of-type { padding-top: 30px; padding-bottom: 40px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .hero__primary { grid-row: 1; }
+  .hero__title, :root[data-lang='zh'] .hero__title { margin-bottom: 12px; font-size: clamp(42px, 12vw, 49px); line-height: 1.17; }
+  .hero__greeting { margin-bottom: 8px; font-size: 17px; }
+  .hero__contact-list { gap: 5px; margin: 14px 0 22px; }
+  .hero-contact { gap: 6px; }
+  .hero-contact__label { min-width: 40px; font-size: 12px; }
+  .hero-contact__value { min-height: 36px; font-size: 15px; }
+  .hero__current { max-width: none; font-size: 18px; line-height: 1.65; }
+  .hero__about { margin-top: 14px; font-size: 16px; line-height: 1.7; }
+  .hero__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 20px 0 10px; }
+  .hero__actions .btn { min-width: 0; padding-inline: 8px; font-size: 14px; }
+  .hero__socials { display: flex; gap: 8px; }
+  .hero__socials a { min-height: 40px; padding: 8px 10px; font-size: 13px; }
+  .hero__socials .icon { width: 16px; height: 16px; flex-basis: 16px; }
+  .hero__aside { grid-row: 2; height: auto; min-height: 0; width: 100%; margin: 0; }
+  .portrait-panel { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto; width: 100%; max-width: none; min-height: 138px; margin: 0; clip-path: none; }
+  .portrait-stage { grid-area: 1 / 1 / 3 / 2; min-height: 138px; height: auto; }
+  .portrait-stage .spatial-glyph { display: none; }
+  .portrait-stage .profile-display { width: 88px; padding: 3px; margin: 0; box-shadow: none; }
+  .portrait-register { grid-area: 1 / 2; display: block; align-self: end; padding: 16px 14px 4px; border: 0; font-size: 14px; line-height: 1.5; }
+  .portrait-register span { display: block; }
+  .portrait-register span:last-child { margin-top: 2px; }
+  .portrait-footer { grid-area: 2 / 2; padding: 4px 14px 15px; border: 0; font-size: 12px; }
+  .portrait-footer i { width: 32px; height: 7px; }
+
+  .chronicles { gap: 24px; }
+  .chronicle-heading { margin-bottom: 20px; padding-bottom: 14px; }
+  .chronicle-heading h3 { font-size: 22px; }
+  .chronicle-entry { grid-template-columns: 48px minmax(0, 1fr); padding-bottom: 18px; }
+  .chronicle-entry::before { left: 38px; }
+  .chronicle-year { font-size: 16px; }
+  .chronicle-year i { left: 34px; }
+  .chronicle-event { margin-left: 2px; }
+  .chronicle-trigger { padding: 15px 14px; gap: 6px; }
+  .chronicle-place { font-size: 19px; line-height: 1.45; }
+  .chronicle-role, .chronicle-details ul { font-size: 16px; line-height: 1.65; }
+  .chronicle-details ul { margin-inline: 14px; }
+  .journey-timeline { gap: 27px; padding: 20px var(--content-inset); }
+  .journey-record__year { font-size: 30px; }
+  .journey-record__point { margin-bottom: 16px; }
+  .journey-record__copy h4 { font-size: 21px; line-height: 1.4; }
+  .journey-record__copy li { font-size: 16px; line-height: 1.65; }
+
+  .atlas-nav { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .atlas-nav button { flex: 0 0 49%; min-width: 0; min-height: 90px; padding: 13px 12px; scroll-snap-align: start; }
+  .atlas-nav strong { font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; }
+  .atlas-nav small { font-size: 12px; line-height: 1.4; }
+  .atlas-image { padding: 28px 20px 12px; }
+  .atlas-sheet { margin-bottom: 12px; }
+  .atlas-copy { padding: 20px var(--content-inset) 24px; }
+  .atlas-copy h3 { font-size: 21px; line-height: 1.45; }
+  .publication-summary { font-size: 16px; line-height: 1.7; }
+  .publication-authors, .paper-card__authors { font-size: 14px; line-height: 1.65; }
+  .publication-venue { margin-bottom: 10px; font-size: 14px; }
+  .publication-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .publication-links .detail-link { margin: 0; }
+
+  .engine-intro { margin-bottom: 22px; font-size: 16px; line-height: 1.72; }
+  .video-deck { margin-bottom: 24px; }
+  .video-deck .deck-stage { height: calc(50cqw + 155px); }
+  .deck-card { width: 92%; left: 1%; }
+  .deck-caption h3 { font-size: 19px; line-height: 1.4; }
+  .deck-tabs { justify-content: space-between; gap: 5px; }
+  .deck-tabs button { min-height: 49px; padding: 7px 2px 9px; font-size: 12px; line-height: 1.3; }
+  .deck-tabs button span { margin-bottom: 2px; font-size: 11px; }
+  .feature-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .feature-links .btn { min-height: 42px; font-size: 13px; }
+  .feature-links .repository-stars { flex-basis: 100%; padding-top: 0; }
+
+  .project-card > .project-layout, .archive-list.projects .project-card > .project-layout { gap: 16px; padding: 18px var(--content-inset); }
+  .project-card > .panel-register { padding: 13px var(--content-inset); }
+  .project-card__body h3 { font-size: 25px; }
+  .project-card__body p, .game-card__body p { font-size: 16px; line-height: 1.68; }
+  .project-card__body .tag-row { margin-bottom: 18px; }
+  .project-viewport__screen { border-width: 6px; }
+  .project-viewport__toolbar { padding: 8px; }
+  .project-viewport__toolbar > span { font-size: 13px; }
+  .project-viewport__toolbar > button { gap: 4px; padding: 6px; font-size: 12px; }
+  .project-viewport__toolbar .viewport-expand { width: 34px; height: 34px; }
+
+  .theater-stage { padding: 17px 12px 24px; }
+  .theater-screen { border-width: 4px; }
+  .theater-selector { gap: 10px; padding: 16px 0 12px; }
+  .theater-selector button { flex-basis: 122px; font-size: 14px; line-height: 1.35; }
+  .theater-thumb { margin-bottom: 7px; }
+  .theater-info { padding-top: 20px; gap: 7px; }
+  .theater-info h3 { margin: 6px 0 12px; font-size: 25px; }
+  .theater-info p { margin-bottom: 12px; font-size: 16px; line-height: 1.7; }
+  .game-extra-video { margin-right: 6px; }
+
+  .honors-plinth { padding: 18px; }
+  .honors-medals { height: 150px; }
+  .honors-medals .honor-mark { width: 132px; height: 132px; }
+  .honor-mark__face strong { font-size: 25px; }
+  .honor-mark__face > span { font-size: 17px; }
+  .honors-inscription { padding-top: 16px; }
+  .honors-inscription p { margin-bottom: 8px; font-size: 24px; }
+  .honors-inscription h3 { margin-bottom: 9px; font-size: 19px; }
+  .honors-inscription article > span { font-size: 16px; line-height: 1.65; }
+  .honors-index { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; padding: 6px 0 0; overflow: visible; }
+  .honors-index button { display: grid; grid-template-columns: 28px minmax(0, 1fr); min-height: 56px; padding: 12px 0; gap: 7px; }
+  .honors-index strong { display: block; overflow: visible; font-size: 16px; line-height: 1.4; }
+  .honors-index small { display: block; overflow: visible; margin-top: 3px; font-size: 14px; }
+
+  .archive-mobile-head { display: block; padding: 28px 0 12px; }
+  .archive-mobile-head > span { display: block; color: var(--accent); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .archive-mobile-head > strong { display: block; margin-top: 4px; color: var(--fog); font-size: 29px; font-weight: 500; line-height: 1.3; }
+  .archive-mobile-head p { margin: 5px 0 0; color: var(--mist); font-size: 15px; line-height: 1.6; }
+  .archive-filters { display: flex; flex-wrap: nowrap; gap: 7px; margin-top: 10px; padding-bottom: 10px; overflow-x: auto; scrollbar-width: thin; }
+  .archive-filters button { flex: 0 0 auto; min-height: 42px; padding: 8px 11px; font-size: 13px; white-space: nowrap; }
+  .archive-list.papers { gap: 29px; }
+  .publication-tile { padding-bottom: 27px; border-bottom: 1px solid var(--line-strong); }
+  .publication-tile > .figure-viewer { aspect-ratio: 1.65; padding: 15px; }
+  .publication-tile__copy { padding-top: 17px; }
+  .publication-tile h3 { margin-bottom: 10px; font-size: 21px; line-height: 1.4; }
+  .publication-tile .publication-summary { margin-bottom: 11px; }
+  .publication-tile .publication-authors { margin-bottom: 13px; }
+
+  .footer { padding-top: 32px; }
+  .footer > div:first-child p { font-size: 16px; }
+  .footer-links { gap: 8px; }
+  .footer-links a { min-height: 39px; padding: 7px 9px; font-size: 14px; }
+  .footer-links .icon { width: 16px; height: 16px; flex-basis: 16px; }
+
+  /* Readability cannot depend on a scroll animation completing. */
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+@media (max-width: 360px) {
+  .hero__actions { grid-template-columns: 1fr; }
+  .portrait-footer i { display: none; }
+}
