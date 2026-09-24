@@ -8,7 +8,7 @@ import { SpatialField, SpatialGlyph } from './spatial-field.jsx';
 import { PublicationCard, ProjectViewport, GameTheater, HonorsGallery } from './content-experiences.jsx';
 import './content-experiences.css';
 import './finish.css';
-import './engine-timeline.css';
+import './site-overrides.css';
 import { ResearchExhibit } from './research-exhibit.jsx';
 import { MetricsProvider, RepositoryStars } from './live-data.jsx';
 import { MotionProvider, ScrollEffects } from './motion.jsx';
@@ -270,7 +270,7 @@ function ResearchAndCareer({ lang }) {
 function InfernuxFeature({ lang }) {
   return <section className="section feature" id="infernux">
     <header className="section__head"><span className="section__id">03</span><div><h2 className="section__title">Infernux</h2></div><p className="section__lede"><T en={infernux.headline} zh={infernux.headlineZh} lang={lang}/></p></header>
-    <div className="engine-intro"><span className="engine-intro__eyebrow"><T en="Built and maintained by Lizhe Chen" zh="由陈立哲主导与维护" lang={lang}/></span><p><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang}/></p></div>
+    <p className="engine-intro"><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang}/></p>
     <VideoDeck lang={lang}/>
     <div className="link-row feature-links"><a className="btn btn--primary" href={infernux.website} target="_blank" rel="noreferrer"><Icon name="globe"/><T en="Visit Infernux" zh="进入引擎官网" lang={lang}/><Icon name="external"/></a><a className="btn btn--quiet" href={infernux.url} target="_blank" rel="noreferrer"><Icon name="github"/>GitHub</a><RepositoryStars lang={lang}/></div>
   </section>;

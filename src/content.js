@@ -34,9 +34,9 @@ export const infernux = {
   demoVideo:
     'https://player.bilibili.com/player.html?isOutside=true&aid=116318384753366&bvid=BV1jXXaBQE1R&cid=37098294014&p=1',
   videos: [
-    { bvid: 'BV1jXXaBQE1R', url: 'https://player.bilibili.com/player.html?bvid=BV1jXXaBQE1R&p=1', chapter: 'ORIGIN', chapterZh: '起点', title: 'Building an open-source game engine', titleZh: '在清华读研半年，我做了个开源游戏引擎', short: 'The beginning', shortZh: '引擎的起点', detail: 'The first public look at the engine and the ideas behind it.', detailZh: '从最初的想法出发，第一次完整展示这个引擎。' },
-    { bvid: 'BV1dSRkBnEXU', url: 'https://player.bilibili.com/player.html?bvid=BV1dSRkBnEXU&p=1', chapter: 'SYSTEMS', chapterZh: '系统演进', title: 'Animation, MCP & engine performance', titleZh: '动画系统、MCP 与引擎性能', short: 'Animation & MCP', shortZh: '动画与 MCP', detail: 'Animation, MCP integration, and performance work as the engine grows.', detailZh: '继续构建动画系统、MCP 集成与引擎性能。' },
-    { bvid: 'BV1538P6jELT', url: 'https://player.bilibili.com/player.html?bvid=BV1538P6jELT&p=1', chapter: 'ONE YEAR', chapterZh: '一周年', title: 'An engine grows a particle system', titleZh: '引擎一岁，刚长出粒子系统', short: 'Particles', shortZh: '粒子系统', detail: 'A one-year update centered on the new particle system.', detailZh: '引擎一周年的阶段更新，重点展示新加入的粒子系统。' }
+    { bvid: 'BV1jXXaBQE1R', url: 'https://player.bilibili.com/player.html?bvid=BV1jXXaBQE1R&p=1', chapter: 'ORIGIN', title: 'Building an open-source game engine', titleZh: '在清华读研半年，我做了个开源游戏引擎', short: 'The beginning', shortZh: '引擎的起点' },
+    { bvid: 'BV1dSRkBnEXU', url: 'https://player.bilibili.com/player.html?bvid=BV1dSRkBnEXU&p=1', chapter: 'SYSTEMS', title: 'Animation, MCP & engine performance', titleZh: '动画系统、MCP 与引擎性能', short: 'Animation & MCP', shortZh: '动画与 MCP' },
+    { bvid: 'BV1538P6jELT', url: 'https://player.bilibili.com/player.html?bvid=BV1538P6jELT&p=1', chapter: 'DEVELOPMENT', title: 'An engine grows a particle system', titleZh: '引擎一岁，刚长出粒子系统', short: 'Particles', shortZh: '粒子系统' }
   ],
   image: '/img/projects/infernux-editor-current.webp',
   headline:
@@ -44,9 +44,9 @@ export const infernux = {
   headlineZh:
     '从渲染核心到编辑器，持续开发中的开源游戏引擎。',
   introduction:
-    'Infernux is a game engine I lead and maintain. Its core uses C++, Vulkan, WebGPU, and Jolt, with Python as its scripting language. I am building it for AI-native games, where AI means neural networks broadly rather than only LLMs. I am also exploring its potential as an agent benchmark environment. If this interests you, please get in touch.',
+    'Infernux is a game engine I lead and continue to maintain. Its core uses C++, Vulkan, WebGPU, and Jolt, while Pybind makes Python its scripting language. It is designed for AI-native games (here, AI means neural networks broadly, not only large language models; this is why we chose Python, with its natural support for PyTorch). I am also exploring its potential as an agent benchmark environment.',
   introductionZh:
-    'Infernux 是一款由我主导开发并持续维护的游戏引擎。核心采用 C++、Vulkan、WebGPU 和 Jolt，使用 Python 作为脚本语言。它面向 AI 原生游戏；这里的 AI 指更广义的神经网络，而不局限于大语言模型。我也在探索将它用作智能体基准测试环境的能力与可能性。感兴趣欢迎联系我。',
+    'Infernux 是一款由我主导开发并持续维护的游戏引擎。核心采用 C++、Vulkan、WebGPU 和 Jolt，通过 Pybind 的方式让 Python 作为脚本语言。它面向 AI 原生游戏（注：这里的 AI 指更广义的神经网络，而不局限于大语言模型，这也是我们选用 Python 的原因，它天然支持 PyTorch）。我也在探索将它用作智能体基准测试环境的能力与可能性。',
   summary:
     'I started Infernux to explore real-time rendering through a complete, working engine. It brings together a Vulkan renderer, editor, physics and asset tools.',
   summaryZh:
