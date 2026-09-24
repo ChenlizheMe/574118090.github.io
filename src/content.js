@@ -117,6 +117,22 @@ export const researchDirections = [
 
 export const publications = [
   {
+    "title": "SkillForge: Co-Evolving Skills and Agents via Dynamic Skill Lifecycles",
+    "authors": "Yuyao Ge, Yiwei Wang, Yuchen He, Baolong Bi, Lingrui Mei, Jiayu Yao, <u>Lizhe Chen</u>, Shenghua Liu",
+    "authorPosition": 7,
+    "venue": "NeurIPS 2026 Main Track · Poster",
+    "venueZh": "NeurIPS 2026 主会 · Poster",
+    "level": "conf",
+    "levelLabel": "Conference",
+    "link": "https://openreview.net/forum?id=Z3a0qCfhFi",
+    "pdf": "/attaches/papers/skillforge-neurips2026.pdf",
+    "image": "/img/papers/skillforge.svg",
+    "intro": "A fitness-driven skill lifecycle filters, retires, and refines reusable skills while the agent policy learns through reinforcement learning.",
+    "introZh": "以适应度驱动的生命周期筛选、淘汰和改进可复用技能，并与智能体策略的强化学习协同演化。",
+    "featured": true,
+    "imageKind": "concept"
+  },
+  {
     "title": "[Under Review] Nature Human Behaviour",
     "titleZh": "[审稿中] Nature Human Behaviour",
     "venue": "",

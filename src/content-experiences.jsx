@@ -15,14 +15,14 @@ export function FigureViewer({ src, title, lang, className='' }) {
 }
 
 export function PublicationAuthors({ paper, lang }) {
-  return <p className="publication-authors"><span dangerouslySetInnerHTML={{__html:paper.authors}}/>{paper.coFirstAuthor && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?'共同第一作者':'Co-first author'}</span>}</p>;
+  return <p className="publication-authors"><span dangerouslySetInnerHTML={{__html:paper.authors}}/>{paper.coFirstAuthor && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?'共同第一作者':'Co-first author'}</span>}{paper.authorPosition && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?`第 ${paper.authorPosition} 作者`:`${paper.authorPosition}${paper.authorPosition===1?'st':paper.authorPosition===2?'nd':paper.authorPosition===3?'rd':'th'} author`}</span>}</p>;
 }
 
 export function PublicationCard({ paper,lang }) {
   const zh=lang==='zh';
   const title=zh?(paper.titleZh||paper.title):paper.title;
   const venue=zh?(paper.venueZh||paper.venue):paper.venue;
-  return <article className="publication-tile"><FigureViewer src={paper.image} title={title} lang={lang}/><div className="publication-tile__copy">{venue&&<p className="publication-venue">{venue}</p>}<h3>{paper.link?<a href={paper.link} target="_blank" rel="noreferrer">{title}</a>:title}</h3><p className="publication-summary">{zh?(paper.introZh||paper.intro):paper.intro}</p>{paper.authors&&<PublicationAuthors paper={paper} lang={lang}/>} {paper.link&&<a className="detail-link" href={paper.link} target="_blank" rel="noreferrer"><Icon name="book"/>{zh?'阅读论文':'Read paper'}<Icon name="external"/></a>}</div></article>;
+  return <article className="publication-tile"><FigureViewer src={paper.image} title={title} lang={lang}/><div className="publication-tile__copy">{venue&&<p className="publication-venue">{venue}</p>}<h3>{paper.link?<a href={paper.link} target="_blank" rel="noreferrer">{title}</a>:title}</h3><p className="publication-summary">{zh?(paper.introZh||paper.intro):paper.intro}</p>{paper.authors&&<PublicationAuthors paper={paper} lang={lang}/>}<div className="publication-links">{paper.link&&<a className="detail-link" href={paper.link} target="_blank" rel="noreferrer"><Icon name="book"/>{zh?'阅读论文':'Read paper'}<Icon name="external"/></a>}{paper.pdf&&<a className="detail-link" href={paper.pdf} target="_blank" rel="noreferrer"><Icon name="book"/>PDF<Icon name="external"/></a>}</div></div></article>;
 }
 
 export function ProjectViewport({project,lang}) {

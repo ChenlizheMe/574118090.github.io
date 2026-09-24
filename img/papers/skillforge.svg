@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">SkillForge conceptual pipeline</title>
+  <desc id="desc">An original conceptual diagram showing seed skills, pre-retirement filtering, supervised cold-start, joint reinforcement learning, and a fitness-driven skill lifecycle.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#64748b"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b4d} .label{font-size:25px;font-weight:700} .small{font-size:17px;fill:#52647d} .tiny{font-size:15px;fill:#65758b;letter-spacing:.6px} .line{stroke:#64748b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="720" fill="#fcfdfd"/>
+  <rect x="38" y="36" width="1124" height="648" rx="18" fill="#fff" stroke="#dbe4ec" stroke-width="2"/>
+  <text x="78" y="94" style="font:700 34px Arial,Helvetica,sans-serif;fill:#172b4d">SkillForge</text>
+  <text x="78" y="126" class="small">Co-evolving skills and agents · conceptual lifecycle</text>
+  <path d="M78 151H1122" stroke="#dbe4ec" stroke-width="2"/>
+
+  <rect x="78" y="223" width="220" height="150" rx="15" fill="#f1f6fb" stroke="#aac2dc" stroke-width="2"/>
+  <circle cx="113" cy="260" r="13" fill="#4682b4"/>
+  <text x="139" y="269" class="label">Seed skills</text>
+  <text x="109" y="313" class="small">From task trajectories</text>
+  <text x="109" y="342" class="small">and prior experience</text>
+
+  <rect x="377" y="223" width="220" height="150" rx="15" fill="#f0f7f4" stroke="#9bc6b0" stroke-width="2"/>
+  <circle cx="412" cy="260" r="13" fill="#39936d"/>
+  <text x="438" y="269" class="label">Pre-retire</text>
+  <text x="408" y="313" class="small">Base-model rollouts</text>
+  <text x="408" y="342" class="small">filter low-fitness skills</text>
+
+  <rect x="676" y="223" width="220" height="150" rx="15" fill="#fff8ed" stroke="#dec18e" stroke-width="2"/>
+  <circle cx="711" cy="260" r="13" fill="#cb943c"/>
+  <text x="737" y="269" class="label">Cold start</text>
+  <text x="707" y="313" class="small">Fine-tune on surviving</text>
+  <text x="707" y="342" class="small">skill-guided trajectories</text>
+
+  <rect x="974" y="223" width="148" height="150" rx="15" fill="#f5f2fa" stroke="#b9abd5" stroke-width="2"/>
+  <circle cx="1009" cy="260" r="13" fill="#876dae"/>
+  <text x="1028" y="269" class="label" style="font-size:22px">Joint RL</text>
+  <text x="1005" y="313" class="small">Policy +</text>
+  <text x="1005" y="342" class="small">skills evolve</text>
+
+  <path d="M299 298H368" class="line"/><path d="M598 298H667" class="line"/><path d="M897 298H965" class="line"/>
+
+  <rect x="255" y="471" width="690" height="125" rx="16" fill="#f7fafc" stroke="#9cb6cb" stroke-width="2"/>
+  <text x="288" y="512" class="label">Fitness-driven skill lifecycle</text>
+  <text x="289" y="550" class="small">Trial</text><text x="397" y="550" class="small">→</text><text x="441" y="550" class="small">Active</text><text x="565" y="550" class="small">→</text><text x="611" y="550" class="small">Stable</text><text x="713" y="550" class="small">→</text><text x="757" y="550" class="small">Retired</text>
+  <path d="M1048 375V413Q1048 434 1028 434H621V463" class="line"/>
+  <path d="M443 464V434H486V382" class="line"/>
+  <text x="817" y="425" class="tiny">LIFECYCLE UPDATE</text>
+  <text x="316" y="425" class="tiny">REUSE AND MUTATE</text>
+  <text x="78" y="649" class="tiny">ILLUSTRATIVE OVERVIEW · NOT AN EXTRACTED PAPER FIGURE</text>
+</svg>

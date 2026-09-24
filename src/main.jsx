@@ -245,8 +245,8 @@ function PublicationEvidence({ lang }) {
         </div>
         <p className="section__lede">
           <T
-            en="Vision-language models, reasoning with large language models, and real-time rendering."
-            zh="视觉语言模型、大语言模型推理与实时渲染。"
+            en="AI agents, vision-language models, language-model reasoning, and real-time rendering."
+            zh="AI 智能体、视觉语言模型、大语言模型推理与实时渲染。"
             lang={lang}
           />
         </p>
@@ -367,8 +367,8 @@ function ArchivePage({ page, lang }) {
       eyebrowZh: '论文档案',
       title: 'Publications',
       titleZh: '论文',
-      intro: 'Research in computer graphics, visual understanding and language-model reasoning.',
-      introZh: '计算机图形学、视觉理解与语言模型推理相关研究。',
+      intro: 'Research in AI agents, computer graphics, visual understanding and language-model reasoning.',
+      introZh: 'AI 智能体、计算机图形学、视觉理解与语言模型推理相关研究。',
       items: publications,
 
     },
@@ -403,8 +403,8 @@ function ArchivePage({ page, lang }) {
     }
   }[page];
 
-  const paperGroup = paper => /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(paper.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(paper.image) ? 'vision' : 'other';
-  const categories = [['all','全部','All'],['graphics','图形与三维','Graphics & 3D'],['vision','视觉与语言','Vision & language'],['other','其他研究','Other research']];
+  const paperGroup = paper => /skillforge/.test(paper.image) ? 'agents' : /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(paper.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(paper.image) ? 'vision' : 'other';
+  const categories = [['all','全部','All'],['agents','智能体与强化学习','Agents & RL'],['graphics','图形与三维','Graphics & 3D'],['vision','视觉与语言','Vision & language'],['other','其他研究','Other research']];
   const visibleItems = page==='papers' && filter!=='all' ? config.items.filter(p=>paperGroup(p)===filter) : config.items;
 
 
