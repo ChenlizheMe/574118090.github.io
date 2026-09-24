@@ -15,7 +15,7 @@ export function FigureViewer({ src, title, lang, className='' }) {
 }
 
 export function PublicationAuthors({ paper, lang }) {
-  return <p className="publication-authors"><span dangerouslySetInnerHTML={{__html:paper.authors}}/>{paper.coFirstAuthor && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?'共同第一作者':'Co-first author'}</span>}{paper.authorPosition && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?`第 ${paper.authorPosition} 作者`:`${paper.authorPosition}${paper.authorPosition===1?'st':paper.authorPosition===2?'nd':paper.authorPosition===3?'rd':'th'} author`}</span>}</p>;
+  return <p className="publication-authors"><span dangerouslySetInnerHTML={{__html:paper.authors}}/>{paper.coFirstAuthor && <span className="publication-contribution">Lizhe Chen · {lang==='zh'?'共同第一作者':'Co-first author'}</span>}</p>;
 }
 
 export function PublicationCard({ paper,lang }) {
