@@ -8,6 +8,7 @@ import { SpatialField, SpatialGlyph } from './spatial-field.jsx';
 import { PublicationCard, ProjectViewport, GameTheater, HonorsGallery } from './content-experiences.jsx';
 import './content-experiences.css';
 import './finish.css';
+import './engine-timeline.css';
 import { ResearchExhibit } from './research-exhibit.jsx';
 import { MetricsProvider, RepositoryStars } from './live-data.jsx';
 import { MotionProvider, ScrollEffects } from './motion.jsx';
@@ -199,18 +200,58 @@ function Home({ lang }) {
   );
 }
 
+function CopyableContact({ label, value, lang }) {
+  const [state, setState] = useState('idle');
+  useEffect(() => {
+    if (state === 'idle') return;
+    const timer = window.setTimeout(() => setState('idle'), 2200);
+    return () => window.clearTimeout(timer);
+  }, [state]);
+
+  const copy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const input = document.createElement('textarea');
+        input.value = value;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        const copied = document.execCommand('copy');
+        input.remove();
+        if (!copied) throw new Error('Copy failed');
+      }
+      setState('copied');
+    } catch {
+      setState('failed');
+    }
+  };
+
+  const status = state === 'copied' ? (lang === 'zh' ? '已复制' : 'Copied') : state === 'failed' ? (lang === 'zh' ? '复制失败' : 'Copy failed') : '';
+  return <div className="hero-contact">
+    <span className="hero-contact__label">{label}</span>
+    <button type="button" className="hero-contact__value" onClick={copy} aria-label={`${lang === 'zh' ? '复制' : 'Copy'} ${label}: ${value}`} title={lang === 'zh' ? '点击复制' : 'Click to copy'}>
+      <span>{value}</span><Icon name={state === 'copied' ? 'check' : 'copy'}/>
+    </button>
+    <span className="hero-contact__status" role="status">{status}</span>
+  </div>;
+}
+
 function Hero({ lang }) {
   return (
     <section className="section hero">
       <div className="hero__primary">
         <h1 className="hero__title"><span className="hero__greeting"><T en="Hello, I’m" zh="你好，我是" lang={lang} /></span><T en="Lizhe Chen." zh="陈立哲。" lang={lang} /></h1>
+        <div className="hero__contact-list"><CopyableContact label={lang === 'zh' ? '邮箱' : 'Email'} value={profile.emails[0]} lang={lang}/><CopyableContact label={lang === 'zh' ? '微信' : 'WeChat'} value={profile.wechat} lang={lang}/></div>
         <p className="hero__text hero__current"><T en="I love making things that people can play with. Lately, I’ve been spending my time on Agentic Runtime and imagining what the next generation of AI-native games and engines could be." zh="我喜欢把脑海里的想法，做成可以亲手玩到的东西。最近在折腾 Agentic Runtime，也想看看下一代 AI-native 游戏和游戏引擎会是什么样。" lang={lang} /></p>
         <p className="hero__text hero__about"><T en="I’m a master’s student at Tsinghua University. Along the way, I do graphics and visual intelligence research, contribute to open source, and make indie games. Welcome to have a look around." zh="现在在清华读研，做一些图形学与视觉智能研究，也写开源项目、做独立游戏。欢迎来逛逛。" lang={lang} /></p>
         <div className="hero__actions">
           <a className="btn btn--primary" href="#experience"><Icon name="down"/><T en="More about me" zh="了解更多" lang={lang} /></a>
           <a className="btn btn--quiet" href="/attaches/CV.pdf" target="_blank" rel="noreferrer"><Icon name="download"/><T en="Résumé" zh="个人简历" lang={lang} /></a>
         </div>
-        <div className="hero__socials">{profile.links.filter(l => ['GitHub', 'Google Scholar'].includes(l.label)).map(link => <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(link.label)}/>{link.label}</a>)}<a href={`mailto:${profile.emails[0]}`}><Icon name="mail"/>Email</a></div>
+        <div className="hero__socials">{profile.links.filter(l => ['GitHub', 'Google Scholar'].includes(l.label)).map(link => <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(link.label)}/>{link.label}</a>)}</div>
       </div>
       <aside className="hero__aside">
         <div className="portrait-panel"><div className="portrait-register"><span>LIZHE CHEN</span><span>陈立哲</span></div><div className="portrait-stage"><SpatialGlyph/><div className="profile-display"><img src="/img/profile.webp" alt="Lizhe Chen" /></div></div><div className="portrait-footer"><span>GRAPHICS / VLM</span><i aria-hidden="true"/></div></div>
@@ -229,6 +270,7 @@ function ResearchAndCareer({ lang }) {
 function InfernuxFeature({ lang }) {
   return <section className="section feature" id="infernux">
     <header className="section__head"><span className="section__id">03</span><div><h2 className="section__title">Infernux</h2></div><p className="section__lede"><T en={infernux.headline} zh={infernux.headlineZh} lang={lang}/></p></header>
+    <div className="engine-intro"><span className="engine-intro__eyebrow"><T en="Built and maintained by Lizhe Chen" zh="由陈立哲主导与维护" lang={lang}/></span><p><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang}/></p></div>
     <VideoDeck lang={lang}/>
     <div className="link-row feature-links"><a className="btn btn--primary" href={infernux.website} target="_blank" rel="noreferrer"><Icon name="globe"/><T en="Visit Infernux" zh="进入引擎官网" lang={lang}/><Icon name="external"/></a><a className="btn btn--quiet" href={infernux.url} target="_blank" rel="noreferrer"><Icon name="github"/>GitHub</a><RepositoryStars lang={lang}/></div>
   </section>;
