@@ -16,7 +16,7 @@
   --line-strong: rgba(232, 236, 244, 0.18);
   --accent: #eb0029;
   --accent-soft: rgba(235, 0, 41, 0.12);
-  --signal: #4dabf7;
+  --signal: #ff8a76;
   --panel: rgba(18, 23, 34, 0.65);
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
@@ -34,7 +34,7 @@
   --line-strong: rgba(13, 17, 23, 0.16);
   --accent: #c40022;
   --accent-soft: rgba(196, 0, 34, 0.08);
-  --signal: #0066b3;
+  --signal: #8f243a;
   --panel: rgba(255, 255, 255, 0.82);
   --shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset;
 }

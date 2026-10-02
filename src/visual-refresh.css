@@ -1,0 +1,205 @@
+/* Visual pass: a restrained red mission system with readable archive surfaces. */
+:root,
+:root[data-theme='dark'] {
+  --accent: #ff7184;
+  --accent-soft: rgba(227, 52, 79, 0.14);
+  --signal: #ff9a76;
+  --line: rgba(255, 224, 211, 0.12);
+  --line-strong: rgba(255, 224, 211, 0.23);
+  --panel: rgba(24, 18, 24, 0.78);
+  --space-0: #0a0b10;
+  --space-1: #11131b;
+  --space-2: #1a1d28;
+  --space-3: #262a38;
+  --fog: #f6eee5;
+  --mist: #c6b9b5;
+  --dim: #b8a9ad;
+  --console: #1e1219;
+  --console-highlight: #3b1d29;
+  --console-edge: #9d3c51;
+  --environment-red: rgba(227, 52, 79, 0.18);
+  --environment-gold: rgba(255, 154, 118, 0.11);
+  --environment-rust: rgba(174, 26, 54, 0.18);
+  --orbit-ink: rgba(255, 154, 118, 0.22);
+  --orbit-marker: rgba(227, 52, 79, 0.72);
+  --panel-register: #341824;
+  --flight-orange: #e3344f;
+  --flight-gold: #ffb078;
+}
+
+:root[data-theme='light'] {
+  --accent: #b51f3a;
+  --accent-soft: rgba(181, 31, 58, 0.1);
+  --signal: #a44d35;
+  --line: rgba(38, 20, 28, 0.12);
+  --line-strong: rgba(38, 20, 28, 0.24);
+  --panel: rgba(255, 249, 242, 0.9);
+  --space-0: #f5efe8;
+  --space-1: #ebe1db;
+  --space-2: #ded1ca;
+  --space-3: #cbbab5;
+  --fog: #261b1f;
+  --mist: #5e4d50;
+  --dim: #59494d;
+  --console: #4a2630;
+  --console-highlight: #713240;
+  --console-edge: #9e4656;
+  --environment-red: rgba(181, 31, 58, 0.1);
+  --environment-gold: rgba(164, 77, 53, 0.08);
+  --environment-rust: rgba(181, 31, 58, 0.09);
+  --orbit-ink: rgba(181, 31, 58, 0.2);
+  --orbit-marker: rgba(181, 31, 58, 0.56);
+  --panel-register: #f3ddd5;
+  --flight-orange: #b51f3a;
+  --flight-gold: #a44d35;
+}
+
+.app::before {
+  background:
+    radial-gradient(1px 1px at 12% 19%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+    radial-gradient(1px 1px at 31% 68%, rgba(255,190,160,.6) 0 1px, transparent 2px),
+    radial-gradient(1px 1px at 74% 24%, rgba(255,255,255,.65) 0 1px, transparent 2px),
+    radial-gradient(2px 2px at 84% 76%, rgba(227,52,79,.55) 0 1px, transparent 2px),
+    radial-gradient(ellipse 90% 60% at 96% 3%, rgba(227,52,79,.14), transparent 58%),
+    linear-gradient(180deg, var(--space-0), var(--space-1) 48%, var(--space-0));
+  opacity: .95;
+}
+
+.app::after {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: .22;
+  mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
+}
+
+.masthead {
+  background: color-mix(in srgb, var(--space-1) 86%, transparent);
+  border-bottom-color: var(--line-strong);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .16);
+}
+
+.masthead::after {
+  background: linear-gradient(90deg, var(--accent) 0 56%, var(--signal) 56% 76%, transparent 76%);
+  box-shadow: 0 0 16px var(--accent-soft);
+}
+
+.masthead__mark {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.portrait-panel,
+.archive-hero {
+  background:
+    linear-gradient(145deg, rgba(227,52,79,.34), transparent 45%),
+    linear-gradient(135deg, var(--console-highlight), var(--console) 74%);
+  border-color: var(--console-edge);
+  box-shadow: 0 24px 70px rgba(74, 14, 29, .3), inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+.portrait-panel::before,
+.archive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .32;
+  background-image: radial-gradient(rgba(255,255,255,.7) .6px, transparent .8px);
+  background-size: 17px 17px;
+  mask-image: linear-gradient(135deg, black, transparent 70%);
+}
+
+.profile-display {
+  box-shadow: 9px 12px 0 rgba(20, 5, 12, .36), 0 18px 30px rgba(0,0,0,.22);
+}
+
+.card,
+.project-card,
+.paper-card,
+.game-card,
+.award-card,
+.research-atlas,
+.flight-chronicle {
+  transition: border-color .35s ease, box-shadow .35s ease, background .35s ease;
+}
+
+.card:hover,
+.project-card:hover,
+.paper-card:hover,
+.game-card:hover,
+.award-card:hover,
+.research-atlas:hover,
+.flight-chronicle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 45px rgba(54, 8, 20, .22);
+}
+
+.section__head::before {
+  background: linear-gradient(90deg, var(--accent) 0 70%, var(--signal) 70%);
+  box-shadow: 0 0 14px var(--accent-soft);
+}
+
+.archive-mobile-head {
+  display: block;
+  max-width: 880px;
+  margin: 38px 0 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--line-strong);
+  font: inherit;
+}
+
+.archive-mobile-head > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font: 700 1rem var(--font-mono);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.archive-mobile-head > h1 {
+  display: block;
+  color: var(--fog);
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  overflow-wrap: anywhere;
+  font-weight: 600;
+  letter-spacing: -.035em;
+  line-height: 1.1;
+}
+
+.archive-mobile-head p { max-width: 680px; margin: 12px 0 0; color: var(--mist); font-size: 1rem; line-height: 1.7; }
+
+.hero__socials a:hover,
+.text-link:hover,
+.detail-link:hover,
+.hero-contact__value:hover { color: var(--accent); }
+
+@media (max-width: 700px) {
+  .archive-mobile-head { margin-top: 24px; }
+}
+
+/* Keep active controls readable after the theme palette changes. */
+:root .btn--primary,
+:root .btn--primary:hover {
+  color: #fff;
+  background: #b51f3a;
+  border-color: #b51f3a;
+}
+
+:root[data-theme='dark'] .archive-switcher a.is-current { color: #0a0b10; }
+
+/* Interactive exhibits keep their own reveal, depth and playback transforms. */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .project-card,
+  .paper-card,
+  .game-card,
+  .award-card,
+  .research-atlas,
+  .flight-chronicle { transition: none; }
+}
