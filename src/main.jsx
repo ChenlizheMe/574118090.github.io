@@ -10,6 +10,7 @@ import './content-experiences.css';
 import './finish.css';
 import './site-overrides.css';
 import './mobile.css';
+import './visual-refresh.css';
 import { ResearchExhibit } from './research-exhibit.jsx';
 import { MetricsProvider, RepositoryStars } from './live-data.jsx';
 import { MotionProvider, ScrollEffects } from './motion.jsx';
@@ -453,12 +454,11 @@ function ArchivePage({ page, lang }) {
 
   return (
     <>
-      <h1 className="visually-hidden">{lang==='zh'?config.titleZh:config.title}</h1>
-      <div className="archive-mobile-head" aria-hidden="true">
+      <header className="archive-mobile-head">
         <span>{lang==='zh'?config.eyebrowZh:config.eyebrow}</span>
-        <strong>{lang==='zh'?config.titleZh:config.title}</strong>
+        <h1>{lang==='zh'?config.titleZh:config.title}</h1>
         <p>{lang==='zh'?config.introZh:config.intro}</p>
-      </div>
+      </header>
       {page==='papers' && <div className="archive-filters" aria-label={lang==='zh'?'研究方向':'Research areas'}>{categories.map(([id,zh,en])=><button key={id} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{lang==='zh'?zh:en}</button>)}</div>}
       <section className={['games','awards'].includes(page)?`content-archive content-archive--${page}`:`archive-list ${page} archive-content`}>
         {page==='papers' ? visibleItems.map(p=><PublicationCard key={p.title} paper={p} lang={lang}/>) : page==='games' ? <GameTheater games={[games.find(g=>g.name==='Dong! Da-Dong!'),...games.filter(g=>g.name!=='Dong! Da-Dong!')]} lang={lang}/> : page==='awards' ? <HonorsGallery awards={awards} lang={lang}/> : visibleItems.map(config.render)}
