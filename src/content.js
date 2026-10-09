@@ -122,6 +122,22 @@ export const researchDirections = [
 
 export const publications = [
   {
+    "title": "CompAct-Bench: A Benchmark for Working-Context Compaction in Long-Horizon Agent Tasks",
+    "authors": "Jiayi Chen, <u>Lizhe Chen</u>, Yujia Chen, Shihan Dou, Ming Zhang, Chendi Ge, Maxm Pan, Tao Gui, Qi Zhang, Xuanjing Huang",
+    "venue": "arXiv preprint · Submitted to ICLR 2027",
+    "venueZh": "arXiv 预印本 · 投稿 ICLR 2027",
+    "level": "preprint",
+    "levelLabel": "Preprint",
+    "link": "https://compaction-eval.github.io/CompAct-Bench/",
+    "pdf": "https://compaction-eval.github.io/CompAct-Bench/assets/compact-bench-paper.pdf",
+    "image": "/img/papers/compact-bench.webp",
+    "intro": "When an agent's history hits the context wall, a model compacts it. CompAct-Bench measures whether the same agent can still finish the task after resuming from the compacted memory: 200 instances, 12 frontier compactors.",
+    "introZh": "当智能体的历史撞上上下文上限时，由模型对其进行压缩。CompAct-Bench 不评价摘要写得好不好，而是检验同一个智能体从压缩记忆恢复后能否完成任务：200 个实例，12 个前沿压缩模型。",
+    "featured": true,
+    "imageKind": "figure",
+    "coFirstAuthor": true
+  },
+  {
     "title": "SkillForge: Co-Evolving Skills and Agents via Dynamic Skill Lifecycles",
     "authors": "Yuyao Ge, Yiwei Wang, Yuchen He, Baolong Bi, Lingrui Mei, Jiayu Yao, <u>Lizhe Chen</u>, Shenghua Liu",
     "venue": "NeurIPS 2026 Main Track · Poster",
@@ -204,7 +220,7 @@ export const publications = [
     "link": "https://aclanthology.org/2025.acl-long.321/",
     "intro": "A study of how graph description order affects large language models on graph reasoning tasks.",
     "introZh": "研究图的描述顺序如何影响大语言模型求解图推理任务。",
-    "featured": true,
+    "featured": false,
     "image": "/img/papers/graph-descriptive.webp",
     "imageKind": "figure"
   },
@@ -408,6 +424,23 @@ export const projects = [
 ];
 
 export const games = [
+  {
+    name: 'Changeable',
+    nameZh: 'Changeable：改变世界的魔法',
+    role: 'Card-driven 3D puzzle',
+    roleZh: '卡牌驱动 3D 解谜',
+    desc: 'A card-driven 3D puzzle game made by a team of three in 15 days for the Tencent Game Creation Contest 2026.',
+    descZh: '2026 腾讯游戏创作大赛作品，三人团队 15 天完成的卡牌驱动 3D 解谜游戏。',
+    detail:
+      'Play a small stone ball setting out from the far-eastern islands, using magic cards to rewrite the physical rules of everything else in the world. Probably the first game built on my own engine, Infernux: the video is recorded from the Infernux build, while a Unity port (migrated between engines with an agent) was submitted for stability.',
+    detailZh:
+      '玩家扮演一块小石头球，从遥远的东方群岛出发，用神奇的魔力卡牌改写世界上其他事物的物理法则。这或许是第一款用我自研引擎 Infernux 制作的游戏：视频由自研引擎包体录制，出于包体稳定性考虑，比赛提交的是借助 Agent 迁移得到的 Unity 版本。',
+    video: 'https://player.bilibili.com/player.html?isOutside=true&aid=117275810071343&bvid=BV18teH6AEjZ&cid=41924300709&p=1',
+    bilibili: 'https://www.bilibili.com/video/BV18teH6AEjZ/',
+    awards: 'Tencent Game Creation Contest 2026 · Entry',
+    awardsZh: '2026 腾讯游戏创作大赛 · 参赛作品',
+    tags: ['Infernux', 'Unity', '3D Puzzle', 'Cards']
+  },
 {
   "name": "You Qiu Bi Ying",
   "nameZh": "有求必应",

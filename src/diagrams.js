@@ -181,7 +181,48 @@ function graph() {
   };
 }
 
-export const DIAGRAMS = { skillforge, promptcd, corrdetail, innate, graph };
+/* ---------------- CompAct-Bench: compact 10 → 1, then resume ---------------- */
+function compact() {
+  const V = new Voxels(6);
+  plate(V, 23, 12);
+  V.box(1, 5, 1, 21, 6, 1, C.pad);                                                  // belt
+  V.box(11, 3, 1, 11, 3, 8, C.pad2); V.box(11, 8, 1, 11, 8, 8, C.pad2);             // press columns
+  V.box(11, 3, 9, 11, 8, 9, C.pad2);                                                // press beam
+  V.box(18, 4, 2, 21, 7, 2, C.pad2);                                                // executor deck
+  V.box(21, 4, 3, 21, 7, 5, C.cream);                                               // executor screen
+  const TOK = [C.blue, C.green, C.orange, C.cream, C.yellow];
+  const VERDICT = [1, 0, 1, 1, 0, 1, 0];                                            // ~57% pass, as in the paper
+  return {
+    V,
+    draw(ctx, t, P) {
+      const u = frac(t * .12), run = Math.floor(t * .12);
+      let hz = 8;
+      if (u < .3) {
+        const k = ease(u / .3);
+        for (let i = 0; i < 10; i++) P.cube(1.5 + (i % 5) + k * 4.5, 5 + (i / 5 | 0), 2, TOK[(i + run) % 5]);
+      } else if (u < .45) {
+        const k = (u - .3) / .15;
+        hz = 8 - Math.sin(Math.min(1, k * 1.6) * Math.PI / 2) * 5;
+        if (k < .6) for (let i = 0; i < 10; i++) {
+          const m = ease(k / .6), x0 = 6 + (i % 5), y0 = 5 + (i / 5 | 0);
+          P.cube(x0 + (11 - x0) * m, y0 + (5.5 - y0) * m, 2 + m * .2, TOK[(i + run) % 5]);
+        } else P.cube(11, 5.5, 2, C.red);
+        if (k > .6) hz = 3 + (k - .6) / .4 * 5;
+      } else if (u < .7) {
+        const k = ease((u - .45) / .25);
+        P.cube(11 + k * 8.5, 5.5, 2 + Math.sin(k * Math.PI) * .6 + (k > .9 ? 1 : 0), C.red);
+      } else {
+        const ok = VERDICT[run % VERDICT.length], k = Math.min(1, (u - .7) / .08);
+        P.cube(19.5, 5.5, 3, C.red);
+        P.cube(19.5, 5.5, 4 + k * 2 + Math.sin(t * 6) * .2 * k, ok ? C.green : C.ink);
+      }
+      P.cube(11, 5, hz, C.ink); P.cube(11, 6, hz, C.ink);
+    },
+    labels: [['HISTORY', 4, 5.5, 4, C.blue], ['10 > 1', 11, 5.5, 11, C.red], ['RESUME', 19.5, 5.5, 8, C.green]]
+  };
+}
+
+export const DIAGRAMS = { compact, skillforge, promptcd, corrdetail, innate, graph };
 
 export function mountDiagram(canvas, id, { reduced = false } = {}) {
   const ctx = canvas.getContext('2d');

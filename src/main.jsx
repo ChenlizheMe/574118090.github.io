@@ -1,12 +1,11 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '@fontsource-variable/archivo/wdth.css';
-import '@fontsource-variable/noto-sans-sc/wght.css';
-import '@fontsource/silkscreen/400.css';
-import '@fontsource/silkscreen/700.css';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/700.css';
-import '@fontsource/vt323/400.css';
+import '@fontsource/silkscreen/latin-400.css';
+import '@fontsource/silkscreen/latin-700.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-700.css';
+import '@fontsource/vt323/latin-400.css';
 import './cassette.css';
 import { MetricsProvider } from './live-data.jsx';
 import { MotionProvider, useMotion } from './motion.jsx';
@@ -227,7 +226,7 @@ function ArchivePage({ page, lang }) {
     games: { eyebrow: ['Games', '游戏'], title: ['Portfolio', '作品集'], intro: ['Game projects and demos.', '游戏项目与演示。'], count: games.length, code: 'LC/05' },
     awards: { eyebrow: ['Awards', '荣誉'], title: ['Honors', '奖项'], intro: ['Selected competition results.', '部分竞赛与评选结果。'], count: awards.length, code: 'LC/06' }
   }[page];
-  const group = p => /skillforge/.test(p.image) ? 'agents' : /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(p.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(p.image) ? 'vision' : 'other';
+  const group = p => /skillforge|compact-bench/.test(p.image) ? 'agents' : /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(p.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(p.image) ? 'vision' : 'other';
   const cats = [['all', '全部', 'All'], ['agents', '智能体与强化学习', 'Agents & RL'], ['graphics', '图形与三维', 'Graphics & 3D'], ['vision', '视觉与语言', 'Vision & language'], ['other', '其他研究', 'Other research']];
   const papers = filter === 'all' ? publications : publications.filter(p => group(p) === filter);
   return <>
