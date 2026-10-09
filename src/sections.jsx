@@ -4,7 +4,6 @@ import { Icon } from './icons.jsx';
 import { VideoPlayer, useMotion } from './motion.jsx';
 import { useMetrics, AnimatedNumber, RepositoryStars } from './live-data.jsx';
 
-const pick = (zh, a, b) => (zh ? (b || a) : a);
 const bvidOf = url => { try { return new URL(url).searchParams.get('bvid'); } catch { return null; } };
 
 /* ------------------------------------------------------------------
@@ -37,7 +36,7 @@ export function Authors({ paper, lang }) {
 }
 
 /* ------------------------------------------------------------------
-   01 · Journey — two cassette J-cards (Side A work, Side B study)
+   01 · Journey — flight-log cassette J-cards
    ------------------------------------------------------------------ */
 const DETAILS = {
   work: [
@@ -74,7 +73,7 @@ function JCard({ kind, items, lang }) {
     </div>
     <div className="jcard__body">
       <header className="jcard__head">
-        <div><small>{work ? 'C-60 · CHROME' : 'C-90 · NORMAL'}</small>
+        <div><small>{work ? 'FLIGHT LOG · C-60' : 'FLIGHT LOG · C-90'}</small>
           <h3><Icon name={work ? 'briefcase' : 'scholar'} />{work ? (zh ? '工作经历' : 'Work experience') : (zh ? '学习经历' : 'Education')}</h3></div>
         <div className="jcard__reels" aria-hidden="true"><i /><i /></div>
       </header>
@@ -106,66 +105,69 @@ export function Journey({ lang }) {
 }
 
 /* ------------------------------------------------------------------
-   02 · Publications — CRT catalog terminal
+   02 · Publications — tape index with an animated voxel diagram per paper
    ------------------------------------------------------------------ */
 const FEATURED = [
-  { id: 'skillforge', short: 'SKILLFORGE', field: 'AI AGENTS', ext: 'RL' },
-  { id: 'promptcd', short: 'PROMPTCD', field: 'MULTIMODAL AI', ext: 'TPAMI' },
-  { id: 'corrdetail', short: 'CORRDETAIL', field: 'VLM', ext: 'IJCAI' },
-  { id: 'innate-reasoning', short: 'INNATE_REASON', field: 'LLM REASONING', ext: 'ACL' },
-  { id: 'graph-descriptive', short: 'GRAPH_ORDER', field: 'GRAPH REASONING', ext: 'ACL' }
+  { id: 'skillforge', dia: 'skillforge', short: 'SkillForge', field: 'AI AGENTS', color: 'var(--green)',
+    cap: ['Skills leave the pool; fit ones are absorbed by the agent, low-fitness ones are retired.', '技能从技能池出发：高适应度的被智能体吸收，低适应度的被淘汰。'] },
+  { id: 'promptcd', dia: 'promptcd', short: 'PromptCD', field: 'MULTIMODAL AI', color: 'var(--blue)',
+    cap: ['Decode under a positive and a negative prompt, then keep the contrast between them.', '分别在正向与负向提示下解码，再取两者的对比作为输出。'] },
+  { id: 'corrdetail', dia: 'corrdetail', short: 'CorrDetail', field: 'FORGERY DETECTION', color: 'var(--red)',
+    cap: ['A scanner sweeps the faces; fine visual detail exposes the forged one.', '扫描器逐个检查人脸，细粒度的视觉细节暴露出伪造的那一张。'] },
+  { id: 'innate-reasoning', dia: 'innate', short: 'Innate Reasoning', field: 'LLM REASONING', color: 'var(--yellow)',
+    cap: ['Zero-shot keeps stacking thoughts after the answer; an in-context example stops it in time.', '零样本推理在得出答案后仍不断堆叠思考；加入上下文示例后及时停下。'] },
+  { id: 'graph-descriptive', dia: 'graph', short: 'Graph Order', field: 'GRAPH REASONING', color: 'var(--orange)',
+    cap: ['Describing a graph in breadth-first order: the wave lights up layer by layer.', '按广度优先顺序描述图：波前一层一层点亮节点。'] }
 ];
 
-function useTyped(text, key) {
+function Diagram({ id, label }) {
+  const ref = useRef(null);
   const { paused } = useMotion();
-  const [n, setN] = useState(text.length);
   useEffect(() => {
-    if (paused) { setN(text.length); return; }
-    setN(0);
-    let i = 0, t;
-    const tick = () => { i = Math.min(text.length, i + 2); setN(i); if (i < text.length) t = setTimeout(tick, 14); };
-    t = setTimeout(tick, 120);
-    return () => clearTimeout(t);
-  }, [key, text, paused]);
-  return text.slice(0, n);
+    let api = null, dead = false;
+    import('./diagrams.js').then(({ mountDiagram }) => { if (!dead) api = mountDiagram(ref.current, id, { reduced: paused }); });
+    return () => { dead = true; api?.dispose(); };
+  }, [id, paused]);
+  return <canvas className="dia" ref={ref} aria-label={label} />;
 }
 
-export function PaperTerminal({ lang }) {
+export function PaperArcade({ lang }) {
   const zh = lang === 'zh';
   const [sel, setSel] = useState(0);
   const papers = FEATURED.map(m => ({ ...publications.find(p => p.image?.startsWith(`/img/papers/${m.id}.`)), ...m }));
   const p = papers[sel];
-  const typed = useTyped(p.title, sel);
   const venue = zh ? (p.venueZh || p.venue) : p.venue;
-  const onKey = e => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); setSel((sel + 1) % papers.length); }
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); setSel((sel - 1 + papers.length) % papers.length); }
-  };
-  return <div className="term rv" onKeyDown={onKey}>
-    <div className="term__bezel">
-      <div className="term__brand"><b>LC-2026</b><span>CATALOG TERMINAL</span><i className="led led--on" /></div>
-      <div className="term__screen crt">
-        <div className="term__dir" role="tablist" aria-label={zh ? '代表论文' : 'Selected papers'}>
-          <p className="term__path">C:\PAPERS\SELECTED&gt; DIR</p>
-          {papers.map((x, i) => <button type="button" role="tab" key={x.id} aria-selected={sel === i} className={sel === i ? 'is-on' : ''} onClick={() => setSel(i)}>
-            <span>{sel === i ? '▶' : ' '}</span><b>{x.short}</b><em>.{x.ext}</em><small>{x.field}</small>
-          </button>)}
-          <p className="term__free">{papers.length} FILE(S) · {publications.length} TOTAL ON DISK</p>
-        </div>
-        <div className="term__view" key={sel}>
-          <div className="term__fig"><FigureViewer src={p.image} title={p.short} lang={lang} /><span className="term__figtag">FIG · {p.field}</span></div>
-          <div className="term__copy">
-            <p className="term__venue">{venue}</p>
-            <h3>{typed}<i className="caret" /></h3>
-            <p className="term__intro">{zh ? p.introZh : p.intro}</p>
-            <Authors paper={p} lang={lang} />
-            {p.link && <a className="term__open" href={p.link} target="_blank" rel="noreferrer">&gt; {zh ? '打开论文' : 'OPEN PAPER'}<Icon name="external" /></a>}
-          </div>
-        </div>
+  return <div className="papers rv" style={{ '--pc': p.color }}>
+    <div className="papers__tabs" role="tablist" aria-label={zh ? '代表论文' : 'Selected papers'}>
+      {papers.map((x, i) => <button key={x.id} type="button" role="tab" aria-selected={sel === i} className={sel === i ? 'is-on' : ''} style={{ '--tc': x.color }} onClick={() => setSel(i)}>
+        <span className="papers__no">{String(i + 1).padStart(2, '0')}</span>
+        <b>{x.short}</b>
+        <small>{(zh ? (x.venueZh || x.venue) : x.venue).split(/ · | Main| Long/)[0]}</small>
+      </button>)}
+    </div>
+    <div className="papers__stage">
+      <figure className="papers__dia pane">
+        <figcaption className="pane__bar"><span className="pane__id">SIM {String(sel + 1).padStart(2, '0')}</span><b>{p.field}</b></figcaption>
+        <Diagram key={p.dia} id={p.dia} label={zh ? p.cap[1] : p.cap[0]} />
+        <p className="papers__cap"><span>▶</span>{zh ? p.cap[1] : p.cap[0]}</p>
+      </figure>
+      <figure className="papers__fig pane pane--light">
+        <figcaption className="pane__bar"><span className="pane__id">FIG. {String(sel + 1).padStart(2, '0')}</span><b>{zh ? '论文原图' : 'From the paper'}</b><span className="pane__right">{zh ? '点击放大' : 'CLICK TO ENLARGE'}</span></figcaption>
+        <FigureViewer key={p.id} src={p.image} title={p.short} lang={lang} className="papers__figure" />
+      </figure>
+    </div>
+    <div className="papers__dossier" key={p.id}>
+      <div>
+        <p className="papers__venue">{venue}</p>
+        <h3>{p.title}</h3>
       </div>
-      <div className="term__keys" aria-hidden="true">
-        <span>↑↓ SELECT</span><span>⏎ OPEN</span><span>F1 HELP</span>
-        <i /><i /><i />
+      <div>
+        <p className="papers__intro">{zh ? p.introZh : p.intro}</p>
+        <Authors paper={p} lang={lang} />
+        <div className="btn-row btn-row--tight">
+          {p.link && <a className="btn btn--sm btn--hot" href={p.link} target="_blank" rel="noreferrer"><Icon name="book" />{zh ? '阅读论文' : 'Read paper'}<Icon name="external" /></a>}
+          {p.pdf && <a className="btn btn--sm btn--cyan" href={p.pdf} target="_blank" rel="noreferrer"><Icon name="download" />PDF</a>}
+        </div>
       </div>
     </div>
   </div>;
@@ -188,19 +190,13 @@ export function PaperCard({ paper, lang, index }) {
         {paper.pdf && <a className="link" href={paper.pdf} target="_blank" rel="noreferrer"><Icon name="download" />PDF<Icon name="external" /></a>}
       </div>
     </div>
-    <i className="icard__punch" aria-hidden="true" />
   </article>;
 }
 
 /* ------------------------------------------------------------------
-   03 · Infernux — a CRT television with channel buttons
+   03 · Infernux — full-width mission monitor
    ------------------------------------------------------------------ */
-function Segments({ value, digits = 6 }) {
-  const s = Number.isFinite(value) ? String(value).padStart(digits, ' ') : '------'.slice(0, digits);
-  return <span className="seg" aria-label={Number.isFinite(value) ? String(value) : 'unavailable'}>{s.split('').map((c, i) => <i key={i} data-c={c}>{c === ' ' ? '8' : c}</i>)}</span>;
-}
-
-export function TVDeck({ lang }) {
+export function MissionMonitor({ lang }) {
   const zh = lang === 'zh';
   const metrics = useMetrics();
   const [ch, setCh] = useState(0);
@@ -208,33 +204,28 @@ export function TVDeck({ lang }) {
   const videos = infernux.videos;
   const v = videos[ch];
   const stat = metrics.videos?.[v.bvid];
-  const tune = i => { if (i === ch) return; setNoise(true); setCh(i); setTimeout(() => setNoise(false), 420); };
-  return <div className="tv rv">
-    <div className="tv__body">
-      <div className="tv__screen-wrap">
-        <div className={`tv__screen crt ${noise ? 'is-noise' : ''}`}>
-          <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || infernux.image} lang={lang} />
-          <span className="tv__osd" aria-hidden="true">CH {String(ch + 1).padStart(2, '0')} · {v.chapter}</span>
-          <span className="tv__static" aria-hidden="true" />
-        </div>
-      </div>
-      <div className="tv__panel">
-        <div className="tv__brand"><b>INFERNUX</b><span>COLOR TV · MODEL 0.4</span></div>
-        <div className="tv__channels" role="tablist" aria-label={zh ? '选择视频' : 'Select a film'}>
-          {videos.map((x, i) => <button key={x.bvid} type="button" role="tab" aria-selected={ch === i} className={ch === i ? 'is-on' : ''} onClick={() => tune(i)}>
-            <b>{i + 1}</b><span>{zh ? x.shortZh : x.short}</span>
-          </button>)}
-        </div>
-        <div className="tv__meters">
-          <div><small>{zh ? '播放' : 'VIEWS'}</small><Segments value={stat?.views} digits={6} /></div>
-          <div><small>{zh ? '点赞' : 'LIKES'}</small><Segments value={stat?.likes} digits={6} /></div>
-        </div>
-        <div className="tv__knobs" aria-hidden="true"><i /><i /><span className="tv__grille" /></div>
-      </div>
-      <div className="tv__feet" aria-hidden="true"><i /><i /></div>
+  const tune = i => { if (i === ch) return; setNoise(true); setCh(i); setTimeout(() => setNoise(false), 380); };
+  return <div className="monitor rv">
+    <div className="monitor__bar">
+      <span className="monitor__rec"><i className="led led--rec" />{zh ? '播放中' : 'ON AIR'}</span>
+      <span>CH {String(ch + 1).padStart(2, '0')} / {String(videos.length).padStart(2, '0')}</span>
+      <b>{v.chapter}</b>
+      <span className="monitor__stats">▷ <AnimatedNumber value={stat?.views} lang={lang} /> · ♡ <AnimatedNumber value={stat?.likes} lang={lang} /></span>
     </div>
-    <p className="tv__caption"><b>{zh ? v.titleZh : v.title}</b>
-      <a href={`https://www.bilibili.com/video/${v.bvid}`} target="_blank" rel="noreferrer">Bilibili ▷ <AnimatedNumber value={stat?.views} lang={lang} /></a></p>
+    <div className={`monitor__screen ${noise ? 'is-noise' : ''}`}>
+      <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || infernux.image} lang={lang} />
+      <span className="monitor__corners" aria-hidden="true"><i /><i /><i /><i /></span>
+      <span className="monitor__title" aria-hidden="true">{zh ? v.titleZh : v.title}</span>
+    </div>
+    <div className="monitor__channels" role="tablist" aria-label={zh ? '选择视频' : 'Select a film'}>
+      {videos.map((x, i) => {
+        const s = metrics.videos?.[x.bvid];
+        return <button key={x.bvid} type="button" role="tab" aria-selected={ch === i} className={ch === i ? 'is-on' : ''} onClick={() => tune(i)}>
+          <span className="monitor__thumb">{s?.poster ? <img src={s.poster} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <Icon name="play" />}<em>{String(i + 1).padStart(2, '0')}</em></span>
+          <span className="monitor__meta"><small>{x.chapter}</small><b>{zh ? x.titleZh : x.title}</b><span>▷ <AnimatedNumber value={s?.views} lang={lang} /></span></span>
+        </button>;
+      })}
+    </div>
   </div>;
 }
 
@@ -267,7 +258,7 @@ export function RackUnit({ project, lang, index }) {
     <div className="rack__face">
       <div className="rack__top"><span className="rack__id">UNIT {String(index + 1).padStart(2, '0')}</span><span className="rack__name">{project.name}</span><span className="rack__status"><i className="led led--on" />{zh ? project.statusZh : project.status}</span></div>
       <div className="rack__grid">
-        <div className="rack__screen crt" ref={screen} onPointerMove={look} onPointerLeave={() => { screen.current?.style.setProperty('--lx', '50%'); screen.current?.style.setProperty('--ly', '50%'); }}>
+        <div className="rack__screen" ref={screen} onPointerMove={look} onPointerLeave={() => { screen.current?.style.setProperty('--lx', '50%'); screen.current?.style.setProperty('--ly', '50%'); }}>
           <img src={project.image} alt={project.name} loading="lazy" />
           <span className="rack__cross" aria-hidden="true" />
           <FigureViewer src={project.image} title={project.name} lang={lang} className="rack__expand" />
@@ -280,7 +271,6 @@ export function RackUnit({ project, lang, index }) {
           <div className="keycaps">{project.tags.map(t => <span key={t}>{t}</span>)}</div>
           <a className="link" href={project.url} target="_blank" rel="noreferrer"><Icon name="github" />{zh ? '查看项目' : 'Explore project'}<Icon name="external" /></a>
         </div>
-        <div className="rack__vu" aria-hidden="true">{Array.from({ length: 12 }, (_, i) => <i key={i} style={{ '--d': `${(i * 37) % 11 / 10}s` }} />)}</div>
       </div>
     </div>
     <div className="rack__ear" aria-hidden="true"><i /><i /></div>
@@ -290,7 +280,7 @@ export function RackUnit({ project, lang, index }) {
 /* ------------------------------------------------------------------
    05 · Games — VHS shelf feeding a monitor
    ------------------------------------------------------------------ */
-const SPINE = ['#e2381b', '#f5b91d', '#efe7d6', '#0e1730', '#ef7a1c', '#0f8d67', '#2b62d4', '#8a3a1d'];
+const SPINE = ['#fc3d21', '#f7b500', '#efe9dc', '#0b3d91', '#f47b20', '#1f9e6e', '#2f6bff', '#171b26'];
 
 export function TapeShelf({ games, lang }) {
   const zh = lang === 'zh';
@@ -301,10 +291,10 @@ export function TapeShelf({ games, lang }) {
   const g = games[sel];
   const id = bvidOf(g.video);
   const stat = id ? metrics?.[id] : null;
-  const choose = i => { if (i === sel) return; setLoading(true); setSel(i); setTimeout(() => setLoading(false), 520); };
+  const choose = i => { if (i === sel) return; setLoading(true); setSel(i); setTimeout(() => setLoading(false), 480); };
   return <div className="shelf rv">
     <div className="shelf__deck">
-      <div className={`shelf__monitor crt ${loading ? 'is-loading' : ''}`}>
+      <div className={`shelf__monitor ${loading ? 'is-loading' : ''}`}>
         {g.video ? <VideoPlayer key={g.name} url={g.video} title={zh ? g.nameZh : g.name} poster={stat?.poster} lang={lang} /> : <div className="shelf__empty"><Icon name="play" /></div>}
         <span className="shelf__osd" aria-hidden="true">▶ PLAY · TAPE {String(sel + 1).padStart(2, '0')}</span>
       </div>
@@ -334,13 +324,13 @@ export function TapeShelf({ games, lang }) {
 }
 
 /* ------------------------------------------------------------------
-   06 · Honors — Dymo-embossed label wall
+   06 · Honors — mission-patch wall
    ------------------------------------------------------------------ */
-const DYMO = ['#e2381b', '#0e1730', '#191714', '#0f8d67', '#2b62d4', '#ef7a1c', '#8a3a1d', '#191714', '#e2381b'];
+const PATCH = ['#fc3d21', '#0b3d91', '#f47b20', '#1f9e6e', '#2f6bff', '#f7b500', '#171b26', '#fc3d21', '#0b3d91'];
 export function DymoWall({ awards, lang }) {
   const zh = lang === 'zh';
   return <div className="dymo-wall">
-    {awards.map((a, i) => <article key={a.title} className="dymo-card rv" style={{ '--tilt': `${((i * 53) % 7 - 3) * .45}deg`, '--dc': DYMO[i % DYMO.length] }}>
+    {awards.map((a, i) => <article key={a.title} className="dymo-card rv" style={{ '--dc': PATCH[i % PATCH.length] }}>
       <span className="dymo-card__no">{String(i + 1).padStart(2, '0')}</span>
       <p className="dymo"><span>{(zh ? a.resultZh : a.result)}</span></p>
       <h3>{zh ? a.titleZh : a.title}</h3>

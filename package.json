@@ -11,14 +11,13 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/noto-sans-sc": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
-    "@fontsource/special-elite": "^5.3.0",
+    "@fontsource/silkscreen": "^5.3.0",
     "@fontsource/vt323": "^5.3.0",
     "@vitejs/plugin-react": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "three": "^0.169.0",
     "vite": "latest"
   }
 }
