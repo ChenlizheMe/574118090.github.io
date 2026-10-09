@@ -1,18 +1,18 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import initial from '../data/metrics.json';
 import { useMotion } from './motion.jsx';
-import { GITHUB_TTL, REPOSITORY, githubMetrics, isFresh, mergeSnapshots } from './metrics-core.js';
+import { GITHUB_TTL, REPOSITORY, badgeCount, githubMetrics, isFresh, mergeSnapshots } from './metrics-core.js';
 
 const Context = createContext(initial);
 export function MetricsProvider({ children }) {
   const [data, setData] = useState(() => {
-    try { return mergeSnapshots(initial, JSON.parse(localStorage.getItem('portfolio-metrics-v1') || '{}')); }
+    try { return mergeSnapshots(initial, JSON.parse(localStorage.getItem('portfolio-metrics-v2') || '{}')); }
     catch { return initial; }
   });
   const current = useRef(data);
   useEffect(() => {
     current.current = data;
-    try { localStorage.setItem('portfolio-metrics-v1', JSON.stringify(data)); } catch { /* Private mode. */ }
+    try { localStorage.setItem('portfolio-metrics-v2', JSON.stringify(data)); } catch { /* Private mode. */ }
   }, [data]);
   useEffect(() => {
     let cancelled = false;
@@ -23,17 +23,39 @@ export function MetricsProvider({ children }) {
       if (!r.ok) throw new Error('Unavailable');
       return r.json();
     }
+    async function latestGithub() {
+      try {
+        const raw = await json(`https://api.github.com/repos/${REPOSITORY}`);
+        return { github: { ...githubMetrics(raw), updatedAt: new Date().toISOString(), status: 'ok' } };
+      } catch {
+        const badge = await json(`https://img.shields.io/github/stars/${REPOSITORY}.json`);
+        const label = String(badge.message || badge.value || '').trim();
+        return { github: { stars: badgeCount(label), starsLabel: label, url: `https://github.com/${REPOSITORY}`, updatedAt: new Date().toISOString(), status: 'ok' } };
+      }
+    }
+    async function latestRelease() {
+      try {
+        const raw = await json(`https://api.github.com/repos/${REPOSITORY}/releases/latest`);
+        if (typeof raw.tag_name !== 'string' || !raw.html_url?.startsWith(`https://github.com/${REPOSITORY}/releases/`)) throw new Error('Invalid release');
+        return { release: { tag: raw.tag_name, url: raw.html_url, publishedAt: raw.published_at, updatedAt: new Date().toISOString(), status: 'ok' } };
+      } catch {
+        const badge = await json(`https://img.shields.io/github/v/release/${REPOSITORY}.json`);
+        const tag = String(badge.message || badge.value || '').trim();
+        if (!tag) throw new Error('Release unavailable');
+        return { release: { tag, url: `https://github.com/${REPOSITORY}/releases/tag/${encodeURIComponent(tag)}`, updatedAt: new Date().toISOString(), status: 'ok' } };
+      }
+    }
     async function refresh() {
       if (busy || document.hidden) return;
       busy = true;
       const results = await Promise.allSettled([
         json('/data/metrics.json'),
-        isFresh(current.current.github, GITHUB_TTL) ? Promise.resolve(null) :
-          json(`https://api.github.com/repos/${REPOSITORY}`).then(raw => ({ github: { ...githubMetrics(raw), updatedAt: new Date().toISOString(), status: 'ok' } }))
+        isFresh(current.current.github, GITHUB_TTL) ? Promise.resolve(null) : latestGithub(),
+        isFresh(current.current.release, GITHUB_TTL) ? Promise.resolve(null) : latestRelease()
       ]);
       if (!cancelled) setData(previous => results.reduce((value, result) => {
         if (result.status !== 'fulfilled' || !result.value ||
-          !(result.value.schemaVersion === 1 || result.value.github)) return value;
+          !(result.value.schemaVersion === 1 || result.value.github || result.value.release)) return value;
         return mergeSnapshots(value, result.value);
       }, previous));
       busy = false;
@@ -81,5 +103,6 @@ export function VideoStats({ url, lang }) {
 export function RepositoryStars({ lang }) {
   const data = useMetrics();
   if (!Number.isFinite(data.github?.stars)) return null;
-  return <a className="repository-stars" href={`https://github.com/${REPOSITORY}`} target="_blank" rel="noreferrer">☆ <AnimatedNumber value={data.github.stars} lang={lang} /> <span>Stars</span></a>;
+  const value = data.github.starsLabel || <AnimatedNumber value={data.github.stars} lang={lang} />;
+  return <a className="repository-stars" href={`https://github.com/${REPOSITORY}`} target="_blank" rel="noreferrer">☆ {value} <span>Stars</span></a>;
 }

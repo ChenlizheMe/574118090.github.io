@@ -31,7 +31,7 @@ function CopyableContact({ label, value, lang }) {
   </div>;
 }
 
-export function MissionHero({ lang, booted, theme }) {
+export function MissionHero({ lang, theme }) {
   const zh = lang === 'zh';
   const metrics = useMetrics();
   const { paused } = useMotion();
@@ -43,7 +43,7 @@ export function MissionHero({ lang, booted, theme }) {
     return () => { dead = true; api?.dispose(); };
   }, [paused, theme]);
 
-  return <section className={`hero ${booted ? 'is-booted' : ''}`}>
+  return <section className="hero">
     <div className="hero__grid">
       <div className="hero__copy">
         <p className="hero__kicker"><span>LC-01</span><T en="Graphics · Vision · Games" zh="图形 · 视觉 · 游戏" lang={lang} /><i aria-hidden="true" /></p>
@@ -68,9 +68,6 @@ export function MissionHero({ lang, booted, theme }) {
         <div className="shell">
           <div className="shell__bar"><b>LC-01</b><span>SIDE A</span><span className="shell__rec"><i className="led led--rec" />REC</span></div>
           <div className="shell__window"><img src="/img/profile.webp" alt={zh ? '陈立哲的照片' : 'Portrait of Lizhe Chen'} /></div>
-          <div className="shell__foot" aria-hidden="true">
-            <span className="shell__reel" /><span className="shell__tape"><i /><i /><i /></span><span className="shell__reel" />
-          </div>
         </div>
         <figcaption><span>FIG. 01</span>{zh ? '陈立哲 · 清华大学深圳国际研究生院' : 'Lizhe Chen · Tsinghua SIGS, Shenzhen'}</figcaption>
       </figure>
@@ -82,7 +79,7 @@ export function MissionHero({ lang, booted, theme }) {
 
     <div className="hero__deck">
       <div className="tm"><span>{zh ? '论文' : 'Papers'}</span><b>{String(publications.length).padStart(2, '0')}</b></div>
-      <div className="tm"><span>Infernux ★</span><b><AnimatedNumber value={metrics.github?.stars} lang={lang} /></b></div>
+      <div className="tm"><span>Infernux ★</span><b>{metrics.github?.starsLabel || <AnimatedNumber value={metrics.github?.stars} lang={lang} />}</b></div>
       <div className="tm"><span>{zh ? '基地' : 'Base'}</span><b className="tm__txt">{zh ? '清华 · 深圳' : 'Tsinghua · SZ'}</b></div>
       <div className="tm tm--vu"><span>{zh ? '电平' : 'Signal'}</span><b className="vu">{Array.from({ length: 14 }, (_, i) => <i key={i} style={{ '--d': `${(i * 0.37) % 1.3}s` }} />)}</b></div>
     </div>

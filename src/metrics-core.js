@@ -13,6 +13,14 @@ export function githubMetrics(data) {
   return { stars: count(data.stargazers_count), forks: count(data.forks_count), url: `https://github.com/${REPOSITORY}` };
 }
 
+export function badgeCount(value) {
+  const text = String(value ?? '').trim().replace(/,/g, '');
+  const match = text.match(/^(\d+(?:\.\d+)?)([kKmM])?$/);
+  if (!match) throw new Error('Invalid badge count');
+  const multiplier = match[2]?.toLowerCase() === 'm' ? 1e6 : match[2] ? 1e3 : 1;
+  return count(Math.round(Number(match[1]) * multiplier));
+}
+
 export function videoMetrics(payload, bvid) {
   const data = payload.data;
   if (payload.code !== 0 || data?.bvid !== bvid) throw new Error('Video unavailable');

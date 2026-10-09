@@ -75,7 +75,6 @@ function JCard({ kind, items, lang }) {
       <header className="jcard__head">
         <div><small>{work ? 'FLIGHT LOG · C-60' : 'FLIGHT LOG · C-90'}</small>
           <h3><Icon name={work ? 'briefcase' : 'scholar'} />{work ? (zh ? '工作经历' : 'Work experience') : (zh ? '学习经历' : 'Education')}</h3></div>
-        <div className="jcard__reels" aria-hidden="true"><i /><i /></div>
       </header>
       <ol className="tracks">
         {items.map((item, i) => {

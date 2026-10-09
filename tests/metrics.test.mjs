@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { githubMetrics, videoMetrics, collectSource, mergeSnapshots, isFresh, GITHUB_TTL } from '../src/metrics-core.js';
+import { badgeCount, githubMetrics, videoMetrics, collectSource, mergeSnapshots, isFresh, GITHUB_TTL } from '../src/metrics-core.js';
 
 test('a failed refresh preserves the value and original success timestamp', async () => {
   const previous = { stars: 123, updatedAt: '2026-09-07T00:00:00Z' };
@@ -18,6 +18,11 @@ test('real zeros are valid; missing, negative and wrong-source numbers are rejec
   assert.throws(() => videoMetrics({ code: -412 }, 'BV123'));
   assert.throws(() => videoMetrics({ code: 0, data: { bvid: 'BV123', stat: {} } }, 'BV123'));
   assert.equal(videoMetrics({ code: 0, data: { bvid: 'BV123', stat: { view: 0, like: 0 } } }, 'BV123').views, 0);
+});
+test('badge counts support GitHub shorthand values', () => {
+  assert.equal(badgeCount('1.6k'), 1600);
+  assert.equal(badgeCount('2M'), 2000000);
+  assert.throws(() => badgeCount('—'));
 });
 test('hourly snapshot cannot regress newer browser GitHub data; videos update independently', () => {
   const a = { github: { stars: 15, updatedAt: '2026-09-08T01:00:00Z' } };

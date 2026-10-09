@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { games, infernux } from '../src/content.js';
-import { REPOSITORY, githubMetrics, videoMetrics, collectSource, mergeSnapshots } from '../src/metrics-core.js';
+import { REPOSITORY, badgeCount, githubMetrics, videoMetrics, collectSource, mergeSnapshots } from '../src/metrics-core.js';
 
 const file = new URL('../data/metrics.json', import.meta.url);
 async function json(url, headers = {}) {
@@ -17,11 +17,25 @@ if (process.env.CI) {
 }
 const auth = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
 const result = { schemaVersion: 1, generatedAt: new Date().toISOString(), videos: {} };
-result.github = await collectSource(previous.github, async () => githubMetrics(await json(`https://api.github.com/repos/${REPOSITORY}`, auth)));
+result.github = await collectSource(previous.github, async () => {
+  try { return githubMetrics(await json(`https://api.github.com/repos/${REPOSITORY}`, auth)); }
+  catch {
+    const badge = await json(`https://img.shields.io/github/stars/${REPOSITORY}.json`);
+    const label = String(badge.message || badge.value || '').trim();
+    return { stars: badgeCount(label), starsLabel: label, url: `https://github.com/${REPOSITORY}` };
+  }
+});
 result.release = await collectSource(previous.release, async () => {
-  const data = await json(`https://api.github.com/repos/${REPOSITORY}/releases/latest`, auth);
-  if (typeof data.tag_name !== 'string' || !data.html_url?.startsWith(`https://github.com/${REPOSITORY}/releases/`)) throw new Error('Invalid release');
-  return { tag: data.tag_name, url: data.html_url, publishedAt: data.published_at };
+  try {
+    const data = await json(`https://api.github.com/repos/${REPOSITORY}/releases/latest`, auth);
+    if (typeof data.tag_name !== 'string' || !data.html_url?.startsWith(`https://github.com/${REPOSITORY}/releases/`)) throw new Error('Invalid release');
+    return { tag: data.tag_name, url: data.html_url, publishedAt: data.published_at };
+  } catch {
+    const badge = await json(`https://img.shields.io/github/v/release/${REPOSITORY}.json`);
+    const tag = String(badge.message || badge.value || '').trim();
+    if (!tag) throw new Error('Release unavailable');
+    return { tag, url: `https://github.com/${REPOSITORY}/releases/tag/${encodeURIComponent(tag)}` };
+  }
 });
 const ids = [...new Set([infernux.demoVideo, ...infernux.videos.map(v => v.url), ...games.map(g => g.video)].map(url => new URL(url).searchParams.get('bvid')).filter(Boolean))];
 // Sequential collection keeps Bilibili traffic small; no cookies or private credentials.

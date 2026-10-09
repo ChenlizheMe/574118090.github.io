@@ -11,7 +11,6 @@ import './cassette.css';
 import { MetricsProvider } from './live-data.jsx';
 import { MotionProvider, useMotion } from './motion.jsx';
 import { Icon, linkIcon } from './icons.jsx';
-import { BootScreen } from './boot.jsx';
 import { MissionHero } from './hero.jsx';
 import { Journey, PaperArcade, PaperCard, MissionMonitor, InfernuxLinks, RackUnit, TapeShelf, DymoWall } from './sections.jsx';
 import { awards, games, infernux, profile, projects, publications } from './content.js';
@@ -79,7 +78,6 @@ function Shell() {
   const [lang, setLang] = usePreference('lang', 'en');
   const [theme, setTheme] = usePreference('theme', 'light');
   const [page, setPage] = useState(pageFromPath);
-  const [booted, setBooted] = useState(() => { try { return sessionStorage.getItem('lc-booted') === '1'; } catch { return true; } });
 
   const navigate = useCallback(href => {
     window.history.pushState(null, '', href);
@@ -96,14 +94,13 @@ function Shell() {
 
   return <NavigationContext.Provider value={navigate}>
     <MotionProvider><MetricsProvider>
-      {!booted && <BootScreen onDone={() => setBooted(true)} />}
       <div className={`app app--${page}`}>
         <Masthead lang={lang} page={page} theme={theme}
           toggleLang={() => setLang(lang === 'en' ? 'zh' : 'en')}
           toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         <main className="main">
           <div key={page} className="page">
-            {page === 'home' ? <Home lang={lang} booted={booted} theme={theme} /> : <ArchivePage lang={lang} page={page} />}
+            {page === 'home' ? <Home lang={lang} theme={theme} /> : <ArchivePage lang={lang} page={page} />}
           </div>
         </main>
       </div>
@@ -166,10 +163,10 @@ function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
 /* ------------------------------------------------------------------
    home
    ------------------------------------------------------------------ */
-function Home({ lang, booted, theme }) {
+function Home({ lang, theme }) {
   useReveal(lang);
   return <>
-    <MissionHero lang={lang} booted={booted} theme={theme} />
+    <MissionHero lang={lang} theme={theme} />
     <Section id="experience" index="01" eyebrow={['Journey', '经历']} title={['Personal journey', '个人经历']} lede={['Learning, research, and the things I build along the way.', '学习、研究，以及将想法做出来的过程。']} lang={lang}>
       <Journey lang={lang} />
     </Section>
