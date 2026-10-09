@@ -38,6 +38,7 @@ export default defineConfig({
   plugins: [react(), copyStaticAssets()],
   base: '/',
   build: {
+    chunkSizeWarningLimit: 700,
     rollupOptions: {
       input: resolve(root, 'index.html')
     }

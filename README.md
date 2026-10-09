@@ -1,6 +1,6 @@
 # Lizhe Chen — personal website
 
-React + Vite portfolio in a NASA-Punk visual style. The homepage includes overlapping 3D film cards, separate work and education chronologies with directly visible details, and illustrated publication cards, subtle project-card depth, animated metrics, two themes and bilingual content. Animation respects the operating system’s reduced-motion setting. There is no floating motion control. Films load only on explicit playback.
+React + Vite portfolio in a cassette-futurist visual style on a Swiss grid. A tape-deck boot screen plays once per session (click or any key skips it). The hero is a real-time three.js pile of cassettes; the top one projects a holographic Stanford Bunny that cycles HOLO / WIRE / POINTS modes (hover lifts a tape, click ejects it, click the projection to switch). Each section is a different piece of hardware: cassette J-cards for work and education, a CRT catalog terminal for papers, a CRT television for the Infernux films, rack-mount units for projects, a VHS shelf for games and a Dymo-label wall for honors. Two themes and bilingual content. Animation respects the operating system’s reduced-motion setting. Films load only on explicit playback.
 
 ## Local development
 
@@ -36,12 +36,12 @@ The schedule only becomes active after this branch is merged into the repository
 ## Editing
 
 - `src/content.js`: bilingual profile, projects, publications, education, work and honors.
-- `src/main.jsx`: page composition and archives.
-- `src/dynamic.css`, `src/flight.css`, `src/constellation.css`, `src/finish.css`: NASA-Punk layout, typography and shared environmental materials.
-- `src/experience-journey.jsx`: separate horizontal work and education timelines with directly visible details.
-- `src/research-exhibit.jsx`, `src/content-experiences.jsx`: layered paper exhibit, publication reader, project inspection, game theater and honors gallery.
-- `src/spatial-field.jsx`: persistent orbital backdrop and animated wire geometry.
-- `src/motion.jsx`, `src/video-deck.jsx`: content depth, film carousel, playback and reduced-motion handling.
+- `src/main.jsx`: page composition, masthead, hero, archives and footer.
+- `src/boot.jsx`: once-per-session tape-deck boot screen.
+- `src/tape-hero.js`: three.js cassette pile and Stanford Bunny hologram (lazy-loaded chunk). The model is `img/models/stanford-bunny.bin`, converted from `bun_zipper_res2` (surface) and `bun_zipper_res4` (wireframe) of the [Stanford 3D Scanning Repository](https://graphics.stanford.edu/data/3Dscanrep/).
+- `src/sections.jsx`: journey J-cards (work and education details live here), paper terminal and index cards, Infernux TV, project rack units, game VHS shelf, honors Dymo wall and the figure lightbox.
+- `src/cassette.css`: the whole visual system, palette, responsive rules and reduced-motion handling.
+- `src/motion.jsx`: reduced-motion context and click-to-play video player.
 - `src/live-data.jsx`, `src/metrics-core.js`: metrics UI, cache and shared validation.
 - `scripts/update-metrics.mjs`: collection. Video IDs are derived from content automatically.
 
@@ -51,10 +51,10 @@ External reference: [GitHub API rate limits](https://docs.github.com/en/rest/usi
 
 ## Typography and content verification
 
-PingFang SC is the first font choice for both languages, followed by PingFang TC, Microsoft YaHei and Segoe UI. PingFang requires a local installation; no proprietary font files are redistributed. Body copy is 18px, with navigation and metadata at least 16px. Only numeric section IDs and English instrument-bar labels use smaller sizes.
+Chinese copy uses PingFang SC first, followed by PingFang TC, Microsoft YaHei and Segoe UI; PingFang requires a local installation and no proprietary font files are redistributed. Latin display and English copy use Archivo; instrument labels use JetBrains Mono, CRT readouts VT323 and handwritten tape labels Special Elite. All four are open-licensed and self-hosted through Fontsource. Body copy is 18px, with navigation and metadata at least 16px. Only numeric section IDs and English instrument-bar labels use smaller sizes.
 
 See [publication audit](docs/publication-audit.md) for all 14 verified records and the author-confirmed ACL acceptance for Innate Reasoning. Software lists contain only Infernux and EmbodiChain. The résumé is the user-supplied PDF copied verbatim on 2026-09-08.
 
 The homepage greeting reflects the author’s current exploration of Agentic Runtime and next-generation AI-native games and engines. The Infernux feature is limited to its film deck and links. See [paper image provenance](docs/paper-images.md).
 
-Social and action links use local SVG icons with outlined controls. The hero includes lightweight geometric orbit decoration that respects reduced motion. Video-stage space uses container-relative sizing to accommodate transformed screens. The Infernux image is the current official README/editor showcase; website and documentation point to infernux-engine.com.
+Social and action links use local SVG icons with outlined controls. Without WebGL the hero falls back to a static cassette illustration. The Infernux image is the current official README/editor showcase; website and documentation point to infernux-engine.com.
