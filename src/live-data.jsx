@@ -60,10 +60,18 @@ export function MetricsProvider({ children }) {
       }, previous));
       busy = false;
     }
-    refresh();
+    // The build already ships a fresh snapshot (CI refreshes it hourly), so live
+    // requests wait until the page and its images have finished loading.
+    let idle = 0, timer = 0;
+    const start = () => { timer = setTimeout(() => { idle = (window.requestIdleCallback || (f => setTimeout(f, 1)))(refresh); }, 2500); };
+    if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
     const interval = setInterval(refresh, GITHUB_TTL);
     document.addEventListener('visibilitychange', refresh);
-    return () => { cancelled = true; controller.abort(); clearInterval(interval); document.removeEventListener('visibilitychange', refresh); };
+    return () => {
+      cancelled = true; controller.abort(); clearInterval(interval); clearTimeout(timer);
+      window.cancelIdleCallback?.(idle); window.removeEventListener('load', start);
+      document.removeEventListener('visibilitychange', refresh);
+    };
   }, []);
   return <Context.Provider value={data}>{children}</Context.Provider>;
 }

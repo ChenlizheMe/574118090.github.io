@@ -47,13 +47,17 @@ The schedule only becomes active after this branch is merged into the repository
 - `src/live-data.jsx`, `src/metrics-core.js`: metrics UI, cache and shared validation.
 - `scripts/update-metrics.mjs`: collection. Video IDs are derived from content automatically.
 
-To add a game, set a Bilibili player URL with its `bvid` in `src/content.js`, then run `npm run metrics`. Its cover, views and likes will be collected automatically. Bilibili covers load directly with no-referrer; the play control remains usable if the cover fails.
+To add a game, set a Bilibili player URL with its `bvid` in `src/content.js`, then run `npm run metrics`. Its cover, views and likes will be collected automatically. Bilibili covers load directly with no-referrer as resized WebP thumbnails (`@960w_540h_1c.webp`); the play control remains usable if the cover fails. Live GitHub requests start only after the page has loaded, because the build already ships an hourly snapshot.
+
+## Images
+
+Site images are WebP. After adding or replacing an image under `img/`, run `npm run images`: files larger than 1600 px or 160 KB are re-encoded in place, and a 960 px `-sm.webp` variant is written for inline display. The full file is only fetched by the lightbox. The portrait is imported through Vite, so it gets a hashed URL and is preloaded from `index.html`.
 
 External reference: [GitHub API rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
 
 ## Typography and content verification
 
-Latin display and reading text uses Archivo (variable width and weight); Chinese uses Source Han Sans (思源黑体, self-hosted as Noto Sans SC). Labels use JetBrains Mono, CRT readouts VT323, and small pixel accents Silkscreen. All are open-licensed and self-hosted through Fontsource.
+Latin display and reading text uses Archivo (variable width and weight); Chinese uses the system UI font (PingFang SC, Microsoft YaHei, Source Han Sans / Noto Sans CJK), so no CJK web font is downloaded. Labels use JetBrains Mono, CRT readouts VT323, and small pixel accents Silkscreen; only their Latin subsets are bundled. All are open-licensed and self-hosted through Fontsource.
 
 See [publication audit](docs/publication-audit.md) for all 14 verified records and the author-confirmed ACL acceptance for Innate Reasoning. Software lists contain only Infernux and EmbodiChain. The résumé is the user-supplied PDF copied verbatim on 2026-09-08.
 

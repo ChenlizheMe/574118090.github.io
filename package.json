@@ -7,12 +7,12 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "metrics": "node scripts/update-metrics.mjs",
+    "images": "node scripts/optimize-images.mjs",
     "test": "node --test tests/*.test.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",
-    "@fontsource-variable/noto-sans-sc": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/silkscreen": "^5.3.0",
     "@fontsource/vt323": "^5.3.0",
@@ -20,5 +20,8 @@
     "react": "latest",
     "react-dom": "latest",
     "vite": "latest"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

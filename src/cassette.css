@@ -33,8 +33,9 @@
   --blue: #2b62d4;
 
   --stripe: linear-gradient(90deg, var(--red) 0 25%, var(--orange) 25% 50%, var(--yellow) 50% 75%, var(--brown) 75%);
-  --ff: "Archivo Variable", "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --ff-mono: "JetBrains Mono", ui-monospace, "Noto Sans SC Variable", monospace;
+  --ff-cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei";
+  --ff: "Archivo Variable", var(--ff-cjk), system-ui, sans-serif;
+  --ff-mono: "JetBrains Mono", ui-monospace, var(--ff-cjk), monospace;
   --ff-px: "Silkscreen", "JetBrains Mono", monospace;
   --ff-crt: "VT323", "JetBrains Mono", monospace;
 
@@ -43,7 +44,7 @@
   --mast-h: 62px;
   color-scheme: light;
 }
-html[lang="zh-CN"] { --ff: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", "Archivo Variable", sans-serif; }
+html[lang="zh-CN"] { --ff: var(--ff-cjk), "Archivo Variable", system-ui, sans-serif; }
 [data-theme="dark"] {
   --paper: #12110f;
   --paper-2: #191714;

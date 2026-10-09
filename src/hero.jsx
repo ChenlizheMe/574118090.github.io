@@ -3,6 +3,7 @@ import { Icon, linkIcon } from './icons.jsx';
 import { useMetrics, AnimatedNumber } from './live-data.jsx';
 import { useMotion } from './motion.jsx';
 import { profile, publications } from './content.js';
+import portrait from '../img/profile.webp';
 
 /* Hero · Swiss grid: copy on the left, a large portrait in a cassette-shell
    frame on the right, and a CPU voxel diorama of cassettes underneath
@@ -67,7 +68,7 @@ export function MissionHero({ lang, theme }) {
       <figure className="hero__photo">
         <div className="shell">
           <div className="shell__bar"><b>LC-01</b><span>SIDE A</span><span className="shell__rec"><i className="led led--rec" />REC</span></div>
-          <div className="shell__window"><img src="/img/profile.webp" alt={zh ? '陈立哲的照片' : 'Portrait of Lizhe Chen'} /></div>
+          <div className="shell__window"><img src={portrait} width="960" height="960" fetchPriority="high" decoding="async" alt={zh ? '陈立哲的照片' : 'Portrait of Lizhe Chen'} /></div>
         </div>
         <figcaption><span>FIG. 01</span>{zh ? '陈立哲 · 清华大学深圳国际研究生院' : 'Lizhe Chen · Tsinghua SIGS, Shenzhen'}</figcaption>
       </figure>

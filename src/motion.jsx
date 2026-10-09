@@ -42,12 +42,16 @@ export function ScrollEffects({ page }) {
   return <div className="reading-progress" ref={progress} aria-hidden="true" />;
 }
 
+/* Bilibili's image CDN resizes and re-encodes on the fly: ~30 KB WebP instead of a ~300 KB JPEG. */
+export const biliThumb = (url, width) => (typeof url === 'string' && /^https:\/\/i\d\.hdslb\.com\/.+\.(jpe?g|png)$/i.test(url) ? `${url}@${width}w_${Math.round(width * 9 / 16)}h_1c.webp` : url);
+
 export function VideoPlayer({ url, title, poster, lang, onPlaybackChange }) {
   const [playing, setPlaying] = useState(false);
+  poster = biliThumb(poster, 960);
   const src = new URL(url); src.searchParams.set('autoplay', '1');
   return <div className={`video-player ${playing ? 'is-playing' : ''}`}>
     {playing ? <><iframe src={src.toString()} title={title} allow="autoplay; fullscreen" allowFullScreen /><button className="video-close" onClick={() => { setPlaying(false); onPlaybackChange?.(false); }} aria-label={lang === 'zh' ? '关闭视频' : 'Close video'}>×</button></> : <button className="video-cover" onClick={() => { setPlaying(true); onPlaybackChange?.(true); }} aria-label={`${lang === 'zh' ? '播放' : 'Play'} ${title}`}>
-      {poster && <img src={poster} alt="" loading="lazy" referrerPolicy="no-referrer" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />}<span className="video-cover__grid" /><span className="play-circle">▷</span><span className="video-cover__label">{lang === 'zh' ? '播放作品演示' : 'WATCH THE FILM'} <span>↗</span></span>
+      {poster && <img src={poster} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />}<span className="video-cover__grid" /><span className="play-circle">▷</span><span className="video-cover__label">{lang === 'zh' ? '播放作品演示' : 'WATCH THE FILM'} <span>↗</span></span>
     </button>}
   </div>;
 }

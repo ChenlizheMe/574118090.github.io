@@ -1,10 +1,12 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { education, workExperience, publications, infernux } from './content.js';
 import { Icon } from './icons.jsx';
-import { VideoPlayer, useMotion } from './motion.jsx';
+import { VideoPlayer, biliThumb, useMotion } from './motion.jsx';
 import { useMetrics, AnimatedNumber, RepositoryStars } from './live-data.jsx';
 
 const bvidOf = url => { try { return new URL(url).searchParams.get('bvid'); } catch { return null; } };
+/* inline figures use the ~960px variant written by scripts/optimize-images.mjs */
+export const smallOf = src => (typeof src === 'string' && /^\/img\/.+\.webp$/.test(src) && !src.endsWith('-sm.webp') ? src.replace(/\.webp$/, '-sm.webp') : src);
 
 /* ------------------------------------------------------------------
    Figure lightbox
@@ -17,7 +19,7 @@ export function FigureViewer({ src, title, lang, className = '' }) {
   useEffect(() => { if (open) dialog.current?.showModal(); }, [open]);
   return <>
     <button type="button" className={`figure ${className}`} onClick={() => { setZoom(false); setOpen(true); }} aria-label={`${zh ? '放大查看' : 'Enlarge'} ${title}`}>
-      <img src={src} alt={title} loading="lazy" />
+      <img src={smallOf(src)} alt={title} loading="lazy" decoding="async" />
       <span className="figure__zoom"><Icon name="expand" /></span>
     </button>
     {open && <dialog className="lightbox" aria-label={title} ref={dialog} onClose={() => setOpen(false)} onClick={e => { if (e.target === e.currentTarget) dialog.current.close(); }}>
@@ -107,6 +109,8 @@ export function Journey({ lang }) {
    02 · Publications — tape index with an animated voxel diagram per paper
    ------------------------------------------------------------------ */
 const FEATURED = [
+  { id: 'compact-bench', dia: 'compact', short: 'CompAct-Bench', field: 'AGENT MEMORY', color: 'var(--orange)',
+    cap: ['Ten history cubes are pressed into one memory block; the agent resumes from it and either passes or fails.', '十个历史方块被压成一块记忆；智能体从这块记忆继续执行，结果或通过、或失败。'] },
   { id: 'skillforge', dia: 'skillforge', short: 'SkillForge', field: 'AI AGENTS', color: 'var(--green)',
     cap: ['Skills leave the pool; fit ones are absorbed by the agent, low-fitness ones are retired.', '技能从技能池出发：高适应度的被智能体吸收，低适应度的被淘汰。'] },
   { id: 'promptcd', dia: 'promptcd', short: 'PromptCD', field: 'MULTIMODAL AI', color: 'var(--blue)',
@@ -114,9 +118,7 @@ const FEATURED = [
   { id: 'corrdetail', dia: 'corrdetail', short: 'CorrDetail', field: 'FORGERY DETECTION', color: 'var(--red)',
     cap: ['A scanner sweeps the faces; fine visual detail exposes the forged one.', '扫描器逐个检查人脸，细粒度的视觉细节暴露出伪造的那一张。'] },
   { id: 'innate-reasoning', dia: 'innate', short: 'Innate Reasoning', field: 'LLM REASONING', color: 'var(--yellow)',
-    cap: ['Zero-shot keeps stacking thoughts after the answer; an in-context example stops it in time.', '零样本推理在得出答案后仍不断堆叠思考；加入上下文示例后及时停下。'] },
-  { id: 'graph-descriptive', dia: 'graph', short: 'Graph Order', field: 'GRAPH REASONING', color: 'var(--orange)',
-    cap: ['Describing a graph in breadth-first order: the wave lights up layer by layer.', '按广度优先顺序描述图：波前一层一层点亮节点。'] }
+    cap: ['Zero-shot keeps stacking thoughts after the answer; an in-context example stops it in time.', '零样本推理在得出答案后仍不断堆叠思考；加入上下文示例后及时停下。'] }
 ];
 
 function Diagram({ id, label }) {
@@ -212,7 +214,7 @@ export function MissionMonitor({ lang }) {
       <span className="monitor__stats">▷ <AnimatedNumber value={stat?.views} lang={lang} /> · ♡ <AnimatedNumber value={stat?.likes} lang={lang} /></span>
     </div>
     <div className={`monitor__screen ${noise ? 'is-noise' : ''}`}>
-      <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || infernux.image} lang={lang} />
+      <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || smallOf(infernux.image)} lang={lang} />
       <span className="monitor__corners" aria-hidden="true"><i /><i /><i /><i /></span>
       <span className="monitor__title" aria-hidden="true">{zh ? v.titleZh : v.title}</span>
     </div>
@@ -220,7 +222,7 @@ export function MissionMonitor({ lang }) {
       {videos.map((x, i) => {
         const s = metrics.videos?.[x.bvid];
         return <button key={x.bvid} type="button" role="tab" aria-selected={ch === i} className={ch === i ? 'is-on' : ''} onClick={() => tune(i)}>
-          <span className="monitor__thumb">{s?.poster ? <img src={s.poster} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <Icon name="play" />}<em>{String(i + 1).padStart(2, '0')}</em></span>
+          <span className="monitor__thumb">{s?.poster ? <img src={biliThumb(s.poster, 320)} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" /> : <Icon name="play" />}<em>{String(i + 1).padStart(2, '0')}</em></span>
           <span className="monitor__meta"><small>{x.chapter}</small><b>{zh ? x.titleZh : x.title}</b><span>▷ <AnimatedNumber value={s?.views} lang={lang} /></span></span>
         </button>;
       })}
@@ -258,7 +260,7 @@ export function RackUnit({ project, lang, index }) {
       <div className="rack__top"><span className="rack__id">UNIT {String(index + 1).padStart(2, '0')}</span><span className="rack__name">{project.name}</span><span className="rack__status"><i className="led led--on" />{zh ? project.statusZh : project.status}</span></div>
       <div className="rack__grid">
         <div className="rack__screen" ref={screen} onPointerMove={look} onPointerLeave={() => { screen.current?.style.setProperty('--lx', '50%'); screen.current?.style.setProperty('--ly', '50%'); }}>
-          <img src={project.image} alt={project.name} loading="lazy" />
+          <img src={smallOf(project.image)} alt={project.name} loading="lazy" decoding="async" />
           <span className="rack__cross" aria-hidden="true" />
           <FigureViewer src={project.image} title={project.name} lang={lang} className="rack__expand" />
         </div>
