@@ -1,6 +1,6 @@
 # Lizhe Chen — personal website
 
-React + Vite portfolio in an overgrown cassette-futurist pixel style, after the look of the game ZWAARD: pastel moss greens and teals, cream dialogue boxes, dark teal terminals with lime borders, hot pink and cyan keys, chamfered panels, pixel type, scanlines, RGB split and posterization. A tape-deck boot screen plays once per session (click or any key skips it). The hero is a voxel diorama, a giant cassette lying in mossy ruins next to a CRT terminal. Each featured paper has a small looping voxel diagram of its core idea next to the paper's own figure. Everything animated is drawn on the CPU into low-resolution 2D canvases (no WebGL): static voxels are baked once, each frame costs well under 1 ms, loops are capped at 20–24 fps and stop when off screen or in a background tab, so office machines without a discrete GPU run it comfortably. Two themes and bilingual content. Animation respects the operating system's reduced-motion setting. Films load only on explicit playback.
+React + Vite portfolio in a cassette-futurist style on a Swiss grid, with a voxel / pixel layer: paper and ink with the four tape-stripe colours (red, orange, yellow, brown), a bold grotesk for display, mono labels, amber CRT readouts, and pixel type only as an accent. Photos and screenshots are shown untouched (no posterize or scanline filters). A CRT boot screen plays once per session (click or any key skips it). The hero puts the copy on the left and a large portrait in a cassette-shell frame on the right, over a voxel plinth of cassettes, a CRT terminal, a speaker and a VU meter. Each featured paper has a small looping voxel diagram of its core idea next to the paper's own figure. Everything animated is drawn on the CPU into low-resolution 2D canvases (no WebGL): static voxels are baked once, each frame costs well under 1 ms, loops are capped at 20–24 fps and stop when off screen or in a background tab, so office machines without a discrete GPU run it comfortably. Two themes and bilingual content. Animation respects the operating system's reduced-motion setting. Films load only on explicit playback.
 
 ## Local development
 
@@ -37,8 +37,9 @@ The schedule only becomes active after this branch is merged into the repository
 
 - `src/content.js`: bilingual profile, projects, publications, education, work and honors.
 - `src/main.jsx`: page composition, masthead, hero, archives and footer.
-- `src/boot.jsx`: once-per-session tape-deck boot screen.
-- `src/voxel.js`: CPU voxel renderer (2:1 dimetric, painter-sorted, face-culled, cached cube sprites, cast shadows), 3×5 pixel font, and the post pass (4×4 Bayer-dithered posterize, RGB split, vignette, grain, occasional line glitch).
+- `src/boot.jsx`: once-per-session CRT boot screen.
+- `src/hero.jsx`: hero copy, portrait and data bar.
+- `src/voxel.js`: CPU voxel renderer (2:1 dimetric, painter-sorted, face-culled, cached cube sprites, cast shadows), 3×5 pixel font and label chips. Colours are drawn flat, with no post-processing pass.
 - `src/voxel-hero.js`: the hero diorama. `src/diagrams.js`: the five paper diagrams.
 - `src/sections.jsx`: journey J-cards (work and education details live here), paper tabs with voxel diagrams and figures, paper index cards, Infernux monitor, project rack units, game VHS shelf, honors wall and the figure lightbox.
 - `src/cassette.css`: the whole visual system, palette, responsive rules and reduced-motion handling.
@@ -52,7 +53,7 @@ External reference: [GitHub API rate limits](https://docs.github.com/en/rest/usi
 
 ## Typography and content verification
 
-Reading text uses Source Han Sans (思源黑体, self-hosted as Noto Sans SC). Pixel display type uses Silkscreen, interface labels and readouts VT323, code-like labels JetBrains Mono. All are open-licensed and self-hosted through Fontsource. Body copy is 18px, with navigation and metadata at least 16px.
+Latin display and reading text uses Archivo (variable width and weight); Chinese uses Source Han Sans (思源黑体, self-hosted as Noto Sans SC). Labels use JetBrains Mono, CRT readouts VT323, and small pixel accents Silkscreen. All are open-licensed and self-hosted through Fontsource.
 
 See [publication audit](docs/publication-audit.md) for all 14 verified records and the author-confirmed ACL acceptance for Innate Reasoning. Software lists contain only Infernux and EmbodiChain. The résumé is the user-supplied PDF copied verbatim on 2026-09-08.
 

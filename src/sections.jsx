@@ -280,7 +280,7 @@ export function RackUnit({ project, lang, index }) {
 /* ------------------------------------------------------------------
    05 · Games — VHS shelf feeding a monitor
    ------------------------------------------------------------------ */
-const SPINE = ['#fc3d21', '#f7b500', '#efe9dc', '#0b3d91', '#f47b20', '#1f9e6e', '#2f6bff', '#171b26'];
+const SPINE = ['#e2381b', '#f5b91d', '#efe8d8', '#8a3a1d', '#ef7a1c', '#d8cfba', '#2b62d4', '#3a342c'];
 
 export function TapeShelf({ games, lang }) {
   const zh = lang === 'zh';
@@ -296,7 +296,7 @@ export function TapeShelf({ games, lang }) {
     <div className="shelf__deck">
       <div className={`shelf__monitor ${loading ? 'is-loading' : ''}`}>
         {g.video ? <VideoPlayer key={g.name} url={g.video} title={zh ? g.nameZh : g.name} poster={stat?.poster} lang={lang} /> : <div className="shelf__empty"><Icon name="play" /></div>}
-        <span className="shelf__osd" aria-hidden="true">▶ PLAY · TAPE {String(sel + 1).padStart(2, '0')}</span>
+        <span className="shelf__osd" aria-hidden="true">▶ PLAY · {String(sel + 1).padStart(2, '0')}</span>
       </div>
       <div className="shelf__info" id={`${uid}-g`} aria-live="polite">
         <p className="shelf__role">{zh ? g.roleZh : g.role}</p>
@@ -326,7 +326,7 @@ export function TapeShelf({ games, lang }) {
 /* ------------------------------------------------------------------
    06 · Honors — mission-patch wall
    ------------------------------------------------------------------ */
-const PATCH = ['#fc3d21', '#0b3d91', '#f47b20', '#1f9e6e', '#2f6bff', '#f7b500', '#171b26', '#fc3d21', '#0b3d91'];
+const PATCH = ['#e2381b', '#ef7a1c', '#f5b91d', '#8a3a1d', '#2b62d4', '#e2381b', '#ef7a1c', '#f5b91d', '#8a3a1d'];
 export function DymoWall({ awards, lang }) {
   const zh = lang === 'zh';
   return <div className="dymo-wall">

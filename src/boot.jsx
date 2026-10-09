@@ -3,15 +3,15 @@ import React, { useEffect, useRef, useState } from 'react';
 /* Boot screen: CRT power-on → self-test log → tape loading → CRT collapse.
    Plays once per browser session; any click or key skips it. */
 const LINES = [
-  ['LC-SYSTEMS TAPE OPERATING SYSTEM', 'v26.10'],
+  ['LC-SYSTEMS CASSETTE OS', 'v26.10'],
   ['(C) LIZHE CHEN · TSINGHUA SIGS', ''],
   ['', ''],
   ['MEMORY TEST', '640K OK'],
   ['VOXEL RENDERER', 'CPU · NO GPU NEEDED'],
-  ['POSTERIZE', '7 LEVELS · BAYER 4×4'],
-  ['MOUNT DECK A:', 'RESEARCH.TAP'],
-  ['MOUNT DECK B:', 'GAMES.TAP'],
-  ['OVERGROWTH', 'MOSS 87%'],
+  ['GRID', '12 COL · SWISS'],
+  ['MOUNT DECK A:', 'RESEARCH'],
+  ['MOUNT DECK B:', 'GAMES'],
+  ['HEAD ALIGN', 'OK'],
   ['', ''],
   ['LOADING CHENLIZHE.CN', '']
 ];

@@ -1,6 +1,7 @@
-/* Tiny CPU voxel renderer + pixel post-processing.
+/* Tiny CPU voxel renderer.
    Everything is drawn into a low-resolution 2D canvas and upscaled by CSS
    with nearest-neighbour filtering, so it runs on integrated graphics.
+   Colours are drawn as-is: no posterize / dither pass.
 
    Projection (2:1 dimetric, z up):  sx = (x − y)·T,  sy = (x + y)·T/2 − z·T
    View direction is (1,1,1), so painter's order is x + y + z ascending. */
@@ -40,9 +41,9 @@ export class Voxels {
     const T = this.T, W = 2 * T;
     s = document.createElement('canvas'); s.width = W; s.height = W;
     const g = s.getContext('2d'), img = g.createImageData(W, W), d = img.data;
-    const top = shadow ? mix(mul(c, .66), [40, 70, 110], .12) : c;
-    const rim = mix(top, [255, 255, 240], shadow ? .08 : .24);
-    const left = mul(c, .8), right = mul(c, .6), lo = mul(c, .48);
+    const top = shadow ? mix(mul(c, .72), [21, 20, 18], .1) : c;
+    const rim = mix(top, [255, 252, 244], shadow ? .06 : .2);
+    const left = mul(c, .84), right = mul(c, .66), lo = mul(c, .5);
     const region = (px, py) => {
       const fx = px + .5, fy = py + .5;
       let t, b, m;
@@ -132,7 +133,7 @@ const GLYPH = {};
 for (const k in ROWS) GLYPH[k] = ROWS[k].join('');
 
 export function textWidth(s) { return s.length * 4 - 1; }
-export function pixelText(ctx, s, x, y, color = '#fff', shadow = '#071211') {
+export function pixelText(ctx, s, x, y, color = '#fff', shadow = '#151412') {
   s = String(s).toUpperCase();
   const draw = (ox, oy, col) => {
     ctx.fillStyle = col;
@@ -144,57 +145,12 @@ export function pixelText(ctx, s, x, y, color = '#fff', shadow = '#071211') {
   if (shadow) { draw(1, 0, shadow); draw(0, 1, shadow); draw(1, 1, shadow); draw(-1, 0, shadow); draw(0, -1, shadow); }
   draw(0, 0, color);
 }
-/* label chip: dark plate + text */
-export function chip(ctx, s, x, y, color = '#c6ff4a', plate = 'rgba(7,18,17,.86)') {
+/* label chip: ink plate, light text, coloured underline */
+export function chip(ctx, s, x, y, color = '#e2381b', plate = '#151412', text = '#f3eee2') {
   const w = textWidth(String(s)) + 4;
   ctx.fillStyle = plate; ctx.fillRect(Math.round(x) - 2, Math.round(y) - 2, w, 9);
-  ctx.fillStyle = color; ctx.fillRect(Math.round(x) - 2, Math.round(y) + 7, w, 1);
-  pixelText(ctx, s, Math.round(x), Math.round(y), color, null);
-}
-
-/* ---------- post: ordered-dither posterize, RGB split, vignette, grain ---------- */
-const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16);
-export function makePost(w, h, { levels = 7, ab = 1, vignette = .38, grain = 9 } = {}) {
-  const luts = BAYER.map(b => {
-    const l = new Uint8ClampedArray(256);
-    for (let v = 0; v < 256; v++) l[v] = Math.min(levels - 1, Math.floor(v / 255 * (levels - 1) + b)) * 255 / (levels - 1);
-    return l;
-  });
-  const vig = new Float32Array(w * h);
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-    const dx = (x / w - .5) * 2, dy = (y / h - .5) * 2;
-    vig[y * w + x] = 1 - vignette * Math.min(1, Math.pow(dx * dx * .7 + dy * dy, 1.2));
-  }
-  const off = new Int8Array(w);
-  for (let x = 0; x < w; x++) {
-    const r = (x / w - .5) * 2, a = Math.abs(r);
-    const k = a > .82 ? ab + 1 : a > .38 ? ab : 0;
-    off[x] = Math.sign(r) * k;
-    if (x - Math.abs(off[x]) < 0 || x + Math.abs(off[x]) >= w) off[x] = 0;
-  }
-  const noise = new Int8Array(65536);
-  for (let i = 0; i < 65536; i++) noise[i] = ((Math.random() - .5) * 2 * grain) | 0;
-  let src = new Uint8ClampedArray(w * h * 4), phase = 0;
-  return function apply(ctx, glitch = 0) {
-    const img = ctx.getImageData(0, 0, w, h), d = img.data;
-    src.set(d);
-    phase = (phase + 7919) & 65535;
-    const gRow = glitch ? (Math.random() * h) | 0 : -1, gH = glitch ? 2 + ((Math.random() * 6) | 0) : 0, gS = glitch ? ((Math.random() - .5) * 10) | 0 : 0;
-    for (let y = 0; y < h; y++) {
-      const sh = y >= gRow && y < gRow + gH ? gS : 0;
-      const row = y * w, lr = (y & 3) << 2;
-      for (let x = 0; x < w; x++) {
-        let sx = x + sh; if (sx < 0) sx = 0; else if (sx >= w) sx = w - 1;
-        const o = off[sx], i = (row + x) * 4, s = (row + sx) * 4;
-        const v = vig[row + x], n = noise[(row + x + phase) & 65535];
-        const L = luts[lr | (x & 3)];
-        d[i] = L[cb(src[s - o * 4] * v + n)];
-        d[i + 1] = L[cb(src[s + 1] * v + n)];
-        d[i + 2] = L[cb(src[s + 2 + o * 4] * v + n)];
-      }
-    }
-    ctx.putImageData(img, 0, 0);
-  };
+  ctx.fillStyle = color; ctx.fillRect(Math.round(x) - 2, Math.round(y) + 7, w, 2);
+  pixelText(ctx, s, Math.round(x), Math.round(y), text, null);
 }
 
 /* loop helper: capped fps, runs only while visible */

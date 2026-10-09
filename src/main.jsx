@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/noto-sans-sc/wght.css';
 import '@fontsource/silkscreen/400.css';
 import '@fontsource/silkscreen/700.css';
@@ -97,22 +98,12 @@ function Shell() {
     <MotionProvider><MetricsProvider>
       {!booted && <BootScreen onDone={() => setBooted(true)} />}
       <div className={`app app--${page}`}>
-        <div className="crt-overlay" aria-hidden="true" />
-        <svg className="fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
-          <filter id="posterize" colorInterpolationFilters="sRGB">
-            <feComponentTransfer>
-              <feFuncR type="discrete" tableValues="0 .2 .4 .6 .8 1" />
-              <feFuncG type="discrete" tableValues="0 .2 .4 .6 .8 1" />
-              <feFuncB type="discrete" tableValues="0 .2 .4 .6 .8 1" />
-            </feComponentTransfer>
-          </filter>
-        </svg>
         <Masthead lang={lang} page={page} theme={theme}
           toggleLang={() => setLang(lang === 'en' ? 'zh' : 'en')}
           toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         <main className="main">
           <div key={page} className="page">
-            {page === 'home' ? <Home lang={lang} booted={booted} /> : <ArchivePage lang={lang} page={page} />}
+            {page === 'home' ? <Home lang={lang} booted={booted} theme={theme} /> : <ArchivePage lang={lang} page={page} />}
           </div>
         </main>
       </div>
@@ -162,7 +153,7 @@ function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
         <T en={en} zh={zh} lang={lang} /></InternalLink>)}
     </nav>
     <div className="mast__tools">
-      <div className="counter" title={lang === 'zh' ? '磁带计数器 · 阅读进度' : 'Tape counter · reading progress'}><span>TAPE</span><b ref={counter}>000</b></div>
+      <div className="counter" title={lang === 'zh' ? '计数器 · 阅读进度' : 'Counter · reading progress'}><span>CNT</span><b ref={counter}>000</b></div>
       <button type="button" className="toggle" onClick={toggleLang} aria-label={lang === 'zh' ? 'Switch to English' : '切换到中文'}>
         <span className={lang === 'en' ? 'is-on' : ''}>EN</span><span className={lang === 'zh' ? 'is-on' : ''}>中</span></button>
       <button type="button" className="toggle toggle--icon" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Light theme' : 'Dark theme'}>
@@ -175,14 +166,14 @@ function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
 /* ------------------------------------------------------------------
    home
    ------------------------------------------------------------------ */
-function Home({ lang, booted }) {
+function Home({ lang, booted, theme }) {
   useReveal(lang);
   return <>
-    <MissionHero lang={lang} booted={booted} />
-    <Section id="experience" index="01" eyebrow={['Tape log', '磁带日志']} title={['Personal journey', '个人经历']} lede={['Learning, research, and the things I build along the way.', '学习、研究，以及将想法做出来的过程。']} lang={lang}>
+    <MissionHero lang={lang} booted={booted} theme={theme} />
+    <Section id="experience" index="01" eyebrow={['Journey', '经历']} title={['Personal journey', '个人经历']} lede={['Learning, research, and the things I build along the way.', '学习、研究，以及将想法做出来的过程。']} lang={lang}>
       <Journey lang={lang} />
     </Section>
-    <Section id="papers" index="02" eyebrow={['Research tapes', '研究磁带']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering. Each paper comes with a small voxel diagram of its core idea.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。每篇论文配一段讲它核心想法的体素示意动画。']} lang={lang} alt wide>
+    <Section id="papers" index="02" eyebrow={['Research', '研究']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering. Each paper comes with a small voxel diagram of its core idea.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。每篇论文配一段讲它核心想法的体素示意动画。']} lang={lang} alt wide>
       <PaperArcade lang={lang} />
       <InternalLink className="more" href="/papers.html"><T en="All publications" zh="全部论文" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
@@ -234,10 +225,10 @@ function ArchivePage({ page, lang }) {
   const [filter, setFilter] = useState('all');
   useReveal(`${page}-${filter}-${lang}`);
   const config = {
-    papers: { eyebrow: ['Publication archive', '论文档案'], title: ['Publications', '论文'], intro: ['Research in AI agents, computer graphics, visual understanding and language-model reasoning.', 'AI 智能体、计算机图形学、视觉理解与语言模型推理相关研究。'], count: publications.length, code: 'PAPERS.TAP' },
-    projects: { eyebrow: ['Project archive', '项目档案'], title: ['Systems & tools', '系统与工具'], intro: ['Open-source projects I build and contribute to.', '我开发和参与的开源项目。'], count: projects.length, code: 'SYSTEMS.TAP' },
-    games: { eyebrow: ['Games', '游戏'], title: ['Portfolio', '作品集'], intro: ['Game projects and demos.', '游戏项目与演示。'], count: games.length, code: 'GAMES.VHS' },
-    awards: { eyebrow: ['Awards', '荣誉'], title: ['Honors', '奖项'], intro: ['Selected competition results.', '部分竞赛与评选结果。'], count: awards.length, code: 'HONORS.TAP' }
+    papers: { eyebrow: ['Publication archive', '论文档案'], title: ['Publications', '论文'], intro: ['Research in AI agents, computer graphics, visual understanding and language-model reasoning.', 'AI 智能体、计算机图形学、视觉理解与语言模型推理相关研究。'], count: publications.length, code: 'LC/02' },
+    projects: { eyebrow: ['Project archive', '项目档案'], title: ['Systems & tools', '系统与工具'], intro: ['Open-source projects I build and contribute to.', '我开发和参与的开源项目。'], count: projects.length, code: 'LC/04' },
+    games: { eyebrow: ['Games', '游戏'], title: ['Portfolio', '作品集'], intro: ['Game projects and demos.', '游戏项目与演示。'], count: games.length, code: 'LC/05' },
+    awards: { eyebrow: ['Awards', '荣誉'], title: ['Honors', '奖项'], intro: ['Selected competition results.', '部分竞赛与评选结果。'], count: awards.length, code: 'LC/06' }
   }[page];
   const group = p => /skillforge/.test(p.image) ? 'agents' : /infernux|spatial-learning|3d-pose|fi-gs|words-to-worlds|npr-manga|lightweight-3d/.test(p.image) ? 'graphics' : /promptcd|corrdetail|innate-reasoning|graph-descriptive|pis|fema|vit-tcm/.test(p.image) ? 'vision' : 'other';
   const cats = [['all', '全部', 'All'], ['agents', '智能体与强化学习', 'Agents & RL'], ['graphics', '图形与三维', 'Graphics & 3D'], ['vision', '视觉与语言', 'Vision & language'], ['other', '其他研究', 'Other research']];
