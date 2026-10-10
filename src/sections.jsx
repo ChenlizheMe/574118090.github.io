@@ -43,6 +43,90 @@ export function Authors({ paper, lang }) {
 }
 
 /* ------------------------------------------------------------------
+   Sticky notes — shared by the honors wall and the papers archive.
+   Each note hangs from a strip of tape and sways on its own; moving the
+   pointer across the wall blows a gust through the nearby notes.
+   ------------------------------------------------------------------ */
+const NOTE = ['#f6d453', '#f4a259', '#ee8173', '#f3ead0', '#9cc3ea', '#a9d8a0'];
+const TILT = [-2.4, 1.8, -1.2, 2.6, -1.8, 1.2, -2.9, 2.2, -1.5];
+
+function useWind(ref) {
+  const { paused } = useMotion();
+  useEffect(() => {
+    const wall = ref.current;
+    if (!wall || paused) return undefined;
+    const state = new Map();
+    const get = el => { let s = state.get(el); if (!s) { s = { a: 0, v: 0 }; state.set(el, s); } return s; };
+    let raf = 0, last = 0;
+    const tick = now => {
+      raf = 0;
+      const dt = Math.min(.033, (now - last) / 1000 || .016); last = now;
+      let live = false;
+      wall.querySelectorAll('.sticky').forEach(el => {
+        const s = get(el);
+        s.v += (-90 * s.a - 3.4 * s.v) * dt;           /* pendulum spring with light damping */
+        s.a = Math.max(-20, Math.min(20, s.a + s.v * dt));
+        if (Math.abs(s.a) < .04 && Math.abs(s.v) < .08) {
+          if (s.a || s.v) { s.a = s.v = 0; el.style.setProperty('--wind', '0deg'); el.style.setProperty('--wskew', '0deg'); }
+          return;
+        }
+        live = true;
+        el.style.setProperty('--wind', `${s.a.toFixed(2)}deg`);
+        el.style.setProperty('--wskew', `${(s.a * .3).toFixed(2)}deg`);
+      });
+      if (live) raf = requestAnimationFrame(tick);
+    };
+    const kick = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    const push = (el, dv) => { const s = get(el); s.v = Math.max(-240, Math.min(240, s.v + dv)); };
+    const move = e => {
+      if (e.pointerType === 'touch' || (!e.movementX && !e.movementY)) return;
+      wall.querySelectorAll('.sticky').forEach(el => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const reach = 260 + r.width / 3, d = Math.hypot(dx, dy);
+        if (d > reach) return;
+        const f = 1 - d / reach;
+        push(el, -e.movementX * f * f * 6);            /* gust follows the pointer's direction */
+      });
+      kick();
+    };
+    const poke = e => {
+      const el = e.target.closest?.('.sticky');
+      if (!el || e.target.closest('a, button')) return;
+      push(el, (Math.random() < .5 ? -1 : 1) * (90 + Math.random() * 60));
+      kick();
+    };
+    wall.addEventListener('pointermove', move);
+    wall.addEventListener('pointerdown', poke);
+    return () => { wall.removeEventListener('pointermove', move); wall.removeEventListener('pointerdown', poke); cancelAnimationFrame(raf); };
+  }, [ref, paused]);
+}
+
+export function StickyWall({ className = '', children }) {
+  const ref = useRef(null);
+  useWind(ref);
+  return <div ref={ref} className={`sticky-wall ${className}`}>{children}</div>;
+}
+
+/* every fourth note is held by a single corner and dangles a little more */
+function StickyNote({ index, className = '', children }) {
+  const loose = index % 4 === 2;
+  const style = {
+    '--nc': NOTE[index % NOTE.length],
+    '--r': `${TILT[index % TILT.length]}deg`,
+    '--a': loose ? '3.4deg' : '1.3deg',
+    '--sd': `${(3.8 + (index * 0.7) % 2.2).toFixed(1)}s`,
+    '--sl': `-${((index * 1.3) % 4).toFixed(1)}s`,
+    '--ox': loose ? '16%' : '50%'
+  };
+  return <div className="sticky-cell rv" style={style}>
+    <div className={`sticky ${loose ? 'sticky--loose' : ''}`}>
+      <div className={`sticky__paper ${className}`}>{children}</div>
+    </div>
+  </div>;
+}
+
+/* ------------------------------------------------------------------
    01 · Journey — flight-log cassette J-cards
    ------------------------------------------------------------------ */
 const DETAILS = {
@@ -132,7 +216,26 @@ function Diagram({ id, label }) {
     import('./diagrams.js').then(({ mountDiagram }) => { if (!dead) api = mountDiagram(ref.current, id, { reduced: paused }); });
     return () => { dead = true; api?.dispose(); };
   }, [id, paused]);
-  return <canvas className="dia" ref={ref} aria-label={label} />;
+  return <canvas className="dia" ref={ref} role="img" aria-label={label} />;
+}
+
+/* the big voxel stage: the diagram is the hero, the paper's own figure floats in the corner */
+function VoxelStage({ p, no, zh, lang }) {
+  const cap = zh ? p.cap[1] : p.cap[0];
+  return <div className="papers__stage pane">
+    <div className="pane__bar">
+      <span className="pane__id">SIM {no}</span><b>{p.field}</b>
+      <span className="pane__right"><i className="led led--on" />LIVE</span>
+    </div>
+    <div className="papers__view">
+      <Diagram id={p.dia} label={cap} />
+      <figure className="papers__fig">
+        <FigureViewer src={p.image} title={p.short} lang={lang} className="papers__figure" />
+        <figcaption>FIG. {no} · {zh ? '论文原图' : 'FROM THE PAPER'}</figcaption>
+      </figure>
+    </div>
+    <p className="papers__cap"><span>▶</span>{zh ? '模拟' : 'Simulation'}</p>
+  </div>;
 }
 
 export function PaperArcade({ lang }) {
@@ -140,6 +243,7 @@ export function PaperArcade({ lang }) {
   const [sel, setSel] = useState(0);
   const papers = FEATURED.map(m => ({ ...publications.find(p => p.image?.startsWith(`/img/papers/${m.id}.`)), ...m }));
   const p = papers[sel];
+  const no = String(sel + 1).padStart(2, '0');
   const venue = zh ? (p.venueZh || p.venue) : p.venue;
   return <div className="papers rv" style={{ '--pc': p.color }}>
     <div className="papers__tabs" role="tablist" aria-label={zh ? '代表论文' : 'Selected papers'}>
@@ -149,23 +253,12 @@ export function PaperArcade({ lang }) {
         <small>{(zh ? (x.venueZh || x.venue) : x.venue).split(/ · | Main| Long/)[0]}</small>
       </button>)}
     </div>
-    <div className="papers__stage">
-      <figure className="papers__dia pane">
-        <figcaption className="pane__bar"><span className="pane__id">SIM {String(sel + 1).padStart(2, '0')}</span><b>{p.field}</b></figcaption>
-        <Diagram key={p.dia} id={p.dia} label={zh ? p.cap[1] : p.cap[0]} />
-        <p className="papers__cap"><span>▶</span>{zh ? p.cap[1] : p.cap[0]}</p>
-      </figure>
-      <figure className="papers__fig pane pane--light">
-        <figcaption className="pane__bar"><span className="pane__id">FIG. {String(sel + 1).padStart(2, '0')}</span><b>{zh ? '论文原图' : 'From the paper'}</b><span className="pane__right">{zh ? '点击放大' : 'CLICK TO ENLARGE'}</span></figcaption>
-        <FigureViewer key={p.id} src={p.image} title={p.short} lang={lang} className="papers__figure" />
-      </figure>
-    </div>
     <div className="papers__dossier" key={p.id}>
-      <div>
-        <p className="papers__venue">{venue}</p>
+      <div className="papers__head">
+        <p className="papers__meta"><span className="papers__idx">{zh ? '论文' : 'PAPER'} {no} / {String(papers.length).padStart(2, '0')}</span><span className="papers__venue">{venue}</span></p>
         <h3>{p.title}</h3>
       </div>
-      <div>
+      <div className="papers__body">
         <p className="papers__intro">{zh ? p.introZh : p.intro}</p>
         <Authors paper={p} lang={lang} />
         <div className="btn-row btn-row--tight">
@@ -174,6 +267,7 @@ export function PaperArcade({ lang }) {
         </div>
       </div>
     </div>
+    <VoxelStage key={`${p.id}-stage`} p={p} no={no} zh={zh} lang={lang} />
   </div>;
 }
 
@@ -181,8 +275,8 @@ export function PaperCard({ paper, lang, index }) {
   const zh = lang === 'zh';
   const title = zh ? (paper.titleZh || paper.title) : paper.title;
   const venue = zh ? (paper.venueZh || paper.venue) : paper.venue;
-  return <article className="icard rv">
-    <div className="icard__tab"><span>{String(index + 1).padStart(3, '0')}</span><b>{paper.levelLabel}</b></div>
+  return <StickyNote index={index} className="icard">
+    <p className="dymo"><span>{String(index + 1).padStart(3, '0')} · {paper.levelLabel}</span></p>
     <FigureViewer src={paper.image} title={title} lang={lang} className="icard__fig" />
     <div className="icard__copy">
       {venue && <p className="icard__venue">{venue}</p>}
@@ -194,7 +288,7 @@ export function PaperCard({ paper, lang, index }) {
         {paper.pdf && <a className="link" href={paper.pdf} target="_blank" rel="noreferrer"><Icon name="download" />PDF<Icon name="external" /></a>}
       </div>
     </div>
-  </article>;
+  </StickyNote>;
 }
 
 /* ------------------------------------------------------------------
@@ -209,24 +303,37 @@ export function MissionMonitor({ lang }) {
   const v = videos[ch];
   const stat = metrics.videos?.[v.bvid];
   const tune = i => { if (i === ch) return; setNoise(true); setCh(i); setTimeout(() => setNoise(false), 380); };
-  return <div className="monitor rv">
-    <div className="monitor__bar">
-      <span className="monitor__rec"><i className="led led--rec" />{zh ? '播放中' : 'ON AIR'}</span>
-      <span>CH {String(ch + 1).padStart(2, '0')} / {String(videos.length).padStart(2, '0')}</span>
-      <b>{v.chapter}</b>
-      <span className="monitor__stats">▷ <AnimatedNumber value={stat?.views} lang={lang} /> · ♡ <AnimatedNumber value={stat?.likes} lang={lang} /></span>
+  return <div className="deck rv">
+    <div className="deck__tv">
+      <div className="deck__bar">
+        <span className="deck__rec"><i className="led led--rec" />{zh ? '播放中' : 'ON AIR'}</span>
+        <span>CH {String(ch + 1).padStart(2, '0')} / {String(videos.length).padStart(2, '0')}</span>
+        <b>{v.chapter}</b>
+        <span className="deck__stats">▷ <AnimatedNumber value={stat?.views} lang={lang} /> · ♡ <AnimatedNumber value={stat?.likes} lang={lang} /></span>
+      </div>
+      <div className="deck__bezel">
+        <div className={`monitor__screen ${noise ? 'is-noise' : ''}`}>
+          <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || smallOf(infernux.image)} lang={lang} />
+          <span className="monitor__corners" aria-hidden="true"><i /><i /><i /><i /></span>
+          <span className="monitor__title" aria-hidden="true">{zh ? v.titleZh : v.title}</span>
+        </div>
+      </div>
+      <div className="deck__ctrl" aria-hidden="true">
+        <span className="deck__grille" />
+        <span className="deck__brand">INFERNUX · 3N</span>
+        <span className="deck__knob" /><span className="deck__knob deck__knob--b" />
+      </div>
     </div>
-    <div className={`monitor__screen ${noise ? 'is-noise' : ''}`}>
-      <VideoPlayer key={v.bvid} url={v.url} title={zh ? v.titleZh : v.title} poster={stat?.poster || smallOf(infernux.image)} lang={lang} />
-      <span className="monitor__corners" aria-hidden="true"><i /><i /><i /><i /></span>
-      <span className="monitor__title" aria-hidden="true">{zh ? v.titleZh : v.title}</span>
-    </div>
-    <div className="monitor__channels" role="tablist" aria-label={zh ? '选择视频' : 'Select a film'}>
+    <div className="deck__tapes" role="tablist" aria-label={zh ? '选择视频' : 'Select a film'}>
+      <p className="deck__slot" aria-hidden="true"><span>{zh ? '磁带仓' : 'TAPE DECK'}</span><i /></p>
       {videos.map((x, i) => {
         const s = metrics.videos?.[x.bvid];
-        return <button key={x.bvid} type="button" role="tab" aria-selected={ch === i} className={ch === i ? 'is-on' : ''} onClick={() => tune(i)}>
-          <span className="monitor__thumb">{s?.poster ? <img src={biliThumb(s.poster, 320)} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" /> : <Icon name="play" />}<em>{String(i + 1).padStart(2, '0')}</em></span>
-          <span className="monitor__meta"><small>{x.chapter}</small><b>{zh ? x.titleZh : x.title}</b><span>▷ <AnimatedNumber value={s?.views} lang={lang} /></span></span>
+        return <button key={x.bvid} type="button" role="tab" aria-selected={ch === i} className={`tape ${ch === i ? 'is-on' : ''}`} onClick={() => tune(i)}>
+          <span className="tape__label">
+            <span className="tape__thumb">{s?.poster ? <img src={biliThumb(s.poster, 240)} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" /> : <Icon name="play" />}<em>{String(i + 1).padStart(2, '0')}</em></span>
+            <span className="tape__meta"><small>{x.chapter}</small><b>{zh ? x.titleZh : x.title}</b><span>▷ <AnimatedNumber value={s?.views} lang={lang} /></span></span>
+          </span>
+          <span className="tape__window" aria-hidden="true"><i className="tape__reel" /><i className="tape__strip" /><i className="tape__reel" /></span>
         </button>;
       })}
     </div>
@@ -282,63 +389,122 @@ export function RackUnit({ project, lang, index }) {
 }
 
 /* ------------------------------------------------------------------
-   05 · Games — VHS shelf feeding a monitor
+   05 · Games — a disc player: pick a disc from the rack and it drops into the drive
    ------------------------------------------------------------------ */
-const SPINE = ['#e2381b', '#f5b91d', '#efe8d8', '#8a3a1d', '#ef7a1c', '#d8cfba', '#2b62d4', '#3a342c'];
+const DISC = ['#e2381b', '#f5b91d', '#efe8d8', '#8a3a1d', '#ef7a1c', '#d8cfba', '#2b62d4', '#3a342c'];
 
-export function TapeShelf({ games, lang }) {
+export function DiscShelf({ games, lang }) {
   const zh = lang === 'zh';
   const uid = useId();
   const metrics = useMetrics().videos;
+  const { paused } = useMotion();
+  const root = useRef(null);
   const [sel, setSel] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [fly, setFly] = useState(null);
   const g = games[sel];
   const id = bvidOf(g.video);
   const stat = id ? metrics?.[id] : null;
-  const choose = i => { if (i === sel) return; setLoading(true); setSel(i); setTimeout(() => setLoading(false), 480); };
-  return <div className="shelf rv">
+  const no = String(sel + 1).padStart(2, '0');
+
+  // the disc lands in the drive: swap the game and let the TV "read" it
+  const land = i => { setSel(i); setFly(null); setLoading(true); };
+  useEffect(() => { if (!loading) return; const t = setTimeout(() => setLoading(false), 800); return () => clearTimeout(t); }, [loading]);
+
+  const choose = i => {
+    if (fly || i === sel) return;
+    const r = root.current;
+    const bay = r?.querySelector('.player__disc');
+    const inDisc = r?.querySelector(`[data-slot="${i}"] .disc`);
+    const outDisc = r?.querySelector(`[data-slot="${sel}"] .disc`);
+    if (paused || !bay || !inDisc || !outDisc || !r.animate) { land(i); return; }
+    const rr = r.getBoundingClientRect();
+    const spot = el => { const b = el.getBoundingClientRect(); return { x: b.left - rr.left + b.width / 2, y: b.top - rr.top + b.height / 2, w: b.width }; };
+    setFly({ i, prev: sel, a: spot(inDisc), b: spot(bay), c: spot(outDisc) });
+  };
+
+  // two discs float: the new one into the bay, the old one back to its slot
+  useEffect(() => {
+    if (!fly) return;
+    const [flyIn, flyOut] = root.current.querySelectorAll('.fly');
+    const hop = (el, from, to, spin) => {
+      const k = p => `translate(${(from.x - to.x) * (1 - p)}px, ${(from.y - to.y) * (1 - p) - Math.sin(p * Math.PI) * 78}px)`;
+      const sc = p => from.w / to.w + (1 - from.w / to.w) * p + Math.sin(p * Math.PI) * .35;
+      return el.animate([0, .25, .5, .75, 1].map(p => ({ transform: `${k(p)} scale(${sc(p)}) rotate(${spin * p}deg)`, offset: p })), { duration: 820, easing: 'cubic-bezier(.35,.1,.25,1)', fill: 'both' });
+    };
+    if (flyIn) hop(flyIn, fly.a, fly.b, 300);
+    if (flyOut) hop(flyOut, fly.b, fly.c, -300);
+    const t = setTimeout(() => land(fly.i), 820);
+    return () => clearTimeout(t);
+  }, [fly]);
+
+  const away = fly ? fly.i : sel;
+  const flyStyle = (s, k) => ({ left: s.x - s.w / 2, top: s.y - s.w / 2, width: s.w, '--sc': DISC[k % DISC.length] });
+  return <div className="shelf rv" ref={root}>
     <div className="shelf__deck">
       <div className={`shelf__monitor ${loading ? 'is-loading' : ''}`}>
         {g.video ? <VideoPlayer key={g.name} url={g.video} title={zh ? g.nameZh : g.name} poster={stat?.poster} lang={lang} /> : <div className="shelf__empty"><Icon name="play" /></div>}
-        <span className="shelf__osd" aria-hidden="true">▶ PLAY · {String(sel + 1).padStart(2, '0')}</span>
+        <span className="shelf__osd" aria-hidden="true">{loading || fly ? 'READING DISC…' : `▶ PLAY · ${no}`}</span>
       </div>
-      <div className="shelf__info" id={`${uid}-g`} aria-live="polite">
-        <p className="shelf__role">{zh ? g.roleZh : g.role}</p>
-        <h3>{zh ? g.nameZh : g.name}</h3>
-        {g.awards && <p className="shelf__award"><Icon name="star" />{zh ? g.awardsZh : g.awards}</p>}
-        {stat && <p className="shelf__stats">▷ <AnimatedNumber value={stat.views} lang={lang} /> {zh ? '播放' : 'views'} · ♡ <AnimatedNumber value={stat.likes} lang={lang} /></p>}
-        <p>{zh ? g.descZh : g.desc}</p>
-        {g.detail && <p className="shelf__detail">{zh ? (g.detailZh || g.detail) : g.detail}</p>}
-        <div className="shelf__links">
-          {g.extraVideos?.map(x => <a key={x.url} className="link" href={x.url} target="_blank" rel="noreferrer"><Icon name="play" />{zh ? x.labelZh : x.label}<Icon name="external" /></a>)}
-          {(g.bilibili || id) && <a className="link" href={g.bilibili || `https://www.bilibili.com/video/${id}`} target="_blank" rel="noreferrer"><Icon name="play" />Bilibili<Icon name="external" /></a>}
+      <div className="shelf__info" id={`${uid}-g`} tabIndex={0} aria-live="polite" aria-label={zh ? `${g.nameZh}，悬停或聚焦查看详情` : `${g.name}, hover or focus for details`}>
+        <div className="shelf__scroll">
+          <p className="shelf__role">{zh ? g.roleZh : g.role}</p>
+          <h3>{zh ? g.nameZh : g.name}</h3>
+          {g.awards && <p className="shelf__award"><Icon name="star" /><span>{zh ? g.awardsZh : g.awards}</span></p>}
+          {stat && <p className="shelf__stats">▷ <AnimatedNumber value={stat.views} lang={lang} /> {zh ? '播放' : 'views'} · ♡ <AnimatedNumber value={stat.likes} lang={lang} /></p>}
+          <p className="shelf__desc">{zh ? g.descZh : g.desc}</p>
+          {g.detail && <p className="shelf__detail">{zh ? (g.detailZh || g.detail) : g.detail}</p>}
+          <div className="shelf__links">
+            {g.extraVideos?.map(x => <a key={x.url} className="link" href={x.url} target="_blank" rel="noreferrer"><Icon name="play" />{zh ? x.labelZh : x.label}<Icon name="external" /></a>)}
+            {(g.bilibili || id) && <a className="link" href={g.bilibili || `https://www.bilibili.com/video/${id}`} target="_blank" rel="noreferrer"><Icon name="play" />Bilibili<Icon name="external" /></a>}
+          </div>
         </div>
+        <span className="shelf__hint" aria-hidden="true">{zh ? '悬停查看详情' : 'HOVER FOR DETAILS'}</span>
       </div>
     </div>
-    <div className="shelf__rack" role="tablist" aria-label={zh ? '选择游戏' : 'Select a game'}>
-      {games.map((x, i) => <button key={x.name} type="button" role="tab" aria-selected={sel === i} aria-controls={`${uid}-g`}
-        className={`vhs ${sel === i ? 'is-out' : ''}`} style={{ '--sc': SPINE[i % SPINE.length], '--h': `${88 + (i * 13) % 14}%` }} onClick={() => choose(i)}>
-        <span className="vhs__no">{String(i + 1).padStart(2, '0')}</span>
-        <span className="vhs__title">{zh ? x.nameZh : x.name}</span>
-        <span className="vhs__mark">VHS</span>
-      </button>)}
-      <div className="shelf__plank" aria-hidden="true" />
+    <div className={`player ${loading ? 'is-reading' : ''} ${fly ? 'is-fly' : ''}`} style={{ '--sc': DISC[sel % DISC.length] }} aria-hidden="true">
+      <div className="player__bay">
+        <span className="player__disc" key={sel}><span className="disc" /></span>
+      </div>
+      <div className="player__lcd">
+        <small>{loading || fly ? 'READING…' : 'PLAYING'} · DISC {no} / {String(games.length).padStart(2, '0')}</small>
+        <b>{zh ? g.nameZh : g.name}</b>
+        <span className="player__prog"><i /></span>
+      </div>
+      <div className="player__keys"><i>▶</i><i>■</i><i>⏏</i></div>
     </div>
+    <div className="shelf__discs" role="tablist" aria-label={zh ? '选择游戏' : 'Select a game'}>
+      {games.map((x, i) => <button key={x.name} type="button" role="tab" aria-selected={sel === i} aria-controls={`${uid}-g`} data-slot={i}
+        className={`dbtn ${away === i ? 'is-out' : ''} ${fly && sel === i ? 'is-gap' : ''}`} style={{ '--sc': DISC[i % DISC.length] }} onClick={() => choose(i)}>
+        <span className="disc" />
+        <span className="dbtn__no">{String(i + 1).padStart(2, '0')}</span>
+        <span className="dbtn__title">{zh ? x.nameZh : x.name}</span>
+      </button>)}
+    </div>
+    {fly && <>
+      <span className="fly" aria-hidden="true" style={flyStyle(fly.b, fly.i)}><span className="disc" /></span>
+      <span className="fly" aria-hidden="true" style={flyStyle(fly.c, fly.prev)}><span className="disc" /></span>
+    </>}
   </div>;
 }
 
 /* ------------------------------------------------------------------
-   06 · Honors — mission-patch wall
+   06 · Honors — a Swiss ledger: index, event, result badge
    ------------------------------------------------------------------ */
-const PATCH = ['#e2381b', '#ef7a1c', '#f5b91d', '#8a3a1d', '#2b62d4', '#e2381b', '#ef7a1c', '#f5b91d', '#8a3a1d'];
-export function DymoWall({ awards, lang }) {
+export function AwardWall({ awards, lang }) {
   const zh = lang === 'zh';
-  return <div className="dymo-wall">
-    {awards.map((a, i) => <article key={a.title} className="dymo-card rv" style={{ '--dc': PATCH[i % PATCH.length] }}>
-      <span className="dymo-card__no">{String(i + 1).padStart(2, '0')}</span>
-      <p className="dymo"><span>{(zh ? a.resultZh : a.result)}</span></p>
-      <h3>{zh ? a.titleZh : a.title}</h3>
-      <p className="dymo-card__blurb">{zh ? a.blurbZh : a.blurb}</p>
+  return <div className="ledger" role="list">
+    <div className="ledger__head" aria-hidden="true"><span>NO.</span><span>{zh ? '赛事 / 荣誉' : 'EVENT'}</span><span>{zh ? '成绩' : 'RESULT'}</span></div>
+    {awards.map((a, i) => <article key={a.title} className="ledger__row rv" role="listitem" data-tier={a.tier}>
+      <span className="ledger__no">{String(i + 1).padStart(2, '0')}</span>
+      <div className="ledger__main">
+        <h3>{zh ? a.titleZh : a.title}</h3>
+        <p className="ledger__blurb">{zh ? a.blurbZh : a.blurb}</p>
+      </div>
+      <div className="ledger__res">
+        <b className="ledger__badge">{zh ? a.badgeZh : a.badge}</b>
+        <span>{zh ? a.resultZh : a.result}</span>
+      </div>
     </article>)}
   </div>;
 }

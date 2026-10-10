@@ -188,10 +188,10 @@ export function chip(ctx, s, x, y, color = '#e2381b', plate = '#151412', text = 
 
 /* loop helper: capped fps, runs only while visible */
 export function loop(canvas, fps, frame, reduced, start = 4.5) {
-  let raf = 0, last = 0, vis = false, t = start, dead = false;
+  let raf = 0, last = 0, vis = false, t = start, dead = false, held = false;
   const step = now => {
     raf = 0;
-    if (dead || !vis || document.hidden) return;
+    if (dead || !vis || document.hidden || held) return;
     const dt = now - last;
     if (dt >= 1000 / fps - 2) {
       t += Math.min(dt, 120) / 1000; last = now;
@@ -206,6 +206,11 @@ export function loop(canvas, fps, frame, reduced, start = 4.5) {
   document.addEventListener('visibilitychange', onVis);
   return {
     once() { frame(t); },
+    /* pause / resume the clock; returns the new held state */
+    hold(v) { held = v; if (!held) kick(); return held; },
+    isHeld: () => held,
+    /* scrub the clock by dt seconds (never below zero) and redraw immediately */
+    nudge(dt) { t = Math.max(0, t + dt); frame(t); },
     stop() { dead = true; cancelAnimationFrame(raf); io.disconnect(); document.removeEventListener('visibilitychange', onVis); }
   };
 }

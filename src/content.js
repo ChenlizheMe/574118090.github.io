@@ -558,6 +558,9 @@ export const awards = [
     "titleZh": "IEEE ICRA 2025 WBCD 机器人与自动化大赛",
     "result": "Co-1st place",
     "resultZh": "并列第一名",
+    "badge": "1ST",
+    "badgeZh": "第一",
+    "tier": "gold",
     "blurb": "WBCD is the ICRA workshop track on benchmarking collaborative / autonomous driving. The contest ties together simulation, perception, and automation stacks—we placed co-first in the robotics & automation competition thread.",
     "blurbZh": "WBCD 是 ICRA 上围绕协同与自动驾驶评测的工作坊赛道，比赛会把仿真、感知与自动化管线串在一起；我们在机器人与自动化大赛环节拿到并列第一。"
   },
@@ -566,6 +569,9 @@ export const awards = [
     "titleZh": "米哈游 2025 游戏策划大赛",
     "result": "National first place",
     "resultZh": "全国第一名",
+    "badge": "1ST",
+    "badgeZh": "第一",
+    "tier": "gold",
     "blurb": "Dong! Da-Dong! won national first place in the miHoYo 2025 Game Design Competition.",
     "blurbZh": "《咚！哒咚！》在米哈游 2025 游戏策划大赛中获得全国第一名。"
   },
@@ -574,6 +580,9 @@ export const awards = [
     "titleZh": "TapTap 2024 聚光灯",
     "result": "2024 campaign: 400K+ views · 50K+ downloads · #2 New Releases",
     "resultZh": "2024 活动期间：浏览 40 万+ · 下载 5 万+ · 新品榜第二",
+    "badge": "#2",
+    "badgeZh": "第二",
+    "tier": "red",
     "blurb": "TapTap Spotlight is a mobile game incubation season: teams ship a playable slice fast and compete for store featuring. Our entry picked up strong organic traffic during the campaign window.",
     "blurbZh": "TapTap 聚光灯是面向手机游戏的孵化赛季，要在短时间内拿出可玩切片并争取商店推荐位；我们的作品在活动期间拿到了不错的自然流量。"
   },
@@ -582,6 +591,9 @@ export const awards = [
     "titleZh": "中国虚拟现实大赛（CCVR）",
     "result": "National first prize × 3",
     "resultZh": "全国一等奖 × 3",
+    "badge": "1ST×3",
+    "badgeZh": "一等×3",
+    "tier": "gold",
     "blurb": "CCVR is a national VR contest in China for student/pro teams; repeated first prizes usually mean the jury liked both the interactive design and stable real-time delivery.",
     "blurbZh": "CCVR 是国内高校与团队常参加的全国性虚拟现实赛事，三次国一说明作品在交互设计和实时演示稳定性上都比较能打。"
   },
@@ -590,6 +602,9 @@ export const awards = [
     "titleZh": "ACM-ICPC 亚洲区域赛",
     "result": "Bronze medal",
     "resultZh": "铜奖",
+    "badge": "BRONZE",
+    "badgeZh": "铜奖",
+    "tier": "bronze",
     "blurb": "ICPC is the classic collegiate programming contest (teams of three, one keyboard). A regional bronze is still a grind—five hours, tight penalty minutes, and brutal geometry/graph tasks.",
     "blurbZh": "ICPC 是经典的大学生程序设计团队赛（三人一队、一台机器）。区域赛铜奖也不水——五小时、罚时扣得紧，几何/图论题经常把人写麻。"
   },
@@ -598,6 +613,9 @@ export const awards = [
     "titleZh": "吉比特未来游戏制作人大赛（大学生组）",
     "result": "National top 10",
     "resultZh": "全国十强",
+    "badge": "TOP10",
+    "badgeZh": "十强",
+    "tier": "blue",
     "blurb": "Sponsored by G-bits (a listed Chinese game studio), this contest backs student prototypes with mentorship and publishing eyes—top 10 is the late-stage shortlist.",
     "blurbZh": "由吉比特等发起的面向大学生的游戏制作赛，常有导师与发行视角跟进；全国十强相当于后半程的精选名单。"
   },
@@ -606,6 +624,9 @@ export const awards = [
     "titleZh": "CUSGA 中国大学生游戏开发创作大赛",
     "result": "Best multiplayer game",
     "resultZh": "最佳多人游戏",
+    "badge": "BEST",
+    "badgeZh": "最佳",
+    "tier": "orange",
     "blurb": "CUSGA gathers student teams from many universities; the “best multiplayer” award highlights netcode, session flow, or couch/online play that actually works.",
     "blurbZh": "CUSGA 汇聚多校学生团队；「最佳多人」看重联机或同屏玩法是否扎实——同步、会话流程、手感要比单机多踩不少坑。"
   },
@@ -614,6 +635,9 @@ export const awards = [
     "titleZh": "厦门国际动漫节 · 金海豚奖（最佳学生作品）",
     "result": "Nominated",
     "resultZh": "入围",
+    "badge": "NOM.",
+    "badgeZh": "入围",
+    "tier": "teal",
     "blurb": "Golden Dolphin is the headline award at Xiamen’s animation fest; the student category spotlights school-year projects with festival-level polish.",
     "blurbZh": "金海豚奖是厦门国际动漫节的主单元；学生作品入围意味着完成度和表达在评委眼里达到了节展水准。"
   },
@@ -622,6 +646,9 @@ export const awards = [
     "titleZh": "清华大学深圳国际研究生院 · 互动媒体技术工作坊",
     "result": "Silver award (Organic Dominion)",
     "resultZh": "银奖（《有机统治》）",
+    "badge": "SILVER",
+    "badgeZh": "银奖",
+    "tier": "silver",
     "blurb": "SIGS workshop course demo fair: faculty and peers judge vertical slices built in a few weeks—silver went to our factory-meets-swarm strategy prototype.",
     "blurbZh": "深研院互动媒体工作坊的阶段性路演，老师和同学一起评几周做出来的垂直切片；我们的工厂+虫群策略原型拿了银奖。"
   }

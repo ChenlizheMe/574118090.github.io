@@ -253,9 +253,10 @@ export function mountDiagram(canvas, id, { reduced = false } = {}) {
   };
   const resize = () => {
     const r = canvas.getBoundingClientRect();
-    if (!r.width) return;
-    bw = Math.round(Math.min(300, Math.max(240, r.width / 2.2)));
-    bh = Math.round(bw * r.height / r.width);
+    if (!r.width || !r.height) return;
+    /* the scene always fits the stage height; extra width becomes bench grid */
+    bh = Math.round(Math.max(b.h + 40, (b.w + 24) * r.height / r.width));
+    bw = Math.round(bh * r.width / r.height);
     canvas.width = bw; canvas.height = bh;
     ctx.imageSmoothingEnabled = false;
     frame(lastT);
@@ -280,8 +281,11 @@ export function mountDiagram(canvas, id, { reduced = false } = {}) {
   const L = loop(canvas, 20, frame, reduced);
   const ro = new ResizeObserver(resize); ro.observe(canvas);
   resize();
+
   return {
     bench(n = 60) { const t0 = performance.now(); for (let i = 0; i < n; i++) frame(lastT + 1 / 20); return { w: bw, h: bh, ms: (performance.now() - t0) / n }; },
-    dispose() { L.stop(); ro.disconnect(); }
+    dispose() {
+      L.stop(); ro.disconnect();
+    }
   };
 }

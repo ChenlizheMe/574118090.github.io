@@ -6,8 +6,8 @@ import { profile, publications } from './content.js';
 import portrait from '../img/profile.webp';
 
 /* Hero · Swiss grid: copy on the left, a large portrait in a cassette-shell
-   frame on the right, and a CPU voxel diorama of cassettes underneath
-   (src/voxel-hero.js, no WebGL). */
+   frame on the right, and a voxel "generate → render" terrain as a full-bleed
+   background behind them (src/voxel-hero.js, no WebGL). */
 const T = ({ en, zh, lang }) => (lang === 'zh' ? zh || en : en);
 
 function CopyableContact({ label, value, lang }) {
@@ -45,6 +45,9 @@ export function MissionHero({ lang, theme }) {
   }, [paused, theme]);
 
   return <section className="hero">
+    <div className="hero__stage" aria-hidden="true">
+      <canvas className="hero__scene" ref={canvas} />
+    </div>
     <div className="hero__grid">
       <div className="hero__copy">
         <p className="hero__kicker"><span>LC-01</span><T en="Graphics · Vision · Games" zh="图形 · 视觉 · 游戏" lang={lang} /><i aria-hidden="true" /></p>
@@ -72,10 +75,6 @@ export function MissionHero({ lang, theme }) {
         </div>
         <figcaption><span>FIG. 01</span>{zh ? '陈立哲 · 清华大学深圳国际研究生院' : 'Lizhe Chen · Tsinghua SIGS, Shenzhen'}</figcaption>
       </figure>
-    </div>
-
-    <div className="hero__stage">
-      <canvas className="hero__scene" ref={canvas} aria-label={zh ? '体素场景：网格台面上摆着几盘磁带、一台 CRT 终端、音箱和电平表' : 'Voxel diorama: cassettes, a CRT terminal, a speaker and a VU meter on a gridded plinth'} />
     </div>
 
     <div className="hero__deck">

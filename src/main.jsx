@@ -11,7 +11,7 @@ import { MetricsProvider } from './live-data.jsx';
 import { MotionProvider, useMotion } from './motion.jsx';
 import { Icon, linkIcon } from './icons.jsx';
 import { MissionHero } from './hero.jsx';
-import { Journey, PaperArcade, PaperCard, MissionMonitor, InfernuxLinks, RackUnit, TapeShelf, DymoWall } from './sections.jsx';
+import { Journey, PaperArcade, PaperCard, MissionMonitor, InfernuxLinks, RackUnit, DiscShelf, AwardWall, StickyWall } from './sections.jsx';
 import { awards, games, infernux, profile, projects, publications } from './content.js';
 
 const NavigationContext = createContext(null);
@@ -169,11 +169,11 @@ function Home({ lang, theme }) {
     <Section id="experience" index="01" eyebrow={['Journey', '经历']} title={['Personal journey', '个人经历']} lede={['Learning, research, and the things I build along the way.', '学习、研究，以及将想法做出来的过程。']} lang={lang}>
       <Journey lang={lang} />
     </Section>
-    <Section id="papers" index="02" eyebrow={['Research', '研究']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering. Each paper comes with a small voxel diagram of its core idea.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。每篇论文配一段讲它核心想法的体素示意动画。']} lang={lang} alt wide>
+    <Section id="papers" index="02" eyebrow={['Research', '研究']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering. Each paper has a small voxel simulation of its core idea.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。每篇论文配一个讲它核心想法的体素模拟小场景。']} lang={lang} alt>
       <PaperArcade lang={lang} />
       <InternalLink className="more" href="/papers.html"><T en="All publications" zh="全部论文" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
-    <Section id="infernux" index="03" eyebrow={['Featured engine', '主打项目']} title={['Infernux', 'Infernux']} lede={[infernux.headline, infernux.headlineZh]} lang={lang} wide>
+    <Section id="infernux" index="03" eyebrow={['Featured engine', '主打项目']} title={['Infernux', 'Infernux']} lede={[infernux.headline, infernux.headlineZh]} lang={lang}>
       <p className="intro rv"><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang} /></p>
       <MissionMonitor lang={lang} />
       <InfernuxLinks lang={lang} />
@@ -183,11 +183,11 @@ function Home({ lang, theme }) {
       <InternalLink className="more" href="/projects.html"><T en="All projects" zh="全部项目" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
     <Section id="games" index="05" eyebrow={['Games', '游戏']} title={['Game work', '游戏作品']} lede={['Making games is my purest hobby.', '做游戏是我最纯粹的爱好。']} lang={lang}>
-      <TapeShelf games={orderedGames()} lang={lang} />
+      <DiscShelf games={orderedGames()} lang={lang} />
       <InternalLink className="more" href="/games.html"><T en="All games" zh="全部游戏" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
     <Section id="honors" index="06" eyebrow={['Awards', '荣誉']} title={['Honors', '奖项']} lede={['Some milestones from building, competing and working with wonderful teammates.', '和伙伴们一起做作品、参加比赛，留下的一些纪念。']} lang={lang} alt>
-      <DymoWall awards={awards} lang={lang} />
+      <AwardWall awards={awards} lang={lang} />
     </Section>
     <Footer lang={lang} />
   </>;
@@ -244,11 +244,11 @@ function ArchivePage({ page, lang }) {
           {cats.map(([id, z, e]) => <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}>
             <i className="led" />{zh ? z : e}<small>{id === 'all' ? publications.length : publications.filter(p => group(p) === id).length}</small></button>)}
         </div>
-        <div className="icards">{papers.map((p, i) => <PaperCard key={p.title} paper={p} index={i} lang={lang} />)}</div>
+        <StickyWall className="sticky-wall--papers">{papers.map((p, i) => <PaperCard key={p.title} paper={p} index={i} lang={lang} />)}</StickyWall>
       </>}
       {page === 'projects' && <div className="racks">{projects.map((p, i) => <RackUnit key={p.name} project={p} index={i} lang={lang} />)}</div>}
-      {page === 'games' && <TapeShelf games={orderedGames()} lang={lang} />}
-      {page === 'awards' && <DymoWall awards={awards} lang={lang} />}
+      {page === 'games' && <DiscShelf games={orderedGames()} lang={lang} />}
+      {page === 'awards' && <AwardWall awards={awards} lang={lang} />}
     </div>
     <Footer lang={lang} />
   </>;
