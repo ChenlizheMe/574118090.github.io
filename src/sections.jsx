@@ -50,21 +50,19 @@ const DETAILS = {
     {
       year: '2026',
       points: [
-        'Adapted Neural Texture Compression (NTC) to Unity’s ISPC-based texture compression pipeline, enabling compatibility with GPU-native BC (Block Compression) formats.',
-        'Proposed GSNTC, replacing NTC’s MLP-based reconstruction with Gaussian Splatting and optimizing it for lightmap fitting; achieved 4× the speed and a 5 dB gain in reconstruction quality over the original NTC at the same compressed size.',
-        'Further developed GSNTC for Lumen Radiance Cache compression and reconstruction, reducing data size by 99% and improving reconstruction quality by 10 dB over the original NTC.'
+        'Reworked Unity’s NTC compression path around ISPC and GPU-native BC formats.',
+        'Proposed GSNTC, replacing MLP reconstruction with GS propagation; 4× faster and 5–10 dB higher quality than NTC, for Lightmap and Radiance Cache compression at roughly 99.1% compression.'
       ],
       pointsZh: [
-        '改造神经纹理压缩（Neural Texture Compression，NTC），适配 Unity 基于 ISPC 的纹理压缩流程，实现与 GPU 原生 BC（Block Compression）格式的兼容。',
-        '提出 GSNTC，以 Gaussian Splatting 替代 NTC 的 MLP 重建过程，并针对光照贴图拟合进行优化；在压缩后体积相同的条件下，速度达到原始 NTC 的 4 倍，重建质量提升 5 dB。',
-        '进一步改进 GSNTC，用于 Lumen Radiance Cache 的压缩与重建，实现数据体积减少 99%，重建质量较原始 NTC 提升 10 dB。'
+        '重构 Unity 的 NTC 压缩链路，打通 ISPC 与 GPU 原生 BC 格式。',
+        '提出 GSNTC 方案，使用 GS 传播替代 MLP 重建；相比 NTC 速度提升 4 倍、质量提升 5–10 dB，用于 Lightmap 与 Radiance Cache 的压缩，压缩率约 99.1%。'
       ]
     },
-    { year: '2025', points: ['Built a complete multi-camera OptiX renderer in EmbodiChain.', 'Integrated a warp-based GPU parallel compute layer.', 'Contributed to simulation, engine and asset tooling.'], pointsZh: ['在 EmbodiChain 内实现完整的多相机 OptiX 渲染器。', '集成基于 NVIDIA warp 的 GPU 并行计算层。', '参与仿真、引擎与资产侧工具开发。'], link: 'https://github.com/DexForce/EmbodiChain', linkLabel: 'EmbodiChain' }
+    { year: '2025', points: ['Built a multi-camera OptiX ray-tracing renderer in EmbodiChain for high-fidelity sensor simulation.', 'Integrated an NVIDIA warp GPU compute layer for batched rendering and sensor pipelines.', 'Contributed to the simulation, engine and asset systems.'], pointsZh: ['在 EmbodiChain 落地多相机 OptiX 光线追踪渲染器，支撑高保真传感器仿真。', '以 NVIDIA warp 构建 GPU 并行计算层，打通批量渲染与传感器数据管线。', '参与仿真、引擎与资产系统的工程化整合。'], link: 'https://github.com/DexForce/EmbodiChain', linkLabel: 'EmbodiChain' }
   ],
   study: [
-    { year: '2025', points: ['Master’s study in Interactive Media Technology.', 'Research interests include real-time rendering, engine systems and vision-language models.', 'Coursework in computer graphics and interactive media.'], pointsZh: ['攻读互动媒体技术方向硕士学位。', '研究方向涵盖实时渲染、引擎系统与视觉语言模型。', '学习计算机图形学与交互媒体相关课程。'] },
-    { year: '2021', points: ['B.S. in Digital Media Technology; ranked first by GPA.', 'Studied graphics programming, real-time engines and machine learning.', 'Worked on early VLM/LLM collaborations and game projects through competitions.'], pointsZh: ['数字媒体技术专业工学学士，绩点排名第一。', '学习图形编程、实时引擎与机器学习基础。', '参与早期 VLM/LLM 合作研究，并通过竞赛完成游戏项目。'] }
+    { year: '2025', points: ['M.S. in Interactive Media Technology, focusing on real-time rendering and intelligent interactive systems.', 'Research spans rendering, engine systems and vision-language models at the graphics–AI boundary.', 'Systematic training in computer graphics, GPU programming and interactive media.'], pointsZh: ['攻读互动媒体技术硕士，聚焦实时渲染与智能交互系统。', '研究实时渲染、引擎系统与视觉语言模型，探索图形计算与多模态智能的交叉。', '系统学习计算机图形学、GPU 编程与交互媒体方法。'] },
+    { year: '2021', points: ['B.S. in Digital Media Technology; ranked first by major GPA.', 'Built a foundation across graphics programming, real-time engines and machine learning.', 'Joined early VLM/LLM collaborations and completed game projects through competitions.'], pointsZh: ['数字媒体技术工学学士，专业绩点排名第一。', '系统训练图形编程、实时引擎与机器学习基础，建立图形与智能交叉能力。', '参与早期 VLM/LLM 合作研究，并通过竞赛完成游戏项目。'] }
   ]
 };
 
@@ -105,8 +103,8 @@ function JCard({ kind, items, lang }) {
 
 export function Journey({ lang }) {
   return <div className="journey">
-    <JCard kind="work" items={workExperience} lang={lang} />
     <JCard kind="study" items={education} lang={lang} />
+    <JCard kind="work" items={workExperience} lang={lang} />
   </div>;
 }
 
