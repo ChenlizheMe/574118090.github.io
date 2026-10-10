@@ -7,7 +7,7 @@ import { rng } from './voxel.js';
 
 export const SEA = 6;
 export const BIOME = { WATER: 0, SAND: 1, GRASS: 2, FOREST: 3, PINE: 4, SNOWFIELD: 5, DESERT: 6, SAVANNA: 7, ROCK: 8, SNOW: 9, ASH: 10, LAVA: 11 };
-export const DECO = { NONE: 0, TREE: 1, TREE_TALL: 2, PINE: 3, CACTUS: 4, FLOWER: 5, SMOKE: 9 };
+export const DECO = { NONE: 0, TREE: 1, TREE_TALL: 2, PINE: 3, CACTUS: 4, FLOWER: 5, RUIN: 6, CONTAINER: 7, LILY: 8, SMOKE: 9 };
 
 /* ---------- Perlin noise ---------- */
 const P = new Uint8Array(512);
@@ -110,7 +110,13 @@ export function sampleWorld(wx, wy, o) {
     else if (b === BIOME.SAVANNA) { if (hh < .018) deco = DECO.TREE_TALL; }
     else if (b === BIOME.DESERT) { if (hh < .022) deco = DECO.CACTUS; }
     else if (b === BIOME.SNOWFIELD) { if (hh < .04) deco = DECO.PINE; }
-  }
+    /* overgrown ruins: scattered singles, plus drifting "districts" where they cluster */
+    if (b === BIOME.GRASS || b === BIOME.FOREST || b === BIOME.SAVANNA || b === BIOME.SAND) {
+      const town = perlin(wx * .045 + 44.4, wy * .045 + 12.1) > .22;
+      const rh = hs(wx, wy, 7);
+      if (rh < (town ? .07 : .004)) deco = rh < (town ? .018 : .001) ? DECO.CONTAINER : DECO.RUIN;
+    }
+  } else if (b === BIOME.WATER && dep === 0 && hh < .05) deco = DECO.LILY;
   const pn = perlin(wx * .11 + 9.1, wy * .11 + 2.7);
   tint = (pn < -.12 ? 0 : pn > .14 ? 2 : 1) + 3 * Math.floor(hs(wx, wy, 5) * 80);
 

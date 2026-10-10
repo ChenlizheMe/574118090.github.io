@@ -1,7 +1,9 @@
-/* Hero background · an endless Perlin-noise world rendered as isometric voxels.
-   Grassland, forest, taiga, tundra, desert, savanna, beaches, ocean, rock, snow caps
-   and a few volcanoes (crater lava, lava streams, smoke). The map scrolls steadily to
-   the right; every page load starts from a new random coordinate in the noise field.
+/* Hero background · an endless Perlin-noise world of overgrown ruins, drawn as isometric voxels
+   and finished with a ZWAARD-style post pass: a mint / lime / teal tone-map, soft bloom,
+   RGB fringing and the odd tape-glitch band.
+   Biomes: grassland, forest, taiga, tundra, desert, savanna, beaches, turquoise sea with lily pads,
+   mossy rock, snow caps, volcanoes (neon lava, smoke) and moss-eaten concrete ruins and containers.
+   The map scrolls steadily to the right; every page load starts from a new random coordinate.
    Pure 2D canvas, no WebGL. Meant to sit behind the hero copy. */
 import { Voxels, hex, mul, mix, loop, TOP, LEFT, RIGHT, ALL } from './voxel.js';
 import { sampleWorld, SEA, BIOME as B, DECO as D } from './terrain.js';
@@ -11,34 +13,37 @@ const FPS = 15;
 const SPEED = 6;            // canvas pixels per second (moves right)
 const ZMAX = 36;
 const N = 512;              // ring-buffer side for the cell cache
-const INK = [21, 20, 18];
 
 const PAL = {
-  [B.SAND]: ['#e6d08f', '#eedb9f', '#dcc581'],
-  [B.GRASS]: ['#79c04a', '#6bb142', '#8ccf56'],
-  [B.FOREST]: ['#4c9a3a', '#438f35', '#58a640'],
-  [B.PINE]: ['#3d7f50', '#35744a', '#46895a'],
-  [B.SNOWFIELD]: ['#e9f1f5', '#dde8ee', '#f5fafc'],
-  [B.DESERT]: ['#e7b45a', '#d9a24a', '#f0c46c'],
-  [B.SAVANNA]: ['#b8b250', '#a8a548', '#c8c15c'],
-  [B.ROCK]: ['#8c8780', '#7d7973', '#9b968d'],
-  [B.SNOW]: ['#ffffff', '#eef4f8', '#e3edf3'],
-  [B.ASH]: ['#4a4541', '#3f3a37', '#57514b'],
-  [B.LAVA]: ['#ff5a1a', '#ffa21f', '#ff3d0a']
+  [B.SAND]: ['#f1e6a6', '#f7eebb', '#e6d894'],
+  [B.GRASS]: ['#92e24e', '#82d646', '#a6ee62'],
+  [B.FOREST]: ['#55bb4c', '#49ae47', '#66c956'],
+  [B.PINE]: ['#33a58a', '#2a987f', '#40b598'],
+  [B.SNOWFIELD]: ['#e6fbf4', '#d4f3ea', '#f2fffb'],
+  [B.DESERT]: ['#f0a05e', '#e5904e', '#f7b26f'],
+  [B.SAVANNA]: ['#cdd95e', '#bccb52', '#dce772'],
+  [B.ROCK]: ['#97b8ad', '#86a89c', '#93d27c'],
+  [B.SNOW]: ['#f4fffb', '#e2f7f1', '#d3f0ea'],
+  [B.ASH]: ['#5f4f78', '#52446b', '#8a5c98'],
+  [B.LAVA]: ['#ff4fa0', '#ff8f3a', '#ff2f7c']
 };
 /* what the cut sides show below the surface */
 const SIDE = {
-  [B.SAND]: ['#d7bd7a', '#c2a867'], [B.GRASS]: ['#8a6642', '#6f5a45'], [B.FOREST]: ['#8a6642', '#6f5a45'],
-  [B.PINE]: ['#7d6444', '#6a5a48'], [B.SAVANNA]: ['#9c7a45', '#7a6244'], [B.DESERT]: ['#c58f48', '#a9793e'],
-  [B.SNOWFIELD]: ['#cfdbe3', '#7a766f'], [B.SNOW]: ['#cfdbe3', '#7a766f'], [B.ROCK]: ['#767169', '#625e58'],
-  [B.ASH]: ['#3a3532', '#2e2a28'], [B.LAVA]: ['#c9340c', '#3a3532']
+  [B.SAND]: ['#dcbf7c', '#c4a468'], [B.GRASS]: ['#a8704c', '#82605a'], [B.FOREST]: ['#a8704c', '#82605a'],
+  [B.PINE]: ['#8f6d58', '#76616a'], [B.SAVANNA]: ['#b5864f', '#8c6a52'], [B.DESERT]: ['#cf8b50', '#b0743f'],
+  [B.SNOWFIELD]: ['#b9dad8', '#7d8a98'], [B.SNOW]: ['#b9dad8', '#7d8a98'], [B.ROCK]: ['#6f968b', '#5c7d82'],
+  [B.ASH]: ['#42345a', '#32284a'], [B.LAVA]: ['#d02a78', '#42345a']
 };
-const WATER = ['#82d8ea', '#55b8e2', '#3b91d2', '#2b69b4'];
-const WOOD = '#7a5230';
-const LEAF = ['#3f9a35', '#4aa83c', '#2f8a30', '#5bb043'];
-const AUTUMN = '#e08a2c', BLOSSOM = '#f2a6c4';
-const PINES = ['#2f6f47', '#3a7d52', '#276040'];
-const FLOWER = ['#ff6b6b', '#ffd84d', '#ffffff', '#c88cff', '#ff9ad0'];
+const WATER = ['#86f6ea', '#45dede', '#25bcd2', '#1b93c4'];
+const WOOD = '#8a5a3a';
+const LEAF = ['#52c04c', '#66d054', '#3cab4c', '#80da5e'];
+const AUTUMN = '#ff9a3c', BLOSSOM = '#ff7ac8';
+const PINES = ['#2b9c7a', '#37b08a', '#248c6e'];
+const FLOWER = ['#ff5fb0', '#ffe14d', '#ffffff', '#b98cff', '#ff9a4a'];
+const CONCRETE = ['#bccfc6', '#a9bfb5', '#cbdbd3'];
+const MOSS = '#7ad84c', RUST = '#e0703c';
+const CONTAINER = ['#5483b5', '#436fa0', '#6c9ac6'];
+const LILY = '#4fc46a', LILY_BLOOM = '#ff9ad0';
 
 /* cube templates [dx, dy, dz, colour slot], painter-sorted */
 const order = a => a.sort((p, q) => (p[0] + p[1] + p[2]) - (q[0] + q[1] + q[2]) || (p[0] + p[1]) - (q[0] + q[1]) || p[2] - q[2]);
@@ -47,26 +52,57 @@ const TPL_TREE = order([[0, 0, 0, 0], ...cross(1).map(c => [...c, 1]), [0, 0, 2,
 const TPL_TALL = order([[0, 0, 0, 0], [0, 0, 1, 0], ...cross(2).map(c => [...c, 1]), [0, 0, 3, 2]]);
 const TPL_PINE = order([[0, 0, 0, 0], ...cross(1).map(c => [...c, 1]), [0, 0, 2, 2], [0, 0, 3, 3]]);
 const TPL_CACTUS = order([[0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 2, 1], [1, 0, 1, 1]]);
+/* ruins: slot 0 concrete, 1 moss, 2 rust */
+const TPL_PILLAR = order([[0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 2, 0], [0, 0, 3, 1]]);
+const TPL_STUMP = order([[0, 0, 0, 0], [0, 0, 1, 1]]);
+const TPL_WALL = order([[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 1, 0], [1, 0, 1, 2], [0, 0, 2, 1], [1, 0, 2, 1]]);
+const TPL_BOX = order([[0, 0, 0, 0], [1, 0, 0, 0], [2, 0, 0, 0], [0, 0, 1, 0], [1, 0, 1, 1], [2, 0, 1, 0], [1, 0, 2, 1]]);
+
+/* tone-map ramp: shadows indigo, mids teal, highlights lime, then cream */
+const RAMP = [[0, [30, 40, 92]], [.3, [38, 108, 132]], [.58, [134, 210, 144]], [.82, [228, 240, 152]], [1, [255, 247, 218]]];
+const LUT = new Float32Array(256 * 3);
+for (let i = 0; i < 256; i++) {
+  const l = i / 255;
+  let k = 1;
+  while (k < RAMP.length - 1 && RAMP[k][0] < l) k++;
+  const [a0, c0] = RAMP[k - 1], [a1, c1] = RAMP[k], f = Math.min(1, Math.max(0, (l - a0) / (a1 - a0)));
+  for (let c = 0; c < 3; c++) LUT[i * 3 + c] = c0[c] + (c1[c] - c0[c]) * f;
+}
+const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 
 export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
-  const ctx = canvas?.getContext('2d');
-  if (!ctx) return { bench: () => 0, dispose() {} };
+  const out = canvas?.getContext('2d');
+  if (!out) return { bench: () => 0, dispose() {} };
+  /* the scene is composed on an offscreen buffer, graded, then copied to the visible canvas */
+  const buf = document.createElement('canvas');
+  const ctx = buf.getContext('2d', { willReadFrequently: true });
+  const glow = document.createElement('canvas');
+  const gctx = glow.getContext('2d');
   const V = new Voxels(T);
-  const tone = h => { const c = typeof h === 'string' ? hex(h) : h; return dark ? mix(mul(c, .62), [16, 22, 44], .22) : c; };
-  const toneAll = a => a.map(tone);
+  /* soft, washed-out palette: colours are pulled toward paper (light) or dusk (dark) */
+  const tone = (h, k = .14) => { const c = typeof h === 'string' ? hex(h) : h; return dark ? mix(mul(mix(c, [150, 150, 150], k * .6), .62), [16, 22, 44], .24) : mix(c, [246, 241, 230], k); };
+  const toneAll = (a, k) => a.map(c => tone(c, k));
+  const GRADE = dark ? .3 : .36;
 
   const top = {}, alt = {}, side = {};
-  for (const k in PAL) { top[k] = toneAll(PAL[k]); alt[k] = top[k].map(c => mul(c, .95)); side[k] = toneAll(SIDE[k]); }
+  for (const k in PAL) {
+    const kk = +k === B.LAVA ? .04 : undefined;
+    top[k] = toneAll(PAL[k], kk); alt[k] = top[k].map(c => mul(c, .97)); side[k] = toneAll(SIDE[k], kk);
+  }
   const water = toneAll(WATER);
-  const spark = water.map(c => mix(c, [255, 255, 255], .42));
+  const spark = water.map(c => mix(c, [255, 255, 255], .5));
   const sea = water[3];
   const woodC = tone(WOOD);
-  const leafSets = [...LEAF, AUTUMN, BLOSSOM].map(c => { const l = tone(c); return [woodC, l, mix(l, [255, 255, 255], .18)]; });
+  const leafSets = [...LEAF, AUTUMN, BLOSSOM].map(c => { const l = tone(c); return [woodC, l, mix(l, [255, 255, 255], .2)]; });
   const pineSets = PINES.map(c => { const l = tone(c); return [woodC, l, mul(l, 1.1), mix(l, [255, 255, 255], .75)]; });
   const snowPine = pineSets.map(s => [s[0], s[1], s[2], tone('#ffffff')]);
-  const cactusC = [tone('#4e9a45'), tone('#5cab50')];
+  const cactusC = [tone('#4fb06a'), tone('#62c27a')];
   const flowerC = toneAll(FLOWER);
-  const smokeC = Array.from({ length: 5 }, (_, i) => tone(mix([70, 66, 64], [214, 210, 206], i / 4)));
+  const ruinSets = CONCRETE.map(c => [tone(c), tone(MOSS), tone(RUST)]);
+  const boxSets = CONTAINER.map(c => [tone(c), tone(MOSS), tone(RUST)]);
+  const lilyC = tone(LILY), bloomC = tone(LILY_BLOOM);
+  const smokeC = Array.from({ length: 5 }, (_, i) => tone(mix([100, 80, 128], [252, 232, 246], i / 4)));
+  const rgb = c => `rgb(${c[0]},${c[1]},${c[2]})`;
 
   /* random start in the noise field; prefer one whose first screen shows every biome family */
   const pickStart = () => {
@@ -102,7 +138,7 @@ export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
     return i;
   };
 
-  let bw = 0, bh = 0, ox = 0, lastT = 0;
+  let bw = 0, bh = 0, ox = 0, lastT = 0, outImg = null;
 
   const put = (tpl, cols, px, s, h) => {
     for (let n = 0; n < tpl.length; n++) {
@@ -111,13 +147,11 @@ export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
     }
   };
 
-  const frame = t => {
-    lastT = t;
-    if (!bw) return;
+  const scene = t => {
     const sh = Math.floor(t * SPEED);
     K = Math.floor(sh / (2 * T));
     const fr = sh - K * 2 * T;
-    ctx.fillStyle = `rgb(${sea[0]},${sea[1]},${sea[2]})`;
+    ctx.fillStyle = rgb(sea);
     ctx.fillRect(0, 0, bw, bh);
 
     const half = Math.ceil(bw / (2 * T)) + 3;
@@ -140,7 +174,13 @@ export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
 
         if (b === B.WATER) {
           const sp = (rr + tk) % 17 === 0 && dd[i] < 3;
-          ctx.drawImage(V.sprite((sp ? spark : water)[dd[i]], TOP | LEFT | RIGHT), px, yBase - topZ * T);
+          const wy = yBase - topZ * T;
+          ctx.drawImage(V.sprite((sp ? spark : water)[dd[i]], TOP | LEFT | RIGHT), px, wy);
+          if (dc[i] === D.LILY) {
+            ctx.fillStyle = rgb(lilyC);
+            ctx.fillRect(px + 2, wy + 1, 4, 2);
+            if (rr % 3 === 0) { ctx.fillStyle = rgb(bloomC); ctx.fillRect(px + 3, wy, 1, 1); }
+          }
           continue;
         }
 
@@ -165,15 +205,20 @@ export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
           put(TPL_PINE, (b === B.SNOWFIELD ? snowPine : pineSets)[rr % 3], px, s, h);
         } else if (dec === D.CACTUS) {
           put(TPL_CACTUS, cactusC, px, s, h);
+        } else if (dec === D.RUIN) {
+          const v = rr % 4;
+          put(v === 0 ? TPL_WALL : v === 1 ? TPL_STUMP : TPL_PILLAR, ruinSets[rr % 3], px, s, h);
+        } else if (dec === D.CONTAINER) {
+          put(TPL_BOX, boxSets[rr % 3], px, s, h);
         } else if (dec === D.FLOWER) {
-          ctx.fillStyle = `rgb(${flowerC[rr % 5].join(',')})`;
+          ctx.fillStyle = rgb(flowerC[rr % 5]);
           ctx.fillRect(px + T - 1, yBase - topZ * T + 1, 2, 2);
         } else if (dec === D.SMOKE) {
           for (let j = 0; j < 5; j++) {
             const ph = (t * .26 + j / 5) % 1;
             const off = Math.round(ph * 3);
             ctx.globalAlpha = Math.max(.15, .92 - ph * .85);
-            ctx.drawImage(V.sprite(smokeC[Math.min(4, Math.floor(ph * 5))], ALL), px + off * 2 * T, (s - 0) * T / 2 - (h + 1 + ph * 14) * T);
+            ctx.drawImage(V.sprite(smokeC[Math.min(4, Math.floor(ph * 5))], ALL), px + off * 2 * T, s * T / 2 - (h + 1 + ph * 14) * T);
           }
           ctx.globalAlpha = 1;
         }
@@ -181,14 +226,61 @@ export function mountVoxelHero(canvas, { reduced = false, dark = false } = {}) {
     }
   };
 
+  /* post pass: bloom, tone-map, RGB fringe, tape-glitch band */
+  const post = t => {
+    const gw = bw >> 2, gh = bh >> 2;
+    if (gw > 2 && gh > 2) {
+      gctx.imageSmoothingEnabled = true;
+      gctx.drawImage(buf, 0, 0, gw, gh);
+      ctx.save();
+      ctx.imageSmoothingEnabled = true;
+      ctx.globalCompositeOperation = 'screen';
+      ctx.globalAlpha = dark ? .2 : .3;
+      ctx.drawImage(glow, 0, 0, bw, bh);
+      ctx.restore();
+    }
+    const src = ctx.getImageData(0, 0, bw, bh).data;
+    if (!outImg || outImg.width !== bw || outImg.height !== bh) outImg = out.createImageData(bw, bh);
+    const dst = outImg.data;
+
+    const cyc = 6, slot = Math.floor(t / cyc), ph = t - slot * cyc;
+    const gOn = ph < .28;
+    const gy = Math.floor(hash(slot) * (bh - 14)), gh2 = 3 + Math.floor(hash(slot + .5) * 8);
+    const gs = (hash(slot + .9) < .5 ? -1 : 1) * (2 + Math.floor(hash(slot + .3) * 3));
+
+    for (let y = 0; y < bh; y++) {
+      const rs = gOn && y >= gy && y < gy + gh2 ? gs : 0;
+      const row = y * bw;
+      for (let x = 0; x < bw; x++) {
+        const xr = Math.min(bw - 1, Math.max(0, x - 1 + rs)), xg = Math.min(bw - 1, Math.max(0, x + rs)), xb = Math.min(bw - 1, Math.max(0, x + 1 + rs));
+        const r = src[(row + xr) * 4], g = src[(row + xg) * 4 + 1], b = src[(row + xb) * 4 + 2];
+        const l = (r * 77 + g * 150 + b * 29) >> 8, li = l * 3, o = (row + x) * 4;
+        dst[o] = r + (LUT[li] - r) * GRADE;
+        dst[o + 1] = g + (LUT[li + 1] - g) * GRADE;
+        dst[o + 2] = b + (LUT[li + 2] - b) * GRADE;
+        dst[o + 3] = 255;
+      }
+    }
+    out.putImageData(outImg, 0, 0);
+  };
+
+  const frame = t => {
+    lastT = t;
+    if (!bw) return;
+    scene(t);
+    post(t);
+  };
+
   const resize = () => {
     const r = canvas.getBoundingClientRect();
     if (!r.width || !r.height) return;
     const S = r.width < 700 ? 3 : 4;
     bw = Math.round(r.width / S); bh = Math.round(r.height / S);
-    canvas.width = bw; canvas.height = bh;
+    canvas.width = buf.width = bw; canvas.height = buf.height = bh;
+    glow.width = Math.max(1, bw >> 2); glow.height = Math.max(1, bh >> 2);
     ox = Math.round(bw / 2);
     ctx.imageSmoothingEnabled = false;
+    outImg = null;
     frame(lastT);
   };
   resize();
