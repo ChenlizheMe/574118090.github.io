@@ -1,7 +1,6 @@
-/* Paper diagrams · one small animated voxel diorama per paper.
-   Not games: each loops a short illustration of the paper's core idea.
-   Static parts are baked once; moving cubes are drawn per frame at 20 fps
-   into a ~300 px buffer. Flat Swiss palette, no posterize / dither pass. */
+/* Paper diagrams · small animated voxel toys for each paper.
+   Every frame is depth-sorted as one scene so moving cubes can pass behind
+   walls, gates and platforms instead of being composited on top. */
 import { Voxels, mix, loop, chip, hex } from './voxel.js';
 
 const C = {
@@ -33,6 +32,7 @@ function skillforge() {
     V,
     draw(ctx, t, P) {
       const pulse = .5 + .5 * Math.sin(t * 3);
+      const beat = frac(t * .16);
       P.cube(AG[0], AG[1], 3 + pulse * .4, mix(hex(C.yellow), [255, 255, 255], pulse * .3));
       skills.forEach(s => {
         const u = frac(t * .16 + s.ph);
@@ -51,6 +51,12 @@ function skillforge() {
         }
         P.cube(x, y, z, c);
       });
+      // A small landing flash makes the lifecycle legible at a glance.
+      const flash = Math.max(0, 1 - beat * 5);
+      if (flash > 0) {
+        P.cube(AG[0] - .7, AG[1], 4.2 + flash * 1.2, C.yellow);
+        P.cube(AG[0] + .7, AG[1], 4.2 + flash * 1.2, C.green);
+      }
     },
     labels: [['SKILL POOL', 3, 12.5, 5, C.yellow], ['AGENT', 9.5, 7.5, 7, C.green], ['RETIRED', 16, 2.5, 5, C.red]]
   };
@@ -80,6 +86,8 @@ function promptcd() {
         const u = frac(t * .5 + k / 6);
         P.cube(4 + u * 10, 13 - u * 9, 3 + Math.sin(u * Math.PI) * 3, k % 2 ? C.blue : C.red);
       }
+      const result = Math.max(0, Math.sin(cyc * Math.PI * 2));
+      P.cube(15, 1, 10 + result * 1.4, result > .7 ? C.orange : C.yellow);
     },
     labels: [['+ PROMPT', 3, 11, 9, C.blue], ['- PROMPT', 9, 6, 7, C.red], ['CONTRAST', 15, 1, 12, C.yellow]]
   };
@@ -109,7 +117,9 @@ function corrdetail() {
       const s = frac(t * .25) * 9, cell = Math.floor(s);
       const [fx, fy] = faces[Math.min(8, cell)];
       const z = 7 + Math.sin(t * 6) * .3;
-      for (let a = 0; a < 8; a++) { const ang = a / 8 * Math.PI * 2; P.cube(fx + 1.5 + Math.cos(ang) * 2.2, fy + 1.5 + Math.sin(ang) * 2.2, z, C.yellow); }
+      const scanCol = cell === Math.floor(t * .25) % 9 ? C.red : C.yellow;
+      for (let a = 0; a < 8; a++) { const ang = a / 8 * Math.PI * 2; P.cube(fx + 1.5 + Math.cos(ang) * 2.2, fy + 1.5 + Math.sin(ang) * 2.2, z, scanCol); }
+      P.cube(fx + 1.5, fy + 1.5, z + .2, scanCol);
       if (cell === Math.floor(t * .25) % 9 || frac(s) > .6) {
         const [gx, gy] = faces[Math.floor(t * .25) % 9];
         P.cube(gx + 1.5, gy + 1.5, 8.5 + Math.sin(t * 8) * .4, C.red);
@@ -141,6 +151,8 @@ function innate() {
       // ghost example floating next to the ICL tower
       if (u > .05) for (let i = 0; i < 4; i++) P.cube(17, 3, 4 + i, i === 3 ? C.orange : C.ghost);
       if (tall > ansA + 1) P.cube(4.5 + Math.sin(t * 7) * .3, 6.5, 2 + tall * .95 + 1, C.red);
+      const answerPulse = .5 + .5 * Math.sin(t * 4);
+      P.cube(13.5, 4.5, 8.4 + answerPulse * .45, answerPulse > .65 ? C.green : C.yellow);
     },
     labels: [['ZERO-SHOT', 4.5, 7, 3, C.red], ['+ IN-CONTEXT', 13.5, 7, 3, C.blue], ['ANSWER', 13.5, 5, 9, C.yellow]]
   };
@@ -176,6 +188,11 @@ function graph() {
           P.cube(x0 + (x1 - x0) * lt, y0 + (y1 - y0) * lt, 2, C.ink);
         }
       });
+      const frontier = nodes.findIndex((_, i) => wave >= depth[i] && wave < depth[i] + 1);
+      if (frontier >= 0) {
+        const [x, y] = nodes[frontier];
+        P.cube(x, y, 4.4 + Math.sin(t * 8) * .35, C.orange);
+      }
     },
     labels: [['START', 4, 8, 4, C.red], ['LAYER 1', 9, 4, 5, C.orange], ['LAYER 2', 14, 2, 6, C.yellow]]
   };
@@ -229,12 +246,10 @@ export function mountDiagram(canvas, id, { reduced = false } = {}) {
   if (!ctx || !DIAGRAMS[id]) return null;
   const D = DIAGRAMS[id]();
   const b = D.V.bounds();
-  const base = document.createElement('canvas');
-  base.width = Math.ceil(b.w) + 2; base.height = Math.ceil(b.h) + 2;
-  D.V.bake(base.getContext('2d'), -b.x0, -b.y0, { shadow: true });
   let bw = 0, bh = 0, ox = 0, oy = 0;
+  const moving = [];
   const P = {
-    cube: (x, y, z, c) => D.V.cube(ctx, x, y, z, c, ox - b.x0, oy - b.y0)
+    cube: (x, y, z, c) => moving.push({ x, y, z, c })
   };
   const resize = () => {
     const r = canvas.getBoundingClientRect();
@@ -249,13 +264,14 @@ export function mountDiagram(canvas, id, { reduced = false } = {}) {
   const frame = t => {
     lastT = t;
     if (!bw) return;
-    ox = Math.round((bw - base.width) / 2); oy = Math.round((bh - base.height) / 2 + 12);
+    ox = Math.round((bw - b.w) / 2); oy = Math.round((bh - b.h) / 2 + 12);
     ctx.fillStyle = '#f6f1e6'; ctx.fillRect(0, 0, bw, bh);
     ctx.fillStyle = 'rgba(21,20,18,.07)';
     for (let x = 0; x < bw; x += 12) ctx.fillRect(x, 0, 1, bh);
     for (let y = 0; y < bh; y += 12) ctx.fillRect(0, y, bw, 1);
-    ctx.drawImage(base, ox, oy);
+    moving.length = 0;
     D.draw(ctx, t, P);
+    D.V.render(ctx, ox - b.x0, oy - b.y0, moving, { shadow: true });
     D.labels.forEach(([s, x, y, z, col]) => {
       const [px, py] = D.V.proj(x, y, z, ox - b.x0, oy - b.y0);
       chip(ctx, s, px - s.length * 2 + 4, py - 6, col);

@@ -96,6 +96,39 @@ export class Voxels {
     }
   }
 
+  /* Render the baked world and moving cubes in one painter pass.
+     Dynamic cubes must participate in the same depth order as the world;
+     drawing them over a baked image makes every moving object appear in front. */
+  render(ctx, ox, oy, dynamic = [], { shadow = true } = {}) {
+    const list = [...this.m.values()].map(v => ({ ...v, dynamic: false }));
+    for (const v of dynamic) {
+      if (!v || v.c == null) continue;
+      list.push({ x: v.x, y: v.y, z: v.z, c: toRGB(v.c), dynamic: true });
+    }
+    list.sort((a, b) => {
+      const da = a.x + a.y + a.z, db = b.x + b.y + b.z;
+      return da - db || (a.x + a.y) - (b.x + b.y) || a.z - b.z;
+    });
+    for (const v of list) {
+      if (v.dynamic) {
+        this.cube(ctx, v.x, v.y, v.z, v.c, ox, oy);
+        continue;
+      }
+      const { x, y, z } = v;
+      let mask = 0;
+      if (!this.has(x, y, z + 1)) mask |= TOP;
+      if (!this.has(x, y + 1, z)) mask |= LEFT;
+      if (!this.has(x + 1, y, z)) mask |= RIGHT;
+      if (!mask) continue;
+      let sh = false;
+      if (shadow && (mask & TOP)) for (let i = 1; i <= 9; i++) {
+        if (this.has(x - i, y, z + i) || this.has(x - i, y - 1, z + i)) { sh = true; break; }
+      }
+      const [sx, sy] = this.proj(x, y, z, ox, oy);
+      ctx.drawImage(this.sprite(v.c, mask, sh), Math.round(sx), Math.round(sy));
+    }
+  }
+
   bounds() {
     let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
     for (const v of this.m.values()) {

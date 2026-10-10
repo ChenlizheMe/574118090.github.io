@@ -236,7 +236,8 @@ export const publications = [
     "introZh": "基于频率重要性的高斯泼溅方法，面向轻量实时辐射场渲染。",
     "featured": true,
     "image": "/img/papers/fi-gs.webp",
-    "imageKind": "figure"
+    "imageKind": "figure",
+    "firstAuthor": true
   },
   {
     "title": "Infernux: A Python-Native Game Engine with JIT-Accelerated Scripting",
@@ -264,7 +265,8 @@ export const publications = [
     "introZh": "比较视觉线索、虚拟环境与观察视角对空间学习的影响。",
     "featured": false,
     "image": "/img/papers/spatial-learning.webp",
-    "imageKind": "figure"
+    "imageKind": "figure",
+    "coFirstAuthor": true
   },
   {
     "title": "PIS: Linking Importance Sampling and Attention Mechanisms for Efficient Prompt Compression",
@@ -278,7 +280,8 @@ export const publications = [
     "introZh": "将重要性采样与注意力机制联系起来，用于高效提示词压缩。",
     "featured": false,
     "image": "/img/papers/pis.webp",
-    "imageKind": "figure"
+    "imageKind": "figure",
+    "firstAuthor": true
   },
   {
     "title": "FEMA: Emotion-Driven Personification in Generative Agents",
@@ -292,7 +295,8 @@ export const publications = [
     "introZh": "面向生成式智能体的情绪驱动人格化研究。",
     "featured": false,
     "image": "/img/papers/fema.webp",
-    "imageKind": "figure"
+    "imageKind": "figure",
+    "correspondingAuthor": true
   },
   {
     "title": "3D Human Pose Estimation Using Spatiotemporal Hypergraphs and Its Public Benchmark on Opera Videos",
@@ -320,7 +324,8 @@ export const publications = [
     "introZh": "利用大语言模型，从文本描述零样本合成三维地形。",
     "featured": false,
     "image": "/img/papers/words-to-worlds.webp",
-    "imageKind": "figure"
+    "imageKind": "figure",
+    "coFirstAuthor": true
   },
   {
     "title": "Real-time Non-photorealistic Rendering Method for Black and White Comic Style in Games and Animation",
@@ -334,7 +339,8 @@ export const publications = [
     "introZh": "面向游戏与动漫的黑白漫画风格非真实感实时渲染方法。",
     "featured": false,
     "imageKind": "concept",
-    "image": "/img/papers/npr-manga-concept.webp"
+    "image": "/img/papers/npr-manga-concept.webp",
+    "coFirstAuthor": true
   },
   {
     "title": "Research on Lightweight 3D Reconstruction Techniques Based on Gaussian Splatting",
@@ -387,8 +393,10 @@ export const projects = [
     "status": "Open Source",
     "statusZh": "开源",
     "image": "/img/projects/infernux-editor-current.webp",
-    "desc": "An open-source game engine I build from scratch.",
-    "descZh": "从零开发的开源游戏引擎。",
+    "desc": "A Python-first, neural network-native open-source game engine for building playable worlds and learning environments.",
+    "descZh": "一款 Python 优先、面向神经网络原生场景的开源游戏引擎，用来构建可玩的世界与智能体学习环境。",
+    "detail": "Infernux connects <strong>Python gameplay, tools and computation</strong> to a C++ runtime with Vulkan / WebGPU rendering and Jolt physics. Its scenes, simulation, compute layer and extensible editor are designed as one inspectable workflow, with a roadmap toward worlds that neural networks can observe, learn from and act within. The current 0.4.1 line supports Windows and Linux editors, Windows / Linux / Android / Web players, packed InxPackage assets and optional MCP tooling.",
+    "detailZh": "Infernux 将<strong> Python 玩法、工具与计算</strong>连接到基于 C++ 的运行时，并提供 Vulkan / WebGPU 渲染与 Jolt 物理。场景、模拟、计算层和可扩展编辑器被设计成一套可检视的工作流，目标是让神经网络能够观察、学习并在世界中行动。当前 0.4.1 系列支持 Windows 与 Linux 编辑器、Windows / Linux / Android / Web Player、InxPackage 资产，以及可选的 MCP 工具。",
     "role": "Creator — engine architecture, renderer, editor and release pipeline",
     "roleZh": "作者 — 引擎架构、渲染器、编辑器与发布管线",
     "tags": [

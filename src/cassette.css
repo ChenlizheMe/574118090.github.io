@@ -275,7 +275,7 @@ html[lang="zh-CN"] .sec__head h2, html[lang="zh-CN"] .arch h1 { font-weight: 900
 .lightbox__view.is-zoomed img { width: 200%; max-width: none; }
 
 .authors { margin: 14px 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
-.authors__co { display: inline-block; margin-left: 10px; padding: 0 8px; background: var(--red); color: #fff; font-size: 12.5px; font-weight: 700; }
+.authors__co { display: inline-block; margin: 4px 8px 0 0; padding: 0 8px; background: var(--red); color: #fff; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
 
 /* =========================================================================
    01 · JOURNEY — cassette J-cards

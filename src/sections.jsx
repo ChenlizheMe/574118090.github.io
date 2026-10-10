@@ -33,8 +33,13 @@ export function FigureViewer({ src, title, lang, className = '' }) {
 }
 
 export function Authors({ paper, lang }) {
+  const roles = [
+    paper.coFirstAuthor && (lang === 'zh' ? '共同第一作者' : 'Co-first author'),
+    paper.firstAuthor && (lang === 'zh' ? '第一作者' : 'First author'),
+    paper.correspondingAuthor && (lang === 'zh' ? '通讯作者' : 'Corresponding author')
+  ].filter(Boolean);
   return <p className="authors"><span dangerouslySetInnerHTML={{ __html: paper.authors }} />
-    {paper.coFirstAuthor && <span className="authors__co">Lizhe Chen · {lang === 'zh' ? '共同第一作者' : 'Co-first author'}</span>}</p>;
+    {roles.map(role => <span key={role} className="authors__co">Lizhe Chen · {role}</span>)}</p>;
 }
 
 /* ------------------------------------------------------------------
