@@ -1,17 +1,15 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '@fontsource-variable/archivo/wdth.css';
-import '@fontsource/silkscreen/latin-400.css';
-import '@fontsource/silkscreen/latin-700.css';
+import '@fontsource-variable/source-serif-4/opsz.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 import '@fontsource/jetbrains-mono/latin-700.css';
-import '@fontsource/vt323/latin-400.css';
-import './cassette.css';
+import './style.css';
 import { MetricsProvider } from './live-data.jsx';
 import { MotionProvider, useMotion } from './motion.jsx';
 import { Icon, linkIcon } from './icons.jsx';
 import { MissionHero } from './hero.jsx';
-import { Journey, PaperArcade, PaperCard, MissionMonitor, InfernuxLinks, RackUnit, DiscShelf, AwardWall, StickyWall } from './sections.jsx';
+import { Journey, PaperArcade, PaperCard, MissionMonitor, InfernuxLinks, RackUnit, GameDeck, AwardWall } from './sections.jsx';
 import { awards, games, infernux, profile, projects, publications } from './content.js';
 
 const NavigationContext = createContext(null);
@@ -90,6 +88,18 @@ function Shell() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
   useEffect(() => { document.title = DOC_TITLES[page] || DOC_TITLES.home; }, [page]);
+  /* a small targeting reticle wherever a control is pressed */
+  useEffect(() => {
+    const onDown = e => {
+      if (e.button !== 0 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!e.target.closest?.('a, button, [role="tab"]')) return;
+      const s = document.createElement('span');
+      s.className = 'ping'; s.style.left = `${e.clientX}px`; s.style.top = `${e.clientY}px`;
+      document.body.appendChild(s); setTimeout(() => s.remove(), 700);
+    };
+    addEventListener('pointerdown', onDown);
+    return () => removeEventListener('pointerdown', onDown);
+  }, []);
 
   return <NavigationContext.Provider value={navigate}>
     <MotionProvider><MetricsProvider>
@@ -110,19 +120,18 @@ function Shell() {
 /* ------------------------------------------------------------------
    masthead
    ------------------------------------------------------------------ */
-function TapeMark() {
-  return <svg className="tapemark" viewBox="0 0 34 24" aria-hidden="true">
-    <rect x="1" y="1" width="32" height="22" rx="3" fill="none" stroke="currentColor" strokeWidth="2" />
-    <rect x="4" y="16" width="26" height="1.8" fill="var(--yellow)" /><rect x="4" y="17.8" width="26" height="1.8" fill="var(--red)" />
-    <rect x="9" y="6" width="16" height="7" rx="3.5" fill="currentColor" />
-    <g className="spin"><circle cx="12.5" cy="9.5" r="2.2" fill="var(--amber)" /></g>
-    <g className="spin"><circle cx="21.5" cy="9.5" r="1.5" fill="var(--amber)" /></g>
+function Patch() {
+  return <svg className="patch" viewBox="0 0 32 32" aria-hidden="true">
+    <circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    <ellipse cx="16" cy="16" rx="13" ry="5" fill="none" stroke="currentColor" strokeWidth="1" transform="rotate(-24 16 16)" opacity=".55" />
+    <circle cx="16" cy="16" r="5.2" fill="currentColor" />
+    <circle cx="27.4" cy="11" r="2" fill="var(--red)" />
   </svg>;
 }
 
 function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
   const nav = [['home', '/', 'Home', '主页'], ['papers', '/papers.html', 'Papers', '论文'], ['projects', '/projects.html', 'Projects', '项目'], ['games', '/games.html', 'Games', '游戏'], ['awards', '/awards.html', 'Awards', '荣誉']];
-  const [onHero, setOnHero] = useState(page === 'home');
+  const [paper, setPaper] = useState(false);
   const counter = useRef(null), bar = useRef(null);
   useEffect(() => {
     let raf = 0;
@@ -130,32 +139,31 @@ function Masthead({ lang, page, toggleLang, toggleTheme, theme }) {
       raf = 0;
       const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
       const p = Math.min(1, scrollY / max);
-      if (counter.current) counter.current.textContent = String(Math.round(p * 999)).padStart(3, '0');
+      if (counter.current) counter.current.textContent = String(Math.round(p * 100)).padStart(3, '0');
       if (bar.current) bar.current.style.transform = `scaleX(${p})`;
-      setOnHero(page === 'home' && scrollY < innerHeight - 80);
+      setPaper(scrollY > 8);
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     addEventListener('scroll', on, { passive: true }); addEventListener('resize', on); update();
     return () => { removeEventListener('scroll', on); removeEventListener('resize', on); cancelAnimationFrame(raf); };
   }, [page]);
-  return <header className={`mast ${onHero ? 'mast--hero' : ''}`}>
-    <InternalLink className="mast__brand" href="/">
-      <TapeMark />
+  return <header className={`nav ${paper ? 'is-paper' : ''}`}>
+    <InternalLink className="nav__brand" href="/">
+      <Patch />
       <span><strong>{lang === 'zh' ? profile.nameZh : profile.name}</strong>
-        <small><T en="A graphics & large vision-model engineer" zh="一个图形学与视觉大模型工程师" lang={lang} /></small></span>
+        <small><T en="Graphics & vision-model engineer" zh="图形学与视觉大模型工程师" lang={lang} /></small></span>
     </InternalLink>
-    <nav className="mast__nav" aria-label="Main navigation">
+    <nav className="nav__links" aria-label="Main navigation">
       {nav.map(([id, href, en, zh]) => <InternalLink key={id} className={page === id ? 'is-active' : ''} href={href} aria-current={page === id ? 'page' : undefined}>
         <T en={en} zh={zh} lang={lang} /></InternalLink>)}
     </nav>
-    <div className="mast__tools">
-      <div className="counter" title={lang === 'zh' ? '计数器 · 阅读进度' : 'Counter · reading progress'}><span>CNT</span><b ref={counter}>000</b></div>
-      <button type="button" className="toggle" onClick={toggleLang} aria-label={lang === 'zh' ? 'Switch to English' : '切换到中文'}>
-        <span className={lang === 'en' ? 'is-on' : ''}>EN</span><span className={lang === 'zh' ? 'is-on' : ''}>中</span></button>
-      <button type="button" className="toggle toggle--icon" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Light theme' : 'Dark theme'}>
+    <div className="nav__tools">
+      <span className="nav__met" title={lang === 'zh' ? '阅读进度' : 'Reading progress'}>T+<b ref={counter}>000</b></span>
+      <button type="button" className="icon-btn icon-btn--txt" onClick={toggleLang} aria-label={lang === 'zh' ? 'Switch to English' : '切换到中文'}>{lang === 'zh' ? 'EN' : '中'}</button>
+      <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Light theme' : 'Dark theme'}>
         <Icon name={theme === 'dark' ? 'sun' : 'moon'} /></button>
     </div>
-    <div className="mast__progress" aria-hidden="true"><i ref={bar} /></div>
+    <div className="nav__progress" aria-hidden="true"><i ref={bar} /></div>
   </header>;
 }
 
@@ -169,21 +177,21 @@ function Home({ lang, theme }) {
     <Section id="experience" index="01" eyebrow={['Journey', '经历']} title={['Personal journey', '个人经历']} lede={['Learning, research, and the things I build along the way.', '学习、研究，以及将想法做出来的过程。']} lang={lang}>
       <Journey lang={lang} />
     </Section>
-    <Section id="papers" index="02" eyebrow={['Research', '研究']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering. Each paper has a small voxel simulation of its core idea.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。每篇论文配一个讲它核心想法的体素模拟小场景。']} lang={lang} alt>
+    <Section id="papers" index="02" eyebrow={['Research', '研究']} title={['Selected publications', '代表论文']} lede={['AI agents, vision-language models, language-model reasoning, and real-time rendering.', 'AI 智能体、视觉语言模型、大语言模型推理与实时渲染。']} lang={lang} alt>
       <PaperArcade lang={lang} />
       <InternalLink className="more" href="/papers.html"><T en="All publications" zh="全部论文" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
     <Section id="infernux" index="03" eyebrow={['Featured engine', '主打项目']} title={['Infernux', 'Infernux']} lede={[infernux.headline, infernux.headlineZh]} lang={lang}>
-      <p className="intro rv"><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang} /></p>
+      <p className="lead lead--sub rv"><T en={infernux.introduction} zh={infernux.introductionZh} lang={lang} /></p>
       <MissionMonitor lang={lang} />
       <InfernuxLinks lang={lang} />
     </Section>
     <Section id="projects" index="04" eyebrow={['Projects', '项目']} title={['Software', '软件项目']} lede={['Open-source projects I build and contribute to.', '我开发和参与的开源项目。']} lang={lang} alt>
-      <div className="racks">{projects.filter(p => p.featured).map((p, i) => <RackUnit key={p.name} project={p} index={i} lang={lang} />)}</div>
+      <div className="projs">{projects.filter(p => p.featured).map((p, i) => <RackUnit key={p.name} project={p} index={i} lang={lang} />)}</div>
       <InternalLink className="more" href="/projects.html"><T en="All projects" zh="全部项目" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
     <Section id="games" index="05" eyebrow={['Games', '游戏']} title={['Game work', '游戏作品']} lede={['Making games is my purest hobby.', '做游戏是我最纯粹的爱好。']} lang={lang}>
-      <DiscShelf games={orderedGames()} lang={lang} />
+      <GameDeck games={orderedGames()} lang={lang} />
       <InternalLink className="more" href="/games.html"><T en="All games" zh="全部游戏" lang={lang} /><Icon name="arrow" /></InternalLink>
     </Section>
     <Section id="honors" index="06" eyebrow={['Awards', '荣誉']} title={['Honors', '奖项']} lede={['Some milestones from building, competing and working with wonderful teammates.', '和伙伴们一起做作品、参加比赛，留下的一些纪念。']} lang={lang} alt>
@@ -194,19 +202,22 @@ function Home({ lang, theme }) {
 }
 const orderedGames = () => [games.find(g => g.name === 'Dong! Da-Dong!'), ...games.filter(g => g.name !== 'Dong! Da-Dong!')];
 
-function Section({ id, index, eyebrow, title, lede, lang, alt, wide, children }) {
+function Section({ id, index, eyebrow, title, lede, lang, alt, children }) {
   const zh = lang === 'zh';
-  return <section className={`sec ${alt ? 'sec--alt' : ''} ${wide ? 'sec--wide' : ''}`} id={id}>
-    <aside className="sec__side" aria-hidden="true">
-      <b className="sec__idx">{index}</b>
-      <span className="sec__eyebrow">{zh ? eyebrow[1] : eyebrow[0]}</span>
-      <span className="sec__reel"><i /><i /></span>
+  return <section className={`section ${alt ? 'section--alt' : ''}`} id={id}>
+    <aside className="section__side" aria-hidden="true">
+      <b className="sidx">{index}</b>
+      <span className="sname">{zh ? eyebrow[1] : eyebrow[0]}</span>
+      <span className="scode">LC/{index}</span>
+      <i className="stripe" />
+      <span className="scode scode--sht">SHT {index} / 06</span>
+      <i className="barcode" />
     </aside>
-    <div className="sec__main">
-      <header className="sec__head rv">
-        <p className="eyebrow"><span>§{index}</span>{zh ? eyebrow[1] : eyebrow[0]}</p>
-        <h2>{zh ? title[1] : title[0]}<i className="dot" /></h2>
-        <p className="lede">{zh ? lede[1] : lede[0]}</p>
+    <div className="section__main">
+      <header className="section__head rv">
+        <p className="eyebrow eyebrow--sec"><span className="code">§{index}</span>{zh ? eyebrow[1] : eyebrow[0]}</p>
+        <h2 className="h2">{zh ? title[1] : title[0]}</h2>
+        <p className="lead">{zh ? lede[1] : lede[0]}</p>
       </header>
       {children}
     </div>
@@ -232,36 +243,42 @@ function ArchivePage({ page, lang }) {
   return <>
     <header className="arch">
       <div className="arch__label">
-        <p className="eyebrow"><span>{config.code}</span>{zh ? config.eyebrow[1] : config.eyebrow[0]}</p>
-        <h1>{zh ? config.title[1] : config.title[0]}<i className="dot" /></h1>
-        <p className="lede">{zh ? config.intro[1] : config.intro[0]}</p>
+        <p className="eyebrow eyebrow--sec"><span className="code">{config.code}</span>{zh ? config.eyebrow[1] : config.eyebrow[0]}</p>
+        <h1 className="h1">{zh ? config.title[1] : config.title[0]}</h1>
+        <p className="lead">{zh ? config.intro[1] : config.intro[0]}</p>
       </div>
-      <div className="arch__count"><span>{zh ? '条目' : 'ENTRIES'}</span><b>{String(config.count).padStart(3, '0')}</b><i className="arch__stripes" /></div>
+      <div className="arch__count"><span>{zh ? '条目' : 'Entries'}</span><b>{String(config.count).padStart(2, '0')}</b><i className="stripe" /></div>
     </header>
     <div className="arch__body">
       {page === 'papers' && <>
-        <div className="keys" role="group" aria-label={zh ? '研究方向' : 'Research areas'}>
-          {cats.map(([id, z, e]) => <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}>
-            <i className="led" />{zh ? z : e}<small>{id === 'all' ? publications.length : publications.filter(p => group(p) === id).length}</small></button>)}
+        <div className="seg-ctl" role="group" aria-label={zh ? '研究方向' : 'Research areas'}>
+          {cats.map(([id, z, e]) => <button key={id} type="button" aria-pressed={filter === id} className={filter === id ? 'is-on' : ''} onClick={() => setFilter(id)}>
+            {zh ? z : e}<small>{id === 'all' ? publications.length : publications.filter(p => group(p) === id).length}</small></button>)}
         </div>
-        <StickyWall className="sticky-wall--papers">{papers.map((p, i) => <PaperCard key={p.title} paper={p} index={i} lang={lang} />)}</StickyWall>
+        <div className="pgrid">{papers.map((p, i) => <PaperCard key={p.title} paper={p} index={i} lang={lang} />)}</div>
       </>}
-      {page === 'projects' && <div className="racks">{projects.map((p, i) => <RackUnit key={p.name} project={p} index={i} lang={lang} />)}</div>}
-      {page === 'games' && <DiscShelf games={orderedGames()} lang={lang} />}
+      {page === 'projects' && <div className="projs">{projects.map((p, i) => <RackUnit key={p.name} project={p} index={i} lang={lang} />)}</div>}
+      {page === 'games' && <GameDeck games={orderedGames()} lang={lang} />}
       {page === 'awards' && <AwardWall awards={awards} lang={lang} />}
     </div>
     <Footer lang={lang} />
   </>;
 }
 
+function MissionClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
+  return <span className="foot__clock"><i className="led on" />UTC {now.toISOString().slice(11, 19)}</span>;
+}
+
 function Footer({ lang }) {
   return <footer className="foot">
-    <div className="foot__stripes" aria-hidden="true"><i /><i /><i /><i /></div>
+    <div className="foot__bar" aria-hidden="true"><i className="stripe stripe--wide" /><i className="hazard" /></div>
     <div className="foot__in">
       <div>
         <strong>{lang === 'zh' ? profile.nameZh : profile.name}</strong>
-        <p>Bridging virtual worlds and physical reality.</p>
-        <small>© {new Date().getFullYear()} · END OF SIDE B · <span className="blink">▮</span></small>
+        <p><T en="Bridging virtual worlds and physical reality." zh="连接虚拟世界与物理现实。" lang={lang} /></p>
+        <small>© {new Date().getFullYear()} · LC-01 · <T en="End of transmission" zh="通讯结束" lang={lang} /> · <MissionClock /></small>
       </div>
       <div className="foot__links">{profile.links.map(l => <a key={l.label} href={l.url} target="_blank" rel="noreferrer"><Icon name={linkIcon(l.label)} />{l.label}</a>)}</div>
     </div>

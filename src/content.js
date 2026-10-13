@@ -146,11 +146,11 @@ export const publications = [
     "levelLabel": "Conference",
     "link": "https://openreview.net/forum?id=Z3a0qCfhFi",
     "pdf": "/attaches/papers/skillforge-neurips2026.pdf",
-    "image": "/img/papers/skillforge.svg",
+    "image": "/img/papers/skillforge.webp",
     "intro": "A fitness-driven skill lifecycle filters, retires, and refines reusable skills while the agent policy learns through reinforcement learning.",
     "introZh": "以适应度驱动的生命周期筛选、淘汰和改进可复用技能，并与智能体策略的强化学习协同演化。",
     "featured": true,
-    "imageKind": "concept"
+    "imageKind": "figure"
   },
   {
     "title": "[Under Review] Nature Human Behaviour",
