@@ -61,6 +61,6 @@ Latin display and reading text uses Archivo (variable width and weight); Chinese
 
 See [publication audit](docs/publication-audit.md) for all 14 verified records and the author-confirmed ACL acceptance for Innate Reasoning. Software lists contain only Infernux and EmbodiChain. The résumé is the user-supplied PDF copied verbatim on 2026-09-08.
 
-The homepage greeting reflects the author’s current exploration of Agentic Runtime and next-generation AI-native games and engines. The Infernux feature is limited to its film deck and links. See [paper image provenance](docs/paper-images.md).
+The homepage greeting reflects the author’s current exploration of next-generation AI-native games and engines. The Infernux feature is limited to its film deck and links. See [paper image provenance](docs/paper-images.md).
 
 Social and action links use local SVG icons with outlined controls. Without WebGL the hero falls back to a static cassette illustration. The Infernux image is the current official README/editor showcase; website and documentation point to infernux-engine.com.
