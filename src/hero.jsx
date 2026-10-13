@@ -55,7 +55,7 @@ export function MissionHero({ lang, theme }) {
             ? <>把脑海里的想法，做成<span className="hl">可以亲手玩到</span>的东西。</>
             : <>I make ideas into things people can <span className="hl">actually play with</span>.</>}</span>
         </h1>
-        <p className="hero__sub"><T en="Lately I’ve been spending my time on Agentic Runtime, and imagining what the next generation of AI-native games and engines could be." zh="最近在折腾 Agentic Runtime，也想看看下一代 AI-native 游戏和游戏引擎会是什么样。" lang={lang} /></p>
+        <p className="hero__sub"><T en="Lately I’ve been imagining what the next generation of AI-native games and engines could be." zh="最近想看看下一代 AI-native 游戏和游戏引擎会是什么样。" lang={lang} /></p>
         <p className="hero__sub hero__sub--dim"><T en="Master’s student at Tsinghua University. Graphics and visual-intelligence research, open source, and indie games. Welcome aboard." zh="现在在清华读研，做图形学与视觉智能研究，也写开源项目、做独立游戏。欢迎来逛逛。" lang={lang} /></p>
         <div className="hero__contacts">
           <CopyableContact label={zh ? '邮箱' : 'Email'} value={profile.emails[0]} lang={lang} />
@@ -87,7 +87,7 @@ export function MissionHero({ lang, theme }) {
         <div className="tm tm--hot"><span><em>T2</em>Infernux ★</span><b>{metrics.github?.starsLabel || <AnimatedNumber value={metrics.github?.stars} lang={lang} />}</b></div>
         <div className="tm"><span><em>T3</em>{zh ? '游戏' : 'Games'}</span><b>{String(games.length).padStart(2, '0')}</b></div>
         <div className="tm"><span><em>T4</em>{zh ? '奖项' : 'Awards'}</span><b>{String(awards.length).padStart(2, '0')}</b></div>
-        <div className="tm tm--txt"><span><em>T5</em>{zh ? '当前' : 'Now'}</span><b>{zh ? 'Agentic Runtime · 清华深圳' : 'Agentic Runtime · Shenzhen'}</b></div>
+        <div className="tm tm--txt"><span><em>T5</em>{zh ? '当前' : 'Now'}</span><b>{zh ? '清华深圳' : 'Shenzhen'}</b></div>
       </div>
     </div>
   </section>;
